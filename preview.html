@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>막탄 맛집 가이드</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root { --text: #ecfeff; --muted: #99f6e4; --accent: #fef9c3; --card: rgba(15,118,110,0.35); }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: linear-gradient(165deg, #042f2e 0%, #0e7490 45%, #155e75 100%);
+      min-height: 100vh; color: var(--text); padding: 1.25rem 0.75rem 3rem;
+    }
+    .app { max-width: 52rem; margin: 0 auto; }
+    .hero { text-align: center; margin-bottom: 1.75rem; }
+    .eyebrow { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+    h1 { font-size: 1.8rem; margin: 0.35rem 0 0.5rem; text-shadow: 0 1px 2px rgba(0,0,0,.2); }
+    .sub { color: var(--muted); font-size: 0.9rem; line-height: 1.55; max-width: 36rem; margin: 0 auto; }
+    .sub strong { color: var(--accent); }
+    .card {
+      background: var(--card); border: 1px solid rgba(236,254,255,0.12);
+      border-radius: 1rem; padding: 1.15rem 1.2rem;
+    }
+    .card h2 { font-size: 1rem; color: #ccfbf1; margin-bottom: 0.85rem; }
+    .lead { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.9rem; }
+    .lead strong { color: var(--accent); }
+    .pg-group-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .pg-tab-sub { font-size: 0.78rem; font-weight: 600; padding: 0.4rem 0.7rem; border-radius: 0.5rem; border: 2px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.38); color: rgba(236,254,255,0.72); opacity: 0.55; }
+    .pg-tab-sub-on { opacity: 1; color: #f0f9ff; background: rgba(3,105,161,0.65); border-color: rgba(125,211,252,0.75); }
+    .pg-cluster-map-caption { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; line-height: 1.45; }
+    #map { height: min(42vmin, 16rem); min-height: 12.5rem; border-radius: 0.55rem; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 0.85rem; }
+    .pg-item { border-radius: 0.55rem; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.35rem; overflow: hidden; }
+    .pg-item-btn { display: flex; justify-content: space-between; padding: 0.55rem 0.65rem; font-size: 0.88rem; font-weight: 600; color: #ecfeff; cursor: pointer; }
+    .pg-item-desc { font-size: 0.82rem; color: rgba(165,243,252,0.95); padding: 0.5rem 0.65rem 0.65rem; border-top: 1px solid rgba(255,255,255,0.06); line-height: 1.55; display: none; }
+    .pg-item.open .pg-item-desc { display: block; }
+    .pg-item-link { font-size: 0.8rem; color: #a5f3fc; text-decoration: underline; display: block; padding: 0 0.65rem 0.65rem; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <p class="eyebrow">Philippines · Cebu</p>
+      <h1>막탄 맛집 &amp; 카페 가이드</h1>
+      <p class="sub"><strong>막탄</strong> 맛집·카페 53곳 · 세부 가볼만한곳과 동일 UI</p>
+    </header>
+    <main class="card">
+      <h2>막탄 맛집 &amp; 카페</h2>
+      <p class="lead"><strong>막탄</strong> 맛집·카페를 카테고리별로 지도에 모았습니다.</p>
+      <div class="pg-group-row">
+        <span class="pg-tab-sub pg-tab-sub-on">전체</span>
+        <span class="pg-tab-sub">한식</span>
+        <span class="pg-tab-sub">씨푸드</span>
+        <span class="pg-tab-sub">일식</span>
+      </div>
+      <p class="pg-cluster-map-caption">아래 지도에 현재 목록의 장소가 모두 표시됩니다. 항목을 펼치면 해당 위치로 이동합니다.</p>
+      <div id="map"></div>
+      <div class="pg-item open">
+        <div class="pg-item-btn" onclick="this.parentElement.classList.toggle('open')">할로망고 (샹스점) <span>▲</span></div>
+        <p class="pg-item-desc">제이파크 앞 샹스 아일랜드 타운센터 망고 아이스크림</p>
+        <a class="pg-item-link" href="#">블로그 후기 보기 →</a>
+      </div>
+      <div class="pg-item">
+        <div class="pg-item-btn" onclick="this.parentElement.classList.toggle('open')">고래식당 <span>▼</span></div>
+        <p class="pg-item-desc">샹스 아일랜드 타운센터 시래기 생선조림 한식당</p>
+      </div>
+    </main>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([10.295, 124.0], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+    L.marker([10.2831, 123.9934]).addTo(map).bindPopup('할로망고');
+    L.marker([10.2835, 123.9938]).addTo(map);
+  </script>
+</body>
+</html>
