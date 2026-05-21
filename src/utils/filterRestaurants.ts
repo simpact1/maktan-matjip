@@ -1,5 +1,5 @@
 import {
-  BestForTag,
+  CompanionFilterTag,
   MenuType,
   ResortMealFilter,
   Restaurant,
@@ -10,7 +10,7 @@ import { getZoneLabel } from '../constants/filters';
 export interface RestaurantFilters {
   zone: RestaurantZone | null;
   menuType: MenuType | null;
-  bestFor: BestForTag | null;
+  companion: CompanionFilterTag | null;
   resortMeal: ResortMealFilter;
   pickupDropOnly: boolean;
   query: string;
@@ -29,7 +29,7 @@ export function filterRestaurants(
     if (filters.menuType && item.menuType !== filters.menuType) {
       return false;
     }
-    if (filters.bestFor && !item.bestFor.includes(filters.bestFor)) {
+    if (filters.companion && item.companionType !== filters.companion) {
       return false;
     }
     if (filters.pickupDropOnly && !item.pickupDrop) {
@@ -49,7 +49,7 @@ export function filterRestaurants(
       item.zone,
       getZoneLabel(item.zone),
       item.menuType,
-      ...item.bestFor,
+      item.companionType,
       ...item.resortMeal,
       item.pickupDrop ? '픽업 드랍 송영' : '',
       item.pickupDropNote ?? '',

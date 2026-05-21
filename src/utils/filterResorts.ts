@@ -6,7 +6,14 @@ export function filterResorts(resorts: MactanResort[], query: string): MactanRes
     return resorts;
   }
   return resorts.filter((r) => {
-    const haystack = `${r.name} ${r.breakfast} ${r.dinner}`.toLowerCase();
+    const haystack = [
+      r.name,
+      r.breakfast,
+      r.dinner,
+      ...r.otherVenues.flatMap((v) => [v.name, v.summary]),
+    ]
+      .join(' ')
+      .toLowerCase();
     return haystack.includes(normalizedQuery);
   });
 }

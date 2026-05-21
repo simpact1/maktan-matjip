@@ -16,8 +16,9 @@ export type ResortMealFilter = ResortMealType | null;
 
 export type RestaurantZone =
   | '제이파크/샹스'
+  | '샹그릴라'
   | '막탄뉴타운'
-  | '마리바고/아가스'
+  | '마리바고/블루워터'
   | '공항인근'
   | '코르도바';
 
@@ -29,16 +30,11 @@ export type MenuType =
   | '중식'
   | '뷰맛집'
   | '뷔페'
-  | '카페/디저트'
+  | '카페'
   | '기타';
 
-export type BestForTag =
-  | '새벽입국'
-  | '물놀이후'
-  | '선셋/로맨틱'
-  | '체크아웃코스'
-  | '아이동반'
-  | '부모님동반';
+/** 동반자에 따른 구분 (맛집당 1개) */
+export type CompanionFilterTag = '모두' | '아이동반' | '부모님동반' | '커플';
 
 export interface BlogLink {
   text: string;
@@ -54,7 +50,7 @@ export interface Restaurant {
   category: RestaurantCategory;
   zone: RestaurantZone;
   menuType: MenuType;
-  bestFor: [BestForTag] | [BestForTag, BestForTag];
+  companionType: CompanionFilterTag;
   pickupDrop: boolean;
   pickupDropNote?: string;
   resortMeal: ResortMealType[];

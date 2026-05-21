@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { getZoneLabel } from '../constants/filters';
 import { guideStyles } from '../styles/guideStyles';
@@ -19,6 +20,40 @@ export function PlaceListItem({
 }: PlaceListItemProps) {
   const links = getRestaurantLinks(restaurant);
 
+  const itemTags = useMemo(() => {
+    const tags: {
+      key: string;
+      label: string;
+      style: object;
+      last?: boolean;
+    }[] = [
+      {
+        key: 'zone',
+        label: `📍 ${getZoneLabel(restaurant.zone)}`,
+        style: guideStyles.itemTagZone,
+      },
+      {
+        key: 'menu',
+        label: `🍽 ${restaurant.menuType}`,
+        style: guideStyles.itemTagMenu,
+      },
+      {
+        key: 'companion',
+        label: `👥 ${restaurant.companionType}`,
+        style: guideStyles.itemTagCompanion,
+      },
+    ];
+    if (restaurant.pickupDrop) {
+      tags.push({
+        key: 'pickup',
+        label: '🚌 픽업·드랍',
+        style: guideStyles.itemTagPickup,
+        last: true,
+      });
+    }
+    return tags;
+  }, [restaurant]);
+
   return (
     <View style={guideStyles.item}>
       <Pressable
@@ -30,28 +65,16 @@ export function PlaceListItem({
         <View style={guideStyles.itemTitleRow}>
           <Text style={guideStyles.itemTitle}>{restaurant.name}</Text>
           <View style={guideStyles.itemTags}>
-            {restaurant.pickupDrop && (
-              <Text style={[guideStyles.itemTag, guideStyles.itemTagPickup]}>
-                🚐 픽업·드랍
-              </Text>
-            )}
-            {restaurant.resortMeal.includes('조식') && (
-              <Text style={[guideStyles.itemTag, guideStyles.itemTagMealBreakfast]}>
-                🌅 조식
-              </Text>
-            )}
-            {restaurant.resortMeal.includes('석식') && (
-              <Text style={[guideStyles.itemTag, guideStyles.itemTagMealDinner]}>
-                🌙 석식
-              </Text>
-            )}
-            <Text style={[guideStyles.itemTag, guideStyles.itemTagZone]}>
-              {getZoneLabel(restaurant.zone)}
-            </Text>
-            <Text style={guideStyles.itemTag}>{restaurant.menuType}</Text>
-            {restaurant.bestFor.map((tag) => (
-              <Text key={tag} style={guideStyles.itemTag}>
-                {tag}
+            {itemTags.map((tag) => (
+              <Text
+                key={tag.key}
+                style={[
+                  guideStyles.itemTag,
+                  tag.style,
+                  tag.last ? guideStyles.itemTagPickupLast : null,
+                ]}
+              >
+                {tag.label}
               </Text>
             ))}
           </View>
@@ -61,16 +84,6 @@ export function PlaceListItem({
       {isOpen && (
         <View style={guideStyles.itemDetail}>
           <Text style={guideStyles.itemDesc}>{restaurant.desc}</Text>
-          {restaurant.pickupDrop && restaurant.pickupDropNote ? (
-            <Text style={guideStyles.pickupNote}>
-              🚐 {restaurant.pickupDropNote}
-            </Text>
-          ) : null}
-          {restaurant.resortMealNote ? (
-            <Text style={guideStyles.mealNote}>
-              🍳 {restaurant.resortMealNote}
-            </Text>
-          ) : null}
           {links.length > 0 && (
             <View style={guideStyles.itemActions}>
               {links.map((link) => (
@@ -80,6 +93,11 @@ export function PlaceListItem({
               ))}
             </View>
           )}
+          {restaurant.pickupDrop && restaurant.pickupDropNote ? (
+            <Text style={guideStyles.pickupNote}>
+              🚌 {restaurant.pickupDropNote}
+            </Text>
+          ) : null}
         </View>
       )}
     </View>

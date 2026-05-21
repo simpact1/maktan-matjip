@@ -15,18 +15,13 @@ export function ResortListItem({ resort, isOpen, onToggle }: ResortListItemProps
         style={guideStyles.itemBtn}
         onPress={onToggle}
         accessibilityRole="button"
+        accessibilityLabel={resort.name}
         accessibilityState={{ expanded: isOpen }}
       >
         <View style={guideStyles.itemTitleRow}>
           <Text style={guideStyles.itemTitle}>🏨 {resort.name}</Text>
           <View style={guideStyles.itemTags}>
             <Text style={[guideStyles.itemTag, guideStyles.resortTag]}>리조트</Text>
-            <Text style={[guideStyles.itemTag, guideStyles.itemTagMealBreakfast]}>
-              🌅 조식
-            </Text>
-            <Text style={[guideStyles.itemTag, guideStyles.itemTagMealDinner]}>
-              🌙 석식
-            </Text>
           </View>
         </View>
         <Text style={guideStyles.chev}>{isOpen ? '▲' : '▼'}</Text>
@@ -34,13 +29,27 @@ export function ResortListItem({ resort, isOpen, onToggle }: ResortListItemProps
       {isOpen && (
         <View style={guideStyles.itemDetail}>
           <Text style={guideStyles.resortMealBlock}>
-            <Text style={guideStyles.resortMealLabel}>🍳 조식 실전 가이드{'\n'}</Text>
+            <Text style={guideStyles.resortMealLabel}>🍳 아침 식사 가이드{'\n'}</Text>
             {resort.breakfast}
           </Text>
           <Text style={guideStyles.resortMealBlock}>
-            <Text style={guideStyles.resortMealLabel}>🍽️ 석식 다이닝/뷔페 팁{'\n'}</Text>
+            <Text style={guideStyles.resortMealLabel}>🍽️ 저녁 식사 가이드{'\n'}</Text>
             {resort.dinner}
           </Text>
+          {resort.otherVenues.length > 0 ? (
+            <View style={guideStyles.resortOtherBlock}>
+              <Text style={guideStyles.resortOtherTitle}>
+                🍴 리조트 내 기타 다이닝
+              </Text>
+              {resort.otherVenues.map((venue) => (
+                <Text key={venue.name} style={guideStyles.resortOtherItem}>
+                  <Text style={guideStyles.resortOtherName}>· {venue.name}</Text>
+                  {' — '}
+                  {venue.summary}
+                </Text>
+              ))}
+            </View>
+          ) : null}
         </View>
       )}
     </View>

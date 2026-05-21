@@ -51,7 +51,7 @@ export const menuTypeColors: Record<string, string> = {
   중식: '#f87171',
   뷰맛집: '#f472b6',
   뷔페: '#fb923c',
-  '카페/디저트': '#fbbf24',
+  카페: '#fbbf24',
   기타: '#94a3b8',
 };
 

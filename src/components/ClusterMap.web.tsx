@@ -82,14 +82,29 @@ function ResortPopup({ resort }: { resort: MactanResort }) {
         <strong style={resortPopup.headerTitle}>🏨 {resort.name}</strong>
       </div>
       <div style={resortPopup.section}>
-        <strong style={resortPopup.breakfastLabel}>🍳 조식 실전 가이드</strong>
+        <strong style={resortPopup.breakfastLabel}>🍳 아침 식사 가이드</strong>
         <p style={resortPopup.body}>{resort.breakfast}</p>
       </div>
       <hr style={resortPopup.hr} />
       <div style={resortPopup.section}>
-        <strong style={resortPopup.dinnerLabel}>🍽️ 석식 다이닝/뷔페 팁</strong>
+        <strong style={resortPopup.dinnerLabel}>🍽️ 저녁 식사 가이드</strong>
         <p style={resortPopup.body}>{resort.dinner}</p>
       </div>
+      {resort.otherVenues.length > 0 ? (
+        <>
+          <hr style={resortPopup.hr} />
+          <div style={resortPopup.section}>
+            <strong style={resortPopup.otherLabel}>🍴 기타 다이닝</strong>
+            <ul style={resortPopup.otherList}>
+              {resort.otherVenues.map((venue) => (
+                <li key={venue.name} style={resortPopup.otherItem}>
+                  <strong>{venue.name}</strong> — {venue.summary}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -97,6 +112,7 @@ function ResortPopup({ resort }: { resort: MactanResort }) {
 export function ClusterMap({
   restaurants,
   resorts,
+  mapLayerMode,
   showRestaurants,
   showResorts,
   focusedItemId,
@@ -118,10 +134,21 @@ export function ClusterMap({
     [restaurants, resorts, showRestaurants, showResorts]
   );
 
+  const mapVisible = showRestaurants || showResorts;
+
+  if (!mapVisible) {
+    return (
+      <View style={styles.wrap}>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
+      </View>
+    );
+  }
+
   if (visiblePoints.length === 0) {
     return (
       <View style={styles.wrap}>
-        <Text style={styles.caption}>표시할 지도 레이어를 선택해 주세요.</Text>
+        <Text style={styles.caption}>선택한 레이어에 표시할 장소가 없습니다.</Text>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
       </View>
     );
   }
@@ -130,10 +157,6 @@ export function ClusterMap({
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.caption}>
-        🍖 맛집 · 🏨 리조트 레이어를 켜고 끌 수 있습니다. 리조트 마커를 탭하면 조식·석식
-        가이드를 볼 수 있습니다.
-      </Text>
       <View style={styles.mapBox}>
         <MapContainer
           key={mapKey}
@@ -213,8 +236,11 @@ const resortPopup: Record<string, CSSProperties> = {
   section: { padding: '4px 0' },
   breakfastLabel: { color: '#d93025', display: 'block', marginBottom: 4 },
   dinnerLabel: { color: '#1e8e3e', display: 'block', marginBottom: 4 },
+  otherLabel: { color: '#1a73e8', display: 'block', marginBottom: 6 },
   body: { margin: 0, color: '#5f6368', fontSize: 12 },
   hr: { border: 0, borderTop: '1px solid #e8eaed', margin: '8px 0' },
+  otherList: { margin: '4px 0 0', paddingLeft: 16, fontSize: 12, lineHeight: 1.5 },
+  otherItem: { marginBottom: 6, color: '#5f6368' },
 };
 
 const webMapStyle: CSSProperties = {
@@ -239,7 +265,7 @@ const popupStyles: Record<string, CSSProperties> = {
 };
 
 const styles = StyleSheet.create({
-  wrap: { marginBottom: 4 },
+  wrap: { marginBottom: 0 },
   caption: {
     fontSize: 12,
     fontFamily: fonts.regular,
@@ -257,4 +283,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#aad3df',
     touchAction: 'pan-y',
   } as const,
+  mapBoxEmpty: {
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
 });

@@ -11,6 +11,7 @@ const RESORT_PIN = '#1a73e8';
 export function ClusterMap({
   restaurants,
   resorts,
+  mapLayerMode,
   showRestaurants,
   showResorts,
   focusedItemId,
@@ -57,20 +58,27 @@ export function ClusterMap({
     }
   }, [focusedItemId, focusedResortId, visiblePoints]);
 
+  const mapVisible = showRestaurants || showResorts;
+
+  if (!mapVisible) {
+    return (
+      <View style={styles.wrap}>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
+      </View>
+    );
+  }
+
   if (visiblePoints.length === 0) {
     return (
       <View style={styles.wrap}>
-        <Text style={styles.caption}>표시할 지도 레이어를 선택해 주세요.</Text>
+        <Text style={styles.caption}>선택한 레이어에 표시할 장소가 없습니다.</Text>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
       </View>
     );
   }
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.caption}>
-        🍖 맛집 · 🏨 리조트 레이어를 켜고 끌 수 있습니다. 리조트 마커를 탭하면 조식·석식
-        정보를 볼 수 있습니다.
-      </Text>
       <View style={styles.mapBox}>
         <MapView
           ref={mapRef}
@@ -105,7 +113,7 @@ export function ClusterMap({
                 key={`resort-${resort.id}`}
                 coordinate={{ latitude: resort.lat, longitude: resort.lng }}
                 title={resort.name}
-                description={`조식: ${resort.breakfast.slice(0, 40)}…`}
+                description={`아침: ${resort.breakfast.slice(0, 40)}…`}
                 pinColor={RESORT_PIN}
                 onPress={() => onSelectResort(resort.id)}
               />
@@ -117,7 +125,7 @@ export function ClusterMap({
 }
 
 const styles = StyleSheet.create({
-  wrap: { marginBottom: 4 },
+  wrap: { marginBottom: 0 },
   caption: {
     fontSize: 12,
     fontFamily: fonts.regular,
@@ -133,6 +141,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.12)',
     backgroundColor: '#aad3df',
+  },
+  mapBoxEmpty: {
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
   map: {
     width: '100%',

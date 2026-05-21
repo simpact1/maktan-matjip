@@ -8,15 +8,12 @@
     "link": "https://blog.naver.com/aalove0902/223749751073",
     "category": "cafe",
     "zone": "제이파크/샹스",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "아이동반",
-      "물놀이후"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "2",
@@ -28,14 +25,11 @@
     "category": "korean",
     "zone": "제이파크/샹스",
     "menuType": "한식",
-    "bestFor": [
-      "부모님동반",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "3",
@@ -47,14 +41,11 @@
     "category": "korean",
     "zone": "제이파크/샹스",
     "menuType": "한식",
-    "bestFor": [
-      "물놀이후",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "4",
@@ -66,15 +57,12 @@
     "category": "seafood",
     "zone": "제이파크/샹스",
     "menuType": "씨푸드",
-    "bestFor": [
-      "물놀이후",
-      "부모님동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "샹스·제이파크 리조트권 — 단체·사전 예약 시 송영 문의",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "5",
@@ -86,14 +74,11 @@
     "category": "japanese",
     "zone": "제이파크/샹스",
     "menuType": "일식",
-    "bestFor": [
-      "부모님동반",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "6",
@@ -105,14 +90,11 @@
     "category": "japanese",
     "zone": "막탄뉴타운",
     "menuType": "뷔페",
-    "bestFor": [
-      "아이동반",
-      "부모님동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "7",
@@ -124,16 +106,13 @@
     "category": "other",
     "zone": "막탄뉴타운",
     "menuType": "뷔페",
-    "bestFor": [
-      "부모님동반",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "조식",
       "석식"
     ],
-    "resortMealNote": "뉴타운 리조트 — 브런치·석식 뷔페 대안"
+    "resortMealNote": "뉴타운 리조트 — 브런치·석식 뷔페 대안",
+    "companionType": "모두"
   },
   {
     "id": "8",
@@ -145,14 +124,11 @@
     "category": "other",
     "zone": "막탄뉴타운",
     "menuType": "기타",
-    "bestFor": [
-      "아이동반",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "9",
@@ -164,14 +140,11 @@
     "category": "other",
     "zone": "막탄뉴타운",
     "menuType": "기타",
-    "bestFor": [
-      "체크아웃코스",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "10",
@@ -181,16 +154,13 @@
     "desc": "쏘옹 1 거리에 위치한 로컬 감성 만점 고유 바비큐 맛집",
     "link": "https://blog.naver.com/aalove0902/222685317143",
     "category": "local",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "로컬",
-    "bestFor": [
-      "물놀이후",
-      "선셋/로맨틱"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "11",
@@ -201,15 +171,12 @@
     "link": "https://blog.naver.com/aalove0902/223708369196",
     "category": "cafe",
     "zone": "막탄뉴타운",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "선셋/로맨틱",
-      "체크아웃코스"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "12",
@@ -220,16 +187,13 @@
     "link": "https://blog.naver.com/aalove0902/223701944059",
     "category": "local",
     "zone": "코르도바",
-    "menuType": "뷰맛집",
-    "bestFor": [
-      "선셋/로맨틱",
-      "물놀이후"
-    ],
+    "menuType": "로컬",
     "pickupDrop": true,
     "pickupDropNote": "코르도바·리조트권 — 단체 예약 시 픽업·드랍 협의",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "커플"
   },
   {
     "id": "13",
@@ -241,14 +205,11 @@
     "category": "other",
     "zone": "제이파크/샹스",
     "menuType": "로컬",
-    "bestFor": [
-      "선셋/로맨틱",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "14",
@@ -259,15 +220,12 @@
     "link": "https://blog.naver.com/aalove0902/220541702106",
     "category": "cafe",
     "zone": "공항인근",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "체크아웃코스",
-      "새벽입국"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "15",
@@ -279,14 +237,11 @@
     "category": "other",
     "zone": "공항인근",
     "menuType": "기타",
-    "bestFor": [
-      "체크아웃코스",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "16",
@@ -298,14 +253,11 @@
     "category": "other",
     "zone": "공항인근",
     "menuType": "기타",
-    "bestFor": [
-      "체크아웃코스",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "17",
@@ -317,15 +269,12 @@
     "category": "other",
     "zone": "공항인근",
     "menuType": "중식",
-    "bestFor": [
-      "아이동반",
-      "체크아웃코스"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "조식",
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "18",
@@ -336,15 +285,12 @@
     "link": "https://blog.naver.com/aalove0902/223227611120",
     "category": "cafe",
     "zone": "막탄뉴타운",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "아이동반",
-      "물놀이후"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "19",
@@ -355,16 +301,13 @@
     "link": "https://blog.naver.com/aalove0902/221366498604",
     "category": "cafe",
     "zone": "막탄뉴타운",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "체크아웃코스",
-      "물놀이후"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
     ],
-    "resortMealNote": "막탄 뉴타운 — 리조트 조식·브런치"
+    "resortMealNote": "막탄 뉴타운 — 리조트 조식·브런치",
+    "companionType": "아이동반"
   },
   {
     "id": "20",
@@ -375,15 +318,12 @@
     "link": "https://blog.naver.com/aalove0902/221266464813",
     "category": "cafe",
     "zone": "막탄뉴타운",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "아이동반",
-      "물놀이후"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "21",
@@ -394,16 +334,13 @@
     "link": "https://blog.naver.com/aalove0902/223116849161",
     "category": "seafood",
     "zone": "제이파크/샹스",
-    "menuType": "뷰맛집",
-    "bestFor": [
-      "선셋/로맨틱",
-      "물놀이후"
-    ],
+    "menuType": "씨푸드",
     "pickupDrop": true,
     "pickupDropNote": "제이파크·마리바고 리조트 — 픽업·드랍 (예약 필수)",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "커플"
   },
   {
     "id": "22",
@@ -414,16 +351,13 @@
     "link": "https://blog.naver.com/aalove0902/223146217994",
     "category": "seafood",
     "zone": "코르도바",
-    "menuType": "뷰맛집",
-    "bestFor": [
-      "선셋/로맨틱",
-      "물놀이후"
-    ],
+    "menuType": "씨푸드",
     "pickupDrop": true,
     "pickupDropNote": "10,000 Roses·리조트권 — 투어·식사 패키지 송영",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "커플"
   },
   {
     "id": "23",
@@ -435,15 +369,12 @@
     "category": "seafood",
     "zone": "코르도바",
     "menuType": "씨푸드",
-    "bestFor": [
-      "선셋/로맨틱",
-      "부모님동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "코르도바·막탄 호텔 — 픽업·드랍 (예약 필수)",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "24",
@@ -453,16 +384,13 @@
     "desc": "마리곤돈 인근 로컬 감성의 고소한 바베큐",
     "link": "https://blog.naver.com/aalove0902/223135451468",
     "category": "local",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "로컬",
-    "bestFor": [
-      "물놀이후",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "25",
@@ -472,18 +400,15 @@
     "desc": "아구스 대형 씨푸드 전문점",
     "link": "https://blog.naver.com/aalove0902/223132805858",
     "category": "seafood",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "씨푸드",
-    "bestFor": [
-      "부모님동반",
-      "물놀이후"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "막탄 전 리조트·호텔 — 무료 픽업·드랍 (대표)",
     "resortMeal": [
       "석식"
     ],
-    "resortMealNote": "마리바고 리조트 — 대표 석식 씨푸드"
+    "resortMealNote": "마리바고 리조트 — 대표 석식 씨푸드",
+    "companionType": "모두"
   },
   {
     "id": "26",
@@ -494,17 +419,14 @@
     "link": "https://blog.naver.com/aalove0902/224111577376",
     "category": "seafood",
     "zone": "막탄뉴타운",
-    "menuType": "뷰맛집",
-    "bestFor": [
-      "선셋/로맨틱",
-      "물놀이후"
-    ],
+    "menuType": "뷔페",
     "pickupDrop": true,
     "pickupDropNote": "더마크·모벤픽·뉴타운 — 호텔·리조트 송영",
     "resortMeal": [
       "석식"
     ],
-    "resortMealNote": "더마크·모벤픽 — 오션뷰 석식"
+    "resortMealNote": "더마크·모벤픽 — 오션뷰 석식",
+    "companionType": "커플"
   },
   {
     "id": "27",
@@ -516,15 +438,12 @@
     "category": "korean",
     "zone": "막탄뉴타운",
     "menuType": "한식",
-    "bestFor": [
-      "부모님동반",
-      "체크아웃코스"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "막탄 뉴타운·리조트권 — 무료 픽업·드랍 (예약)",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "28",
@@ -534,17 +453,14 @@
     "desc": "정원 인테리어가 아름다운 분위기 좋은 카페",
     "link": "https://blog.naver.com/aalove0902/223160260547",
     "category": "cafe",
-    "zone": "마리바고/아가스",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "선셋/로맨틱",
-      "아이동반"
-    ],
+    "zone": "마리바고/블루워터",
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식",
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "29",
@@ -554,19 +470,16 @@
     "desc": "제이파크 앞 세부 퓨전 로컬 푸드 1등 맛집",
     "link": "https://blog.naver.com/aalove0902/223712480171",
     "category": "local",
-    "zone": "막탄뉴타운",
+    "zone": "제이파크/샹스",
     "menuType": "로컬",
-    "bestFor": [
-      "물놀이후",
-      "아이동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "제이파크·뉴타운 리조트 — 송영 문의",
     "resortMeal": [
       "조식",
       "석식"
     ],
-    "resortMealNote": "제이파크·뉴타운 — 조식·석식 퓨전 로컬"
+    "resortMealNote": "제이파크·뉴타운 — 조식·석식 퓨전 로컬",
+    "companionType": "아이동반"
   },
   {
     "id": "30",
@@ -578,14 +491,11 @@
     "category": "korean",
     "zone": "공항인근",
     "menuType": "한식",
-    "bestFor": [
-      "체크아웃코스",
-      "부모님동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "31",
@@ -597,14 +507,11 @@
     "category": "other",
     "zone": "제이파크/샹스",
     "menuType": "중식",
-    "bestFor": [
-      "물놀이후",
-      "부모님동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "32",
@@ -615,15 +522,12 @@
     "link": "https://blog.naver.com/aalove0902/223767211042",
     "category": "cafe",
     "zone": "제이파크/샹스",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "아이동반",
-      "물놀이후"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "33",
@@ -633,17 +537,14 @@
     "desc": "제이파크 앞 고소한 풍미 가득 막창 고기 맛집",
     "link": "https://blog.naver.com/aalove0902/221583903423",
     "category": "korean",
-    "zone": "막탄뉴타운",
+    "zone": "제이파크/샹스",
     "menuType": "한식",
-    "bestFor": [
-      "물놀이후",
-      "부모님동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "제이파크·뉴타운 — 픽업·드랍 (전화 예약)",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "34",
@@ -653,17 +554,14 @@
     "desc": "가성비 참숯 가득 갈비 한식당",
     "link": "https://blog.naver.com/aalove0902/223159996543",
     "category": "korean",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "한식",
-    "bestFor": [
-      "부모님동반",
-      "물놀이후"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "마리바고·블루워터권 — 리조트 송영",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "35",
@@ -674,15 +572,12 @@
     "link": "https://blog.naver.com/aalove0902/221632294802",
     "category": "cafe",
     "zone": "공항인근",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "새벽입국",
-      "체크아웃코스"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "36",
@@ -692,17 +587,14 @@
     "desc": "마리바고 블루워터 인근 자연 속 고품격 로컬 식당",
     "link": "https://blog.naver.com/aalove0902/223328302510",
     "category": "local",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "로컬",
-    "bestFor": [
-      "물놀이후",
-      "선셋/로맨틱"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "마리바고·블루워터 — 픽업·드랍 (예약)",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "37",
@@ -712,17 +604,14 @@
     "desc": "알리망오 칠리크랩 씨푸드 전문점",
     "link": "https://blog.naver.com/aalove0902/222803135351",
     "category": "seafood",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "씨푸드",
-    "bestFor": [
-      "물놀이후",
-      "아이동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "마리바고 리조트권 — 무료 픽업·드랍",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "38",
@@ -732,17 +621,14 @@
     "desc": "마리바고 대표 크랩 씨푸드 맛집",
     "link": "https://blog.naver.com/aalove0902/223147479198",
     "category": "seafood",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "씨푸드",
-    "bestFor": [
-      "물놀이후",
-      "부모님동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "마리바고 대표 크랩 — 리조트 무료 송영",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "39",
@@ -752,17 +638,14 @@
     "desc": "화이트샌즈 옆 고유의 필리핀 전통 요리",
     "link": "https://blog.naver.com/aalove0902/223843700921",
     "category": "local",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "로컬",
-    "bestFor": [
-      "물놀이후",
-      "부모님동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "화이트샌즈·인근 리조트 — 송영 문의",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "40",
@@ -774,14 +657,11 @@
     "category": "seafood",
     "zone": "막탄뉴타운",
     "menuType": "씨푸드",
-    "bestFor": [
-      "아이동반",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "41",
@@ -793,14 +673,11 @@
     "category": "local",
     "zone": "공항인근",
     "menuType": "로컬",
-    "bestFor": [
-      "체크아웃코스",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "42",
@@ -812,14 +689,11 @@
     "category": "seafood",
     "zone": "공항인근",
     "menuType": "씨푸드",
-    "bestFor": [
-      "체크아웃코스",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "43",
@@ -831,14 +705,11 @@
     "category": "local",
     "zone": "공항인근",
     "menuType": "로컬",
-    "bestFor": [
-      "체크아웃코스",
-      "아이동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "아이동반"
   },
   {
     "id": "44",
@@ -850,14 +721,11 @@
     "category": "korean",
     "zone": "공항인근",
     "menuType": "한식",
-    "bestFor": [
-      "새벽입국",
-      "부모님동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "45",
@@ -868,15 +736,12 @@
     "link": "https://blog.naver.com/aalove0902/223105240121",
     "category": "cafe",
     "zone": "공항인근",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "체크아웃코스",
-      "새벽입국"
-    ],
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "46",
@@ -888,15 +753,12 @@
     "category": "other",
     "zone": "공항인근",
     "menuType": "중식",
-    "bestFor": [
-      "아이동반",
-      "부모님동반"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "조식",
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "47",
@@ -908,14 +770,11 @@
     "category": "korean",
     "zone": "공항인근",
     "menuType": "한식",
-    "bestFor": [
-      "부모님동반",
-      "체크아웃코스"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "48",
@@ -926,16 +785,13 @@
     "link": "https://blog.naver.com/aalove0902/223487650258",
     "category": "seafood",
     "zone": "공항인근",
-    "menuType": "뷰맛집",
-    "bestFor": [
-      "선셋/로맨틱",
-      "체크아웃코스"
-    ],
+    "menuType": "씨푸드",
     "pickupDrop": true,
     "pickupDropNote": "마리나·호텔권 — 픽업·드랍 협의",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "커플"
   },
   {
     "id": "49",
@@ -945,17 +801,14 @@
     "desc": "어메이징쇼장 인근 깔끔하고 정갈한 로컬 레스토랑",
     "link": "https://blog.naver.com/aalove0902/224181322195",
     "category": "local",
-    "zone": "마리바고/아가스",
+    "zone": "마리바고/블루워터",
     "menuType": "로컬",
-    "bestFor": [
-      "물놀이후",
-      "아이동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "어메이징쇼·리조트 — 투어·식사 송영",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "50",
@@ -967,14 +820,11 @@
     "category": "japanese",
     "zone": "제이파크/샹스",
     "menuType": "일식",
-    "bestFor": [
-      "부모님동반",
-      "물놀이후"
-    ],
     "pickupDrop": false,
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "51",
@@ -986,15 +836,12 @@
     "category": "seafood",
     "zone": "막탄뉴타운",
     "menuType": "씨푸드",
-    "bestFor": [
-      "물놀이후",
-      "부모님동반"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "막탄 뉴타운·리조트 — 픽업·드랍 (예약)",
     "resortMeal": [
       "석식"
-    ]
+    ],
+    "companionType": "모두"
   },
   {
     "id": "52",
@@ -1013,17 +860,14 @@
       }
     ],
     "category": "cafe",
-    "zone": "막탄뉴타운",
-    "menuType": "카페/디저트",
-    "bestFor": [
-      "선셋/로맨틱",
-      "체크아웃코스"
-    ],
+    "zone": "샹그릴라",
+    "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [
       "조식",
       "석식"
-    ]
+    ],
+    "companionType": "부모님동반"
   },
   {
     "id": "53",
@@ -1040,16 +884,13 @@
     "category": "korean",
     "zone": "막탄뉴타운",
     "menuType": "한식",
-    "bestFor": [
-      "새벽입국",
-      "체크아웃코스"
-    ],
     "pickupDrop": true,
     "pickupDropNote": "새벽 투어·리조트 — 심야 송영·픽업 문의",
     "resortMeal": [
       "조식",
       "석식"
     ],
-    "resortMealNote": "새벽 투어·리조트 — 24시간 조식·야식"
+    "resortMealNote": "새벽 투어·리조트 — 24시간 조식·야식",
+    "companionType": "아이동반"
   }
 ]

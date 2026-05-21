@@ -5,15 +5,8 @@ export const guideStyles = StyleSheet.create({
   root: {
     flex: 1,
   },
-  mapCard: {
-    marginHorizontal: 12,
-    marginBottom: 12,
-    backgroundColor: colors.bgCard,
-    borderWidth: 1,
-    borderColor: colors.cardBorder,
-    borderRadius: colors.radius,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+  mapInCard: {
+    marginBottom: 14,
   },
   card: {
     marginHorizontal: 12,
@@ -52,9 +45,6 @@ export const guideStyles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  searchWrap: {
-    marginBottom: 10,
   },
   list: {
     flex: 1,
@@ -109,10 +99,23 @@ export const guideStyles = StyleSheet.create({
     color: colors.accent,
     borderColor: 'rgba(251, 191, 36, 0.35)',
   },
+  itemTagMenu: {
+    color: '#bbf7d0',
+    borderColor: 'rgba(134, 239, 172, 0.4)',
+    backgroundColor: 'rgba(21, 128, 61, 0.3)',
+  },
+  itemTagCompanion: {
+    color: '#fbcfe8',
+    borderColor: 'rgba(244, 114, 182, 0.4)',
+    backgroundColor: 'rgba(157, 23, 77, 0.28)',
+  },
   itemTagPickup: {
     color: '#fef3c7',
     borderColor: 'rgba(251, 191, 36, 0.5)',
     backgroundColor: 'rgba(180, 83, 9, 0.35)',
+  },
+  itemTagPickupLast: {
+    marginLeft: 'auto',
   },
   pickupBanner: {
     marginBottom: 12,
@@ -140,6 +143,7 @@ export const guideStyles = StyleSheet.create({
     lineHeight: 18,
     color: '#fde68a',
     paddingHorizontal: 11,
+    paddingTop: 4,
     paddingBottom: 10,
   },
   itemTagMealBreakfast: {
@@ -196,6 +200,30 @@ export const guideStyles = StyleSheet.create({
   resortMealLabel: {
     fontFamily: fonts.bold,
     color: colors.cardHeading,
+  },
+  resortOtherBlock: {
+    paddingHorizontal: 11,
+    paddingBottom: 12,
+    paddingTop: 4,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  resortOtherTitle: {
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    color: '#bfdbfe',
+    marginBottom: 8,
+  },
+  resortOtherItem: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 18,
+    color: colors.textDesc,
+    marginBottom: 6,
+  },
+  resortOtherName: {
+    fontFamily: fonts.semiBold,
+    color: '#a5f3fc',
   },
   resortBanner: {
     marginBottom: 12,

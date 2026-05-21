@@ -1,9 +1,11 @@
 import { Restaurant } from '../types/restaurant';
 import { MactanResort } from '../types/resort';
+import { MapLayerMode } from './MapLayerToggle';
 
 export interface ClusterMapProps {
   restaurants: Restaurant[];
   resorts: MactanResort[];
+  mapLayerMode: MapLayerMode;
   showRestaurants: boolean;
   showResorts: boolean;
   focusedItemId: string | null;

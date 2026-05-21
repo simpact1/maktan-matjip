@@ -8,6 +8,10 @@ interface TagFilterBarProps<T extends string> {
   selected: T | null;
   onSelect: (value: T | null) => void;
   showAllOption?: boolean;
+  /** showAllOption 칩 문구 (기본: 전체) */
+  allOptionLabel?: string;
+  /** 제목과 칩을 한 줄에 배치 */
+  layout?: 'stacked' | 'inline';
 }
 
 function normalizeOptions<T extends string>(
@@ -29,41 +33,60 @@ export function TagFilterBar<T extends string>({
   selected,
   onSelect,
   showAllOption = true,
+  allOptionLabel = '전체',
+  layout = 'stacked',
 }: TagFilterBarProps<T>) {
   const items = normalizeOptions(options);
+  const inline = layout === 'inline';
+
+  const allChip = showAllOption ? (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={allOptionLabel}
+      onPress={() => onSelect(null)}
+      style={[styles.chip, selected === null ? styles.chipActive : styles.chipIdle]}
+    >
+      <Text style={[styles.chipText, selected === null && styles.chipTextActive]}>
+        {allOptionLabel}
+      </Text>
+    </Pressable>
+  ) : null;
+
+  const optionChips = items.map((option) => {
+    const isActive = selected === option.value;
+    return (
+      <Pressable
+        key={option.value}
+        accessibilityRole="button"
+        accessibilityLabel={option.label}
+        onPress={() => onSelect(isActive ? null : option.value)}
+        style={[styles.chip, isActive ? styles.chipActive : styles.chipIdle]}
+      >
+        <Text style={[styles.chipText, isActive && styles.chipTextActive]}>
+          {option.label}
+        </Text>
+      </Pressable>
+    );
+  });
+
+  if (inline) {
+    return (
+      <View style={styles.wrap}>
+        <View style={styles.inlineRow}>
+          <Text style={styles.labelInline}>{label}</Text>
+          {allChip}
+          {optionChips}
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.wrap}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.chipsWrap}>
-        {showAllOption ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="전체"
-            onPress={() => onSelect(null)}
-            style={[styles.chip, selected === null ? styles.chipActive : styles.chipIdle]}
-          >
-            <Text style={[styles.chipText, selected === null && styles.chipTextActive]}>
-              전체
-            </Text>
-          </Pressable>
-        ) : null}
-        {items.map((option) => {
-          const isActive = selected === option.value;
-          return (
-            <Pressable
-              key={option.value}
-              accessibilityRole="button"
-              accessibilityLabel={option.label}
-              onPress={() => onSelect(isActive ? null : option.value)}
-              style={[styles.chip, isActive ? styles.chipActive : styles.chipIdle]}
-            >
-              <Text style={[styles.chipText, isActive && styles.chipTextActive]}>
-                {option.label}
-              </Text>
-            </Pressable>
-          );
-        })}
+        {allChip}
+        {optionChips}
       </View>
     </View>
   );
@@ -84,6 +107,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 6,
+  },
+  inlineRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 6,
+  },
+  labelInline: {
+    fontSize: 11,
+    fontFamily: fonts.semiBold,
+    color: colors.textMuted,
+    letterSpacing: 0.3,
+    marginRight: 2,
   },
   chip: {
     paddingHorizontal: 11,
