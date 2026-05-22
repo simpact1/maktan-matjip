@@ -10,6 +10,7 @@ export interface DiningGuideExpandLink {
   label: string;
   url: string;
   blogTitle: string;
+  icon?: string;
 }
 
 export interface DiningGuideTip {
@@ -32,6 +33,8 @@ export interface DiningGuideTip {
   linkLabel?: string;
   /** 펼침 영역 복수 링크 */
   expandLinks?: DiningGuideExpandLink[];
+  /** 복수 링크 배치: row(가로) | grid2x2(2x2) */
+  expandLinksLayout?: 'row' | 'grid2x2';
 }
 
 export const DINING_GUIDE_TIPS: DiningGuideTip[] = [
@@ -41,6 +44,7 @@ export const DINING_GUIDE_TIPS: DiningGuideTip[] = [
     title: '식사관련팁',
     compactTitle: '식사관련팁',
     summary: '세부 현지 식당 이용 시 알아두면 좋은 꿀팁들',
+    expandTitle: '💡 세부 현지 식당 이용 시 알아두면 좋은 꿀팁들',
     expandBody:
       '• 세부 현지 식당에서는 번호표를 받는 방식, 빌지(Bill)를 받아 테이블에서 정산하는 결제 방식, 서비스 차지(봉사료) 포함 여부, 브레이크 타임 등 한국과는 다른 문화가 많아 모르면 당황스러운 일이 생길 수 있습니다.',
     url: 'https://m.blog.naver.com/aalove0902/222336919760',
@@ -131,13 +135,39 @@ export const DINING_GUIDE_TIPS: DiningGuideTip[] = [
     title: '과일',
     compactTitle: '과일',
     summary:
-      '동남아 여행의 꽃, 열대과일! 실패 없이 싱싱한 망고와 망고스틴 고르는 방법과 막탄 내 과일 스팟을 소개합니다.',
+      '세부여행의 꽃 열대과일 — 종류와 고르는 법을 알려드려요.',
+    expandTitle: '🥭 세부열대과일',
     expandBody:
-      '• 동남아 여행의 꽃, 열대과일! 실패 없이 싱싱한 망고와 망고스틴 고르는 방법과 막탄 내 과일 스팟을 소개합니다.',
-    url: 'https://m.blog.naver.com/aalove0902/220397554988',
+      '세부여행의 꽃 열대과일 어떤 과일들이 있는지 어떻게 골라야 하는지 알려드려요',
+    url: 'https://m.blog.naver.com/aalove0902/80205604757',
     blogTitle: '세부 열대과일',
     expandSimple: true,
-    expandTitle: '🥭 과일',
-    linkLabel: '자세히 보기 🔗',
+    expandLinksLayout: 'row',
+    expandLinks: [
+      {
+        icon: '🏝️',
+        label: '열대과일 종류',
+        url: 'https://m.blog.naver.com/aalove0902/80205604757',
+        blogTitle: '세부 열대과일 종류',
+      },
+      {
+        icon: '🥭',
+        label: '망고 고르는법',
+        url: 'https://m.blog.naver.com/aalove0902/80187677430',
+        blogTitle: '망고 고르는 법',
+      },
+      {
+        icon: '🍇',
+        label: '망고스틴 고르는법',
+        url: 'https://m.blog.naver.com/aalove0902/80188133264',
+        blogTitle: '망고스틴 고르는 법',
+      },
+      {
+        icon: '🥥',
+        label: '코코넛 즐기기',
+        url: 'https://m.blog.naver.com/aalove0902/80188212044',
+        blogTitle: '코코넛 즐기기',
+      },
+    ],
   },
 ];

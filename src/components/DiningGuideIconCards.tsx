@@ -1,21 +1,81 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  UIManager,
+  View,
+} from 'react-native';
 import {
   DINING_GUIDE_TIPS,
+  DiningGuideExpandLink,
   DiningGuideTip,
   DiningGuideTipId,
 } from '../constants/diningGuideTips';
 import { colors, fonts } from '../constants/theme';
 
+type ExpandLinkLayout = 'default' | 'fruitRow4' | 'grid2x2';
+
 /** 2x3 그리드 — 3열 균등 분할 */
 const GRID_GAP = 7;
-const CARD_GRADIENT = ['#151c28', '#1a2332'] as const;
 
-const GRID_ROWS: DiningGuideTip[][] = [
-  DINING_GUIDE_TIPS.slice(0, 3),
-  DINING_GUIDE_TIPS.slice(3, 6),
-];
+/** 과일 상세 4열 버튼만 큼직하게 (메인·안내 문구와 분리) */
+const FRUIT_LINK_SCALE = 1.3;
+const fruitS = (n: number) => Math.round(n * FRUIT_LINK_SCALE);
+
+const MANGOSTEEN_LABEL = '망고스틴 고르는법';
+const CARD_GRADIENT: readonly [string, string] = ['#151c28', '#1a2332'];
+
+const CARD_MIN_HEIGHT = 92;
+const CARD_ICON_FONT_SIZE = 30;
+const CARD_ICON_LINE_HEIGHT = 33;
+const EXPAND_LINK_DEFAULT_MIN_HEIGHT = 56;
+const EXPAND_LINK_DEFAULT_ICON_SIZE = 16;
+
+if (Platform.OS === 'android') {
+  UIManager.setLayoutAnimationEnabledExperimental?.(true);
+}
+
+interface ExpandLinksProps {
+  links: DiningGuideExpandLink[];
+  onOpenLink: (url: string, title: string) => void;
+  renderLink: (
+    link: DiningGuideExpandLink,
+    layout: ExpandLinkLayout,
+  ) => React.ReactNode;
+}
+
+function ExpandLinksGrid({ links, renderLink }: ExpandLinksProps) {
+  const rows = [links.slice(0, 2), links.slice(2, 4)];
+  return (
+    <View style={styles.expandLinksGrid}>
+      {rows.map((row, rowIndex) => (
+        <View key={rowIndex} style={styles.expandLinksRow}>
+          {row.map((link) => renderLink(link, 'grid2x2'))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function ExpandLinksRow({
+  links,
+  renderLink,
+  isRow4,
+}: ExpandLinksProps & { isRow4: boolean }) {
+  return (
+    <View
+      style={[styles.expandLinksWrap, isRow4 && styles.expandLinksWrapRow4]}
+    >
+      {links.map((link) =>
+        renderLink(link, isRow4 ? 'fruitRow4' : 'default'),
+      )}
+    </View>
+  );
+}
 
 interface DiningGuideIconCardsProps {
   onOpenLink: (url: string, title: string) => void;
@@ -24,77 +84,136 @@ interface DiningGuideIconCardsProps {
 export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) {
   const [expandedId, setExpandedId] = useState<DiningGuideTipId | null>(null);
 
+  const GRID_ROWS = useMemo<DiningGuideTip[][]>(
+    () => [DINING_GUIDE_TIPS.slice(0, 3), DINING_GUIDE_TIPS.slice(3, 6)],
+    [],
+  );
+
   const handlePress = useCallback((id: DiningGuideTipId) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpandedId((prev) => (prev === id ? null : id));
   }, []);
 
   const expanded = DINING_GUIDE_TIPS.find((t) => t.id === expandedId);
 
-  const renderExpandLink = (
-    label: string,
-    url: string,
-    blogTitle: string,
-    key: string
-  ) => (
-    <Pressable
-      key={key}
-      onPress={() => onOpenLink(url, blogTitle)}
-      style={({ pressed }) => [
-        styles.expandLinkBtnCell,
-        styles.expandLinkBtn,
-        pressed && styles.expandLinkBtnPressed,
-      ]}
-      accessibilityRole="link"
-    >
-      <Text
-        style={styles.expandLinkBtnText}
-        numberOfLines={1}
-        adjustsFontSizeToFit
-        minimumFontScale={0.72}
-        ellipsizeMode="clip"
-      >
-        {label}
-      </Text>
-    </Pressable>
-  );
+  const renderExpandLink = useCallback(
+    (link: DiningGuideExpandLink, layout: ExpandLinkLayout) => {
+      const isFruitRow4 = layout === 'fruitRow4';
+      const isMangostein = link.label === MANGOSTEEN_LABEL;
 
-  const renderCard = (tip: DiningGuideTip) => {
-    const isActive = expandedId === tip.id;
-    return (
-      <Pressable
-        key={tip.id}
-        onPress={() => handlePress(tip.id)}
-        style={({ pressed }) => [
-          styles.cardCell,
-          isActive && styles.cardOuterActive,
-          pressed && styles.cardOuterPressed,
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel={tip.title}
-        accessibilityState={{ expanded: isActive }}
-      >
-        <LinearGradient
-          colors={[...CARD_GRADIENT]}
-          start={{ x: 0.15, y: 0 }}
-          end={{ x: 0.85, y: 1 }}
-          style={styles.card}
+      return (
+        <Pressable
+          key={link.url}
+          onPress={() => onOpenLink(link.url, link.blogTitle)}
+          style={({ pressed }) => [
+            styles.expandLinkBtnCell,
+            styles.expandLinkBtn,
+            layout === 'grid2x2' && styles.expandLinkBtnCompact,
+            isFruitRow4 && styles.expandLinkBtnFruitCompact,
+            pressed && styles.expandLinkBtnPressed,
+          ]}
+          accessibilityRole="link"
+          accessibilityLabel={link.label}
+          accessibilityHint={`${link.blogTitle} 블로그로 이동합니다`}
         >
-          <Text style={styles.cardIcon} accessibilityElementsHidden>
-            {tip.icon}
-          </Text>
+          {link.icon ? (
+            <Text
+              style={
+                isFruitRow4 ? styles.expandLinkIconFruit : styles.expandLinkIcon
+              }
+              accessibilityElementsHidden
+            >
+              {link.icon}
+            </Text>
+          ) : null}
           <Text
-            style={styles.cardTitle}
+            style={[
+              styles.expandLinkBtnText,
+              layout === 'grid2x2' && styles.expandLinkBtnTextCompact,
+              isFruitRow4 && styles.expandLinkBtnTextFruit,
+              isFruitRow4 && isMangostein && styles.expandLinkBtnTextFruitTight,
+            ]}
             numberOfLines={1}
-            adjustsFontSizeToFit
-            minimumFontScale={0.78}
+            adjustsFontSizeToFit={isFruitRow4 && !isMangostein}
+            minimumFontScale={0.72}
             ellipsizeMode="clip"
           >
-            {tip.compactTitle}
+            {link.label}
           </Text>
-        </LinearGradient>
-      </Pressable>
-    );
-  };
+        </Pressable>
+      );
+    },
+    [onOpenLink],
+  );
+
+  const renderExpandLinks = useCallback(
+    (tip: DiningGuideTip) => {
+      const links = tip.expandLinks ?? [];
+      const compactRow4 =
+        tip.expandLinksLayout === 'row' && links.length >= 4;
+
+      if (tip.expandLinksLayout === 'grid2x2' && links.length >= 4) {
+        return (
+          <ExpandLinksGrid
+            links={links}
+            onOpenLink={onOpenLink}
+            renderLink={renderExpandLink}
+          />
+        );
+      }
+
+      return (
+        <ExpandLinksRow
+          links={links}
+          onOpenLink={onOpenLink}
+          renderLink={renderExpandLink}
+          isRow4={compactRow4}
+        />
+      );
+    },
+    [onOpenLink, renderExpandLink],
+  );
+
+  const renderCard = useCallback(
+    (tip: DiningGuideTip) => {
+      const isActive = expandedId === tip.id;
+      return (
+        <Pressable
+          key={tip.id}
+          onPress={() => handlePress(tip.id)}
+          style={({ pressed }) => [
+            styles.cardCell,
+            isActive && styles.cardOuterActive,
+            pressed && styles.cardOuterPressed,
+          ]}
+          accessibilityRole="button"
+          accessibilityLabel={tip.title}
+          accessibilityState={{ expanded: isActive }}
+        >
+          <LinearGradient
+            colors={CARD_GRADIENT}
+            start={{ x: 0.15, y: 0 }}
+            end={{ x: 0.85, y: 1 }}
+            style={styles.card}
+          >
+            <Text style={styles.cardIcon} accessibilityElementsHidden>
+              {tip.icon}
+            </Text>
+            <Text
+              style={styles.cardTitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.78}
+              ellipsizeMode="clip"
+            >
+              {tip.compactTitle}
+            </Text>
+          </LinearGradient>
+        </Pressable>
+      );
+    },
+    [expandedId, handlePress],
+  );
 
   return (
     <View style={styles.wrap}>
@@ -107,14 +226,21 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
       </View>
 
       {expanded ? (
-        <View style={styles.expandPanel}>
+        <View
+          style={styles.expandPanel}
+          accessibilityLiveRegion="polite"
+          accessibilityRole="region"
+          accessibilityLabel={`${expanded.title} 상세 정보`}
+        >
           {expanded.expandSimple ? (
             <>
-              <Text style={styles.expandLead}>
-                {expanded.expandTitle ?? `💡 ${expanded.summary}`}
-              </Text>
+              {expanded.expandTitle ? (
+                <Text style={styles.expandLead}>{expanded.expandTitle}</Text>
+              ) : null}
               {expanded.expandBody ? (
                 <Text style={styles.expandBody}>{expanded.expandBody}</Text>
+              ) : !expanded.expandTitle ? (
+                <Text style={styles.expandBody}>💡 {expanded.summary}</Text>
               ) : null}
             </>
           ) : (
@@ -124,22 +250,21 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
             </>
           )}
           {expanded.expandLinks?.length ? (
-            <View style={styles.expandLinksWrap}>
-              {expanded.expandLinks.map((link) =>
-                renderExpandLink(link.label, link.url, link.blogTitle, link.url)
-              )}
-            </View>
+            renderExpandLinks(expanded)
           ) : (
             <Pressable
               onPress={() => onOpenLink(expanded.url, expanded.blogTitle)}
               style={({ pressed }) => [
-                expanded.expandSimple ? styles.expandLinkBtn : styles.detailLink,
+                expanded.expandSimple
+                  ? [styles.expandLinkBtn, styles.expandLinkBtnSingle]
+                  : styles.detailLink,
                 pressed &&
                   (expanded.expandSimple
                     ? styles.expandLinkBtnPressed
                     : styles.detailLinkPressed),
               ]}
               accessibilityRole="link"
+              accessibilityHint={`${expanded.blogTitle} 블로그로 이동합니다`}
             >
               <Text
                 style={
@@ -197,7 +322,7 @@ const styles = StyleSheet.create({
     opacity: 0.92,
   },
   card: {
-    minHeight: 92,
+    minHeight: CARD_MIN_HEIGHT,
     paddingVertical: 9,
     paddingHorizontal: 3,
     alignItems: 'center',
@@ -205,8 +330,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   cardIcon: {
-    fontSize: 30,
-    lineHeight: 33,
+    fontSize: CARD_ICON_FONT_SIZE,
+    lineHeight: CARD_ICON_LINE_HEIGHT,
   },
   cardTitle: {
     fontSize: 13,
@@ -240,11 +365,44 @@ const styles = StyleSheet.create({
     color: colors.textDesc,
     marginBottom: 12,
   },
+  expandLinksGrid: {
+    gap: 8,
+    width: '100%',
+  },
+  expandLinksRow: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 8,
+  },
   expandLinksWrap: {
     flexDirection: 'row',
     alignItems: 'stretch',
     gap: 8,
     width: '100%',
+  },
+  /** 과일 4열 — 글자 겹침 방지용 간격 */
+  expandLinksWrapRow4: {
+    gap: fruitS(5),
+  },
+  expandLinkBtnCompact: {
+    paddingVertical: 8,
+    paddingHorizontal: 2,
+    gap: 2,
+    minHeight: EXPAND_LINK_DEFAULT_MIN_HEIGHT,
+  },
+  expandLinkBtnFruitCompact: {
+    paddingVertical: fruitS(8),
+    paddingHorizontal: fruitS(2),
+    gap: fruitS(2),
+    minHeight: fruitS(EXPAND_LINK_DEFAULT_MIN_HEIGHT),
+  },
+  expandLinkIcon: {
+    fontSize: EXPAND_LINK_DEFAULT_ICON_SIZE,
+    lineHeight: 18,
+  },
+  expandLinkIconFruit: {
+    fontSize: fruitS(EXPAND_LINK_DEFAULT_ICON_SIZE),
+    lineHeight: fruitS(18),
   },
   expandLinkBtnCell: {
     flex: 1,
@@ -261,6 +419,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(3, 105, 161, 0.5)',
     borderWidth: 1,
     borderColor: 'rgba(125, 211, 252, 0.45)',
+    gap: 4,
+  },
+  expandLinkBtnSingle: {
+    alignSelf: 'stretch',
+    width: '100%',
+    minHeight: 44,
   },
   expandLinkBtnPressed: {
     opacity: 0.88,
@@ -274,6 +438,21 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     width: '100%',
     paddingHorizontal: 1,
+  },
+  expandLinkBtnTextCompact: {
+    fontSize: 9,
+    lineHeight: 12,
+  },
+  expandLinkBtnTextFruit: {
+    fontSize: fruitS(9),
+    lineHeight: fruitS(12),
+    paddingHorizontal: 0,
+  },
+  /** 망고스틴 — 가장 긴 라벨, 한 줄에 맞춤 */
+  expandLinkBtnTextFruitTight: {
+    fontSize: 10,
+    lineHeight: 13,
+    letterSpacing: -0.35,
   },
   expandHeading: {
     fontSize: 13,

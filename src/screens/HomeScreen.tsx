@@ -26,7 +26,7 @@ export function HomeScreen({ navigation }: Props) {
             onOpenLink={handleOpenLink}
             listHeaderTop={
               <View style={styles.heroWrap}>
-                <AppHeader />
+                <AppHeader onOpenLink={handleOpenLink} />
               </View>
             }
           />
