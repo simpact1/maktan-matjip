@@ -12,7 +12,7 @@ export function AppHeader({ onOpenLink }: AppHeaderProps) {
       <Text style={styles.eyebrow}>Philippines · Cebu</Text>
       <Text style={styles.title}>막탄 맛집 & 카페 가이드</Text>
       <Text style={styles.sub}>
-        <Text style={styles.subStrong}>막탄</Text> 맛집·카페 53곳을 지도와 목록으로
+        <Text style={styles.subStrong}>막탄</Text> 맛집·카페 54곳을 지도와 목록으로
         안내합니다. 세부여행플래너 블로그 후기와 연결됩니다.
       </Text>
 
@@ -56,7 +56,7 @@ export function AppHeader({ onOpenLink }: AppHeaderProps) {
 const styles = StyleSheet.create({
   hero: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 0,
     paddingHorizontal: 12,
   },
   eyebrow: {

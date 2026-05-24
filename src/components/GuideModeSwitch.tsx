@@ -4,8 +4,9 @@ import { GuideListMode } from '../types/restaurant';
 
 interface GuideModeSwitchProps {
   mode: GuideListMode;
+  mapActive: boolean;
   pickupCount: number;
-  resortMealCount: number;
+  viewSpotCount: number;
   resortDiningCount: number;
   totalCount: number;
   onChange: (mode: GuideListMode) => void;
@@ -14,15 +15,15 @@ interface GuideModeSwitchProps {
 const TABS: {
   key: GuideListMode;
   label: string;
-  countKey: 'total' | 'pickup' | 'meal' | 'dining';
+  countKey: 'total' | 'pickup' | 'view' | 'dining';
   activeStyle: 'tabActive' | 'tabActivePickup' | 'tabActiveMeal' | 'tabActiveResort';
 }[] = [
   { key: 'all', label: '전체 맛집', countKey: 'total', activeStyle: 'tabActive' },
   { key: 'pickupDrop', label: '🚐 픽업·드랍', countKey: 'pickup', activeStyle: 'tabActivePickup' },
   {
-    key: 'resortMeal',
-    label: '🍳 밖에서 식사',
-    countKey: 'meal',
+    key: 'viewSpots',
+    label: '🌅 뷰맛집',
+    countKey: 'view',
     activeStyle: 'tabActiveMeal',
   },
   {
@@ -35,8 +36,9 @@ const TABS: {
 
 export function GuideModeSwitch({
   mode,
+  mapActive,
   pickupCount,
-  resortMealCount,
+  viewSpotCount,
   resortDiningCount,
   totalCount,
   onChange,
@@ -44,23 +46,43 @@ export function GuideModeSwitch({
   const counts = {
     total: totalCount,
     pickup: pickupCount,
-    meal: resortMealCount,
+    view: viewSpotCount,
     dining: resortDiningCount,
   };
 
   const renderTab = (tab: (typeof TABS)[number]) => {
-    const isActive = mode === tab.key;
+    const isSelected = mode === tab.key;
+    const isMapOn = isSelected && mapActive;
     return (
       <Pressable
         key={tab.key}
         onPress={() => onChange(tab.key)}
-        style={[styles.tab, isActive && styles[tab.activeStyle]]}
+        style={[
+          styles.tab,
+          isSelected && styles[tab.activeStyle],
+          isSelected && !isMapOn && styles.tabMapOff,
+        ]}
+        accessibilityRole="button"
+        accessibilityState={{ selected: isSelected, expanded: isMapOn }}
+        accessibilityLabel={`${tab.label} ${counts[tab.countKey]}곳`}
       >
-        <Text style={[styles.tabText, isActive && styles.tabTextActive]}>
+        <Text
+          style={[
+            styles.tabText,
+            isSelected && styles.tabTextActive,
+            isSelected && !isMapOn && styles.tabTextMapOff,
+          ]}
+        >
           {tab.label}
         </Text>
-        <Text style={[styles.tabSub, isActive && styles.tabSubActive]}>
-          {counts[tab.countKey]}곳
+        <Text
+          style={[
+            styles.tabSub,
+            isSelected && styles.tabSubActive,
+            isSelected && !isMapOn && styles.tabSubMapOff,
+          ]}
+        >
+          {isMapOn ? `${counts[tab.countKey]}곳` : '지도 숨김'}
         </Text>
       </Pressable>
     );
@@ -68,7 +90,10 @@ export function GuideModeSwitch({
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.hint}>탭을 눌러 목록·지도를 전환하세요</Text>
+      <Text style={styles.hint}>
+        탭을 눌러 목록·지도를 전환하세요. 같은 탭을 다시 누르면 지도 마커를
+        숨기거나 다시 표시합니다.
+      </Text>
       <View style={styles.row}>
         {renderTab(TABS[0]!)}
         {renderTab(TABS[1]!)}
@@ -84,7 +109,7 @@ export function GuideModeSwitch({
 const styles = StyleSheet.create({
   wrap: {
     marginHorizontal: 12,
-    marginBottom: 12,
+    marginBottom: 8,
   },
   hint: {
     fontSize: 11,
@@ -129,6 +154,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(26, 115, 232, 0.55)',
     borderColor: 'rgba(147, 197, 253, 0.75)',
   },
+  /** 선택된 탭이지만 지도 마커 숨김 */
+  tabMapOff: {
+    opacity: 0.55,
+    borderStyle: 'dashed',
+  },
   tabText: {
     fontSize: 13,
     fontFamily: fonts.bold,
@@ -138,6 +168,9 @@ const styles = StyleSheet.create({
   tabTextActive: {
     color: colors.mactanActiveText,
   },
+  tabTextMapOff: {
+    color: colors.tabIdleText,
+  },
   tabSub: {
     marginTop: 3,
     fontSize: 11,
@@ -146,5 +179,8 @@ const styles = StyleSheet.create({
   },
   tabSubActive: {
     color: '#f0f9ff',
+  },
+  tabSubMapOff: {
+    color: colors.textMuted,
   },
 });

@@ -1,3 +1,5 @@
+import { NIGHT_MARKET_GUIDE_PASSAGE } from './nightMarketGuideText';
+
 export type DiningGuideTipId =
   | 'meal-tips'
   | 'filipino-food'
@@ -120,14 +122,12 @@ export const DINING_GUIDE_TIPS: DiningGuideTip[] = [
     title: '야시장',
     compactTitle: '야시장',
     summary:
-      '세부 현지 밤 문화를 즐길 수 있는 대표 야시장 정보! 활기찬 분위기와 다양한 길거리 음식을 만나보세요.',
-    expandBody:
-      '• 세부 현지 밤 문화를 즐길 수 있는 대표 야시장 정보! 활기찬 분위기와 다양한 길거리 음식을 만나보세요.',
-    url: 'https://m.blog.naver.com/aalove0902/221655823122',
+      '막탄·세부시티 대표 야시장 4곳! 지도에서 위치를 확인하고 생생 후기를 볼 수 있어요.',
+    url: 'https://m.blog.naver.com/aalove0902/223451364466',
     blogTitle: '세부 야시장',
     expandSimple: true,
     expandTitle: '🌙 야시장',
-    linkLabel: '자세히 보기 🔗',
+    expandBody: NIGHT_MARKET_GUIDE_PASSAGE,
   },
   {
     id: 'fruits',

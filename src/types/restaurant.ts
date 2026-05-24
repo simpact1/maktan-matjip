@@ -8,7 +8,7 @@ export type RestaurantCategory =
 
 export type FilterCategory = 'all' | RestaurantCategory;
 
-export type GuideListMode = 'all' | 'pickupDrop' | 'resortMeal' | 'resortDining';
+export type GuideListMode = 'all' | 'pickupDrop' | 'viewSpots' | 'resortDining';
 
 export type ResortMealType = '조식' | '석식';
 
@@ -20,7 +20,7 @@ export type RestaurantZone =
   | '막탄뉴타운'
   | '마리바고/블루워터'
   | '공항인근'
-  | '코르도바';
+  | '솔레아';
 
 export type MenuType =
   | '씨푸드'

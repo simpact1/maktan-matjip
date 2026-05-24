@@ -5,11 +5,13 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts, gradient } from '../constants/theme';
 import { RootStackParamList } from '../navigation/types';
+import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BlogWebView'>;
 
 export function BlogWebViewScreen({ navigation, route }: Props) {
   const { url, title } = route.params;
+  const mobileUrl = toMobileNaverBlogUrl(url);
 
   return (
     <LinearGradient
@@ -30,7 +32,7 @@ export function BlogWebViewScreen({ navigation, route }: Props) {
         <View style={styles.webWrap}>
           <iframe
             title={title}
-            src={url}
+            src={mobileUrl}
             style={iframeStyle}
             sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
           />

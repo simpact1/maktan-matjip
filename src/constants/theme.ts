@@ -34,6 +34,16 @@ export const colors = {
   radiusSm: 8,
 };
 
+/** 정보성 팁 2×3 그리드 — 다크 민트 톤 (앱 배경과 블렌딩) */
+export const diningGuideTipTheme = {
+  bg: 'rgba(11, 37, 46, 0.6)',
+  border: 'rgba(255, 255, 255, 0.05)',
+  borderActive: 'rgba(31, 78, 91, 0.85)',
+  text: '#F8F9FA',
+  panelBg: 'rgba(4, 47, 46, 0.88)',
+  panelBorder: 'rgba(255, 255, 255, 0.08)',
+} as const;
+
 export const categoryColors: Record<string, string> = {
   korean: '#34d399',
   seafood: '#38bdf8',

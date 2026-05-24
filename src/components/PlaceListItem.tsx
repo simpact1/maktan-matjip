@@ -3,23 +3,14 @@ import { Pressable, Text, View } from 'react-native';
 import { getZoneLabel } from '../constants/filters';
 import { guideStyles } from '../styles/guideStyles';
 import { Restaurant } from '../types/restaurant';
-import { getRestaurantLinks } from '../utils/restaurantLinks';
 
 interface PlaceListItemProps {
   restaurant: Restaurant;
-  isOpen: boolean;
-  onToggle: () => void;
-  onOpenLink: (url: string) => void;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-export function PlaceListItem({
-  restaurant,
-  isOpen,
-  onToggle,
-  onOpenLink,
-}: PlaceListItemProps) {
-  const links = getRestaurantLinks(restaurant);
-
+export function PlaceListItem({ restaurant, isSelected, onSelect }: PlaceListItemProps) {
   const itemTags = useMemo(() => {
     const tags: {
       key: string;
@@ -55,12 +46,13 @@ export function PlaceListItem({
   }, [restaurant]);
 
   return (
-    <View style={guideStyles.item}>
+    <View style={[guideStyles.item, isSelected && guideStyles.itemSelectedRestaurant]}>
       <Pressable
         style={guideStyles.itemBtn}
-        onPress={onToggle}
+        onPress={onSelect}
         accessibilityRole="button"
-        accessibilityState={{ expanded: isOpen }}
+        accessibilityLabel={restaurant.name}
+        accessibilityState={{ selected: isSelected }}
       >
         <View style={guideStyles.itemTitleRow}>
           <Text style={guideStyles.itemTitle}>{restaurant.name}</Text>
@@ -79,27 +71,8 @@ export function PlaceListItem({
             ))}
           </View>
         </View>
-        <Text style={guideStyles.chev}>{isOpen ? '▲' : '▼'}</Text>
+        <Text style={guideStyles.chev}>{isSelected ? '●' : '›'}</Text>
       </Pressable>
-      {isOpen && (
-        <View style={guideStyles.itemDetail}>
-          <Text style={guideStyles.itemDesc}>{restaurant.desc}</Text>
-          {links.length > 0 && (
-            <View style={guideStyles.itemActions}>
-              {links.map((link) => (
-                <Pressable key={link.url} onPress={() => onOpenLink(link.url)}>
-                  <Text style={guideStyles.itemLink}>{link.text} →</Text>
-                </Pressable>
-              ))}
-            </View>
-          )}
-          {restaurant.pickupDrop && restaurant.pickupDropNote ? (
-            <Text style={guideStyles.pickupNote}>
-              🚌 {restaurant.pickupDropNote}
-            </Text>
-          ) : null}
-        </View>
-      )}
     </View>
   );
 }

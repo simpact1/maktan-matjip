@@ -5,11 +5,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { colors, fonts, gradient } from '../constants/theme';
 import { RootStackParamList } from '../navigation/types';
+import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BlogWebView'>;
 
 export function BlogWebViewScreen({ navigation, route }: Props) {
   const { url, title } = route.params;
+  const mobileUrl = toMobileNaverBlogUrl(url);
 
   return (
     <LinearGradient
@@ -29,7 +31,7 @@ export function BlogWebViewScreen({ navigation, route }: Props) {
         </View>
         <View style={styles.webWrap}>
           <WebView
-            source={{ uri: url }}
+            source={{ uri: mobileUrl }}
             style={styles.web}
             startInLoadingState
             renderLoading={() => (

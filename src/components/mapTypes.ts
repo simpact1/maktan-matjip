@@ -1,31 +1,37 @@
 import { Restaurant } from '../types/restaurant';
+import { NightMarket } from '../types/nightMarket';
 import { MactanResort } from '../types/resort';
-import { MapLayerMode } from './MapLayerToggle';
 
 export interface ClusterMapProps {
   restaurants: Restaurant[];
   resorts: MactanResort[];
-  mapLayerMode: MapLayerMode;
+  nightMarkets: NightMarket[];
   showRestaurants: boolean;
   showResorts: boolean;
-  focusedItemId: string | null;
-  focusedResortId: string | null;
+  showNightMarkets: boolean;
+  selectedRestaurantId: string | null;
+  selectedResortId: string | null;
+  selectedNightMarketId: string | null;
   onSelectRestaurant: (id: string) => void;
   onSelectResort: (id: string) => void;
+  onSelectNightMarket: (id: string) => void;
+  onClearMapSelection?: () => void;
 }
 
 export type MapPoint = {
   id: string;
   lat: number;
   lng: number;
-  kind: 'restaurant' | 'resort';
+  kind: 'restaurant' | 'resort' | 'nightMarket';
 };
 
 export function collectVisibleMapPoints(
   restaurants: Restaurant[],
   resorts: MactanResort[],
+  nightMarkets: NightMarket[],
   showRestaurants: boolean,
-  showResorts: boolean
+  showResorts: boolean,
+  showNightMarkets: boolean
 ): MapPoint[] {
   const points: MapPoint[] = [];
   if (showRestaurants) {
@@ -36,6 +42,11 @@ export function collectVisibleMapPoints(
   if (showResorts) {
     for (const r of resorts) {
       points.push({ id: r.id, lat: r.lat, lng: r.lng, kind: 'resort' });
+    }
+  }
+  if (showNightMarkets) {
+    for (const m of nightMarkets) {
+      points.push({ id: m.id, lat: m.lat, lng: m.lng, kind: 'nightMarket' });
     }
   }
   return points;

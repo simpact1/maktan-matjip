@@ -1,11 +1,27 @@
+import { RestaurantZone } from '../types/restaurant';
 import { MactanResort } from '../types/resort';
 
-export function filterResorts(resorts: MactanResort[], query: string): MactanResort[] {
-  const normalizedQuery = query.trim().toLowerCase();
-  if (!normalizedQuery) {
-    return resorts;
+export interface ResortFilters {
+  query: string;
+  zone: RestaurantZone | null;
+}
+
+export function filterResorts(
+  resorts: MactanResort[],
+  filters: ResortFilters
+): MactanResort[] {
+  let result = resorts;
+
+  if (filters.zone) {
+    result = result.filter((r) => r.zone === filters.zone);
   }
-  return resorts.filter((r) => {
+
+  const normalizedQuery = filters.query.trim().toLowerCase();
+  if (!normalizedQuery) {
+    return result;
+  }
+
+  return result.filter((r) => {
     const haystack = [
       r.name,
       r.breakfast,

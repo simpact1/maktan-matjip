@@ -1,9 +1,11 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { useEffect, useMemo, type CSSProperties } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { useEffect, useMemo, useRef, type CSSProperties } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import type { Marker as LeafletMarker } from 'leaflet';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors, fonts, MACTAN_CENTER, menuTypeColors } from '../constants/theme';
+import { NightMarket } from '../types/nightMarket';
 import { Restaurant } from '../types/restaurant';
 import { MactanResort } from '../types/resort';
 import { ClusterMapProps, collectVisibleMapPoints, MapPoint } from './mapTypes';
@@ -26,17 +28,19 @@ const resortIcon = L.divIcon({
   iconAnchor: [11, 11],
 });
 
-function MapFitAndFocus({
-  points,
-  focusedItemId,
-  focusedResortId,
-}: {
-  points: MapPoint[];
-  focusedItemId: string | null;
-  focusedResortId: string | null;
-}) {
+const nightMarketIcon = L.divIcon({
+  className: '',
+  html: `<span style="background:linear-gradient(135deg,#4c1d95,#7c3aed);width:26px;height:26px;border-radius:8px;border:2px solid #fde68a;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 8px rgba(76,29,149,0.45)">🎪</span>`,
+  iconSize: [26, 26],
+  iconAnchor: [13, 13],
+});
+
+function MapFitBounds({ points }: { points: MapPoint[] }) {
   const map = useMap();
-  const boundsKey = useMemo(() => points.map((p) => p.id).join('|'), [points]);
+  const boundsKey = useMemo(
+    () => points.map((p) => `${p.id}:${p.lat},${p.lng}`).join('|'),
+    [points]
+  );
 
   useEffect(() => {
     if (points.length === 0) {
@@ -53,88 +57,201 @@ function MapFitAndFocus({
     return () => window.clearTimeout(t);
   }, [map, boundsKey, points]);
 
+  return null;
+}
+
+function MapFocusNightMarket({
+  nightMarkets,
+  selectedNightMarketId,
+}: {
+  nightMarkets: NightMarket[];
+  selectedNightMarketId: string | null;
+}) {
+  const map = useMap();
+
   useEffect(() => {
-    const focusId = focusedResortId ?? focusedItemId;
-    if (!focusId) {
+    if (!selectedNightMarketId) {
       return;
     }
-    const target = points.find((p) => p.id === focusId);
+    const target = nightMarkets.find((m) => m.id === selectedNightMarketId);
     if (!target) {
       return;
     }
-    map.flyTo([target.lat, target.lng], 16, { duration: 0.45 });
-  }, [map, focusedItemId, focusedResortId, points]);
+    const zoom = target.region === 'cebu-city' ? 15 : 14;
+    map.flyTo([target.lat, target.lng], zoom, { duration: 0.55 });
+  }, [map, nightMarkets, selectedNightMarketId]);
 
   return null;
 }
 
-function blogUrl(restaurant: Restaurant): string | undefined {
-  if (restaurant.link) {
-    return restaurant.link;
-  }
-  return restaurant.links?.[0]?.url;
+function MapBackgroundClickHandler({ onBackgroundClick }: { onBackgroundClick: () => void }) {
+  useMapEvents({
+    click: () => onBackgroundClick(),
+  });
+  return null;
 }
 
-function ResortPopup({ resort }: { resort: MactanResort }) {
+function CompactMapMarker({
+  position,
+  icon,
+  isSelected,
+  onSelect,
+  title,
+  hint,
+}: {
+  position: [number, number];
+  icon: L.DivIcon;
+  isSelected: boolean;
+  onSelect: () => void;
+  title: string;
+  hint: string;
+}) {
+  const markerRef = useRef<LeafletMarker>(null);
+
+  useEffect(() => {
+    markerRef.current?.setLatLng(position);
+  }, [position]);
+
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (!marker) {
+      return;
+    }
+    if (isSelected) {
+      marker.openPopup();
+    } else {
+      marker.closePopup();
+    }
+  }, [isSelected]);
+
   return (
-    <div style={resortPopup.wrap}>
-      <div style={resortPopup.header}>
-        <strong style={resortPopup.headerTitle}>🏨 {resort.name}</strong>
-      </div>
-      <div style={resortPopup.section}>
-        <strong style={resortPopup.breakfastLabel}>🍳 아침 식사 가이드</strong>
-        <p style={resortPopup.body}>{resort.breakfast}</p>
-      </div>
-      <hr style={resortPopup.hr} />
-      <div style={resortPopup.section}>
-        <strong style={resortPopup.dinnerLabel}>🍽️ 저녁 식사 가이드</strong>
-        <p style={resortPopup.body}>{resort.dinner}</p>
-      </div>
-      {resort.otherVenues.length > 0 ? (
-        <>
-          <hr style={resortPopup.hr} />
-          <div style={resortPopup.section}>
-            <strong style={resortPopup.otherLabel}>🍴 기타 다이닝</strong>
-            <ul style={resortPopup.otherList}>
-              {resort.otherVenues.map((venue) => (
-                <li key={venue.name} style={resortPopup.otherItem}>
-                  <strong>{venue.name}</strong> — {venue.summary}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      ) : null}
-    </div>
+    <Marker
+      ref={markerRef}
+      position={position}
+      icon={icon}
+      eventHandlers={{
+        click: (event) => {
+          L.DomEvent.stopPropagation(event);
+          onSelect();
+        },
+      }}
+    >
+      <Popup closeButton={false} maxWidth={200} minWidth={120} autoPan={false}>
+        <div style={compactPopup.wrap}>
+          <strong style={compactPopup.title}>{title}</strong>
+          <span style={compactPopup.hint}>{hint}</span>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
+function RestaurantMapMarker({
+  restaurant,
+  isSelected,
+  onSelect,
+}: {
+  restaurant: Restaurant;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <CompactMapMarker
+      position={[restaurant.lat, restaurant.lng]}
+      icon={categoryIcon(menuTypeColors[restaurant.menuType] ?? menuTypeColors['기타'])}
+      isSelected={isSelected}
+      onSelect={onSelect}
+      title={restaurant.name}
+      hint="↓ 아래에서 상세 보기"
+    />
+  );
+}
+
+function ResortMapMarker({
+  resort,
+  isSelected,
+  onSelect,
+}: {
+  resort: MactanResort;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <CompactMapMarker
+      position={[resort.lat, resort.lng]}
+      icon={resortIcon}
+      isSelected={isSelected}
+      onSelect={onSelect}
+      title={`🏨 ${resort.name}`}
+      hint="↓ 아래에서 상세 보기"
+    />
+  );
+}
+
+function NightMarketMapMarker({
+  market,
+  isSelected,
+  onSelect,
+}: {
+  market: NightMarket;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <CompactMapMarker
+      position={[market.lat, market.lng]}
+      icon={nightMarketIcon}
+      isSelected={isSelected}
+      onSelect={onSelect}
+      title={`🎪 ${market.name}`}
+      hint="↓ 아래에서 상세 보기"
+    />
   );
 }
 
 export function ClusterMap({
   restaurants,
   resorts,
-  mapLayerMode,
+  nightMarkets,
   showRestaurants,
   showResorts,
-  focusedItemId,
-  focusedResortId,
+  showNightMarkets,
+  selectedRestaurantId,
+  selectedResortId,
+  selectedNightMarketId,
   onSelectRestaurant,
   onSelectResort,
+  onSelectNightMarket,
+  onClearMapSelection,
 }: ClusterMapProps) {
   const visiblePoints = useMemo(
-    () => collectVisibleMapPoints(restaurants, resorts, showRestaurants, showResorts),
-    [restaurants, resorts, showRestaurants, showResorts]
+    () =>
+      collectVisibleMapPoints(
+        restaurants,
+        resorts,
+        nightMarkets,
+        showRestaurants,
+        showResorts,
+        showNightMarkets
+      ),
+    [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
   );
 
   const mapKey = useMemo(
     () =>
       [
-        showRestaurants ? restaurants.map((r) => r.id).join(',') : '',
-        showResorts ? resorts.map((r) => r.id).join(',') : '',
+        showRestaurants
+          ? restaurants.map((r) => `${r.id}:${r.lat},${r.lng}`).join(',')
+          : '',
+        showResorts ? resorts.map((r) => `${r.id}:${r.lat},${r.lng}`).join(',') : '',
+        showNightMarkets
+          ? nightMarkets.map((m) => `${m.id}:${m.lat},${m.lng}`).join(',')
+          : '',
       ].join('|'),
-    [restaurants, resorts, showRestaurants, showResorts]
+    [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
   );
 
-  const mapVisible = showRestaurants || showResorts;
+  const mapVisible = showRestaurants || showResorts || showNightMarkets;
 
   if (!mapVisible) {
     return (
@@ -169,78 +286,60 @@ export function ClusterMap({
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {onClearMapSelection ? (
+            <MapBackgroundClickHandler onBackgroundClick={onClearMapSelection} />
+          ) : null}
           {showRestaurants &&
             restaurants.map((r) => (
-              <Marker
-                key={`rest-${r.id}`}
-                position={[r.lat, r.lng]}
-                icon={categoryIcon(
-                  menuTypeColors[r.menuType] ?? menuTypeColors['기타']
-                )}
-                eventHandlers={{ click: () => onSelectRestaurant(r.id) }}
-              >
-                <Popup>
-                  <div style={popupStyles.wrap}>
-                    <strong style={popupStyles.title}>{r.name}</strong>
-                    <p style={popupStyles.desc}>{r.desc}</p>
-                    {blogUrl(r) ? (
-                      <a href={blogUrl(r)} target="_blank" rel="noopener noreferrer" style={popupStyles.link}>
-                        블로그 후기 보기
-                      </a>
-                    ) : null}
-                  </div>
-                </Popup>
-              </Marker>
+              <RestaurantMapMarker
+                key={`rest-${r.id}-${r.lat}-${r.lng}`}
+                restaurant={r}
+                isSelected={selectedRestaurantId === r.id}
+                onSelect={() => onSelectRestaurant(r.id)}
+              />
             ))}
           {showResorts &&
             resorts.map((resort) => (
-              <Marker
-                key={`resort-${resort.id}`}
-                position={[resort.lat, resort.lng]}
-                icon={resortIcon}
-                eventHandlers={{ click: () => onSelectResort(resort.id) }}
-              >
-                <Popup maxWidth={350}>
-                  <ResortPopup resort={resort} />
-                </Popup>
-              </Marker>
+              <ResortMapMarker
+                key={`resort-${resort.id}-${resort.lat}-${resort.lng}`}
+                resort={resort}
+                isSelected={selectedResortId === resort.id}
+                onSelect={() => onSelectResort(resort.id)}
+              />
             ))}
-          <MapFitAndFocus
-            points={visiblePoints}
-            focusedItemId={focusedItemId}
-            focusedResortId={focusedResortId}
-          />
+          {showNightMarkets &&
+            nightMarkets.map((market) => (
+              <NightMarketMapMarker
+                key={`night-${market.id}-${market.lat}-${market.lng}`}
+                market={market}
+                isSelected={selectedNightMarketId === market.id}
+                onSelect={() => onSelectNightMarket(market.id)}
+              />
+            ))}
+          <MapFitBounds points={visiblePoints} />
+          {showNightMarkets ? (
+            <MapFocusNightMarket
+              nightMarkets={nightMarkets}
+              selectedNightMarketId={selectedNightMarketId}
+            />
+          ) : null}
         </MapContainer>
       </View>
     </View>
   );
 }
 
-const resortPopup: Record<string, CSSProperties> = {
+const compactPopup: Record<string, CSSProperties> = {
   wrap: {
     margin: 0,
     fontFamily: 'system-ui, sans-serif',
-    fontSize: 13,
-    lineHeight: 1.5,
+    fontSize: 12,
+    lineHeight: 1.4,
     color: '#333',
-    maxWidth: 320,
+    padding: '2px 0',
   },
-  header: {
-    background: '#1a73e8',
-    color: '#fff',
-    padding: 10,
-    borderRadius: '6px 6px 0 0',
-    margin: '-12px -12px 10px -12px',
-  },
-  headerTitle: { fontSize: 15 },
-  section: { padding: '4px 0' },
-  breakfastLabel: { color: '#d93025', display: 'block', marginBottom: 4 },
-  dinnerLabel: { color: '#1e8e3e', display: 'block', marginBottom: 4 },
-  otherLabel: { color: '#1a73e8', display: 'block', marginBottom: 6 },
-  body: { margin: 0, color: '#5f6368', fontSize: 12 },
-  hr: { border: 0, borderTop: '1px solid #e8eaed', margin: '8px 0' },
-  otherList: { margin: '4px 0 0', paddingLeft: 16, fontSize: 12, lineHeight: 1.5 },
-  otherItem: { marginBottom: 6, color: '#5f6368' },
+  title: { display: 'block', fontSize: 13, marginBottom: 2 },
+  hint: { display: 'block', fontSize: 11, color: '#5f6368' },
 };
 
 const webMapStyle: CSSProperties = {
@@ -248,20 +347,6 @@ const webMapStyle: CSSProperties = {
   width: '100%',
   borderRadius: 9,
   zIndex: 0,
-};
-
-const popupStyles: Record<string, CSSProperties> = {
-  wrap: {
-    margin: 0,
-    fontFamily: 'system-ui, sans-serif',
-    fontSize: 13,
-    lineHeight: 1.45,
-    color: '#042f2e',
-    maxWidth: 220,
-  },
-  title: { display: 'block', fontWeight: 700, marginBottom: 4 },
-  desc: { margin: '0 0 8px', fontSize: 12, color: '#0f766e' },
-  link: { color: '#0369a1', fontWeight: 600 },
 };
 
 const styles = StyleSheet.create({
@@ -281,8 +366,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.12)',
     backgroundColor: '#aad3df',
-    touchAction: 'pan-y',
-  } as const,
+  },
   mapBoxEmpty: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },

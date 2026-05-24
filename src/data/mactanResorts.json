@@ -2,286 +2,377 @@
   {
     "id": "r1",
     "name": "샹그릴라 막탄 리조트",
-    "lat": 10.3012,
-    "lng": 124.0185,
-    "breakfast": "⭐️⭐️⭐️⭐️⭐️ 타이즈/아쿠아 두 곳 이용 가능. 망고 무제한 제공, 가짓수와 퀄리티 모두 막탄 최고 존엄.",
-    "dinner": "타이즈 테마 뷔페(해산물/바베큐) 및 코리코브 해산물 레스토랑(선셋 명당, 사전 예약 필수).",
+    "lat": 10.30795,
+    "lng": 124.01951,
+    "zone": "샹그릴라",
+    "breakfast": "타이즈 (Tides) 메인 뷔페. 망고 무제한, 가짓수·퀄리티 모두 막탄 최고급 조식.",
+    "dinner": "타이즈 테마 뷔페(해산물·바베큐), 아쿠아 이탈리안, 또는 코리 코브 해변 그릴(선셋·예약 권장).",
+    "blogLink": {
+      "label": "샹그릴라 레스토랑 총정리",
+      "url": "https://m.blog.naver.com/aalove0902/220782435058"
+    },
     "otherVenues": [
       {
-        "name": "CHI",
-        "summary": "광동·딤섬 중식. 단품·코스, 주말·성수기 예약 필수."
+        "name": "타이즈 (Tides)",
+        "summary": "메인 뷔페. 조·석식, 테마 나이트 운영."
       },
       {
-        "name": "Aqua Grotto",
-        "summary": "동굴 컨셉 이탈리안. 파스타·피자, 로맨틱 디너."
+        "name": "아쿠아 (Acqua)",
+        "summary": "이탈리안 레스토랑. 파스타·피자·와인."
       },
       {
-        "name": "Lobby Lounge",
-        "summary": "애프터눈 티·디저트·칵테일. 가벼운 미팅·휴식."
+        "name": "티 오브 스프링 (Tea of Spring)",
+        "summary": "고급 중식당. 딤섬·광동·코스 요리."
       },
       {
-        "name": "Pool / Beach Bar",
-        "summary": "풀·비치 사이드 스낵·음료. 물놀이 후 간편 식사."
+        "name": "코리 코브 (Cowrie Cove)",
+        "summary": "해변가 해산물 그릴 & 바. 마리바고에서 이전, 선셋·석식 명당."
       }
     ]
   },
   {
     "id": "r2",
     "name": "제이파크 아일랜드 리조트",
-    "lat": 10.2831,
-    "lng": 124.0012,
-    "breakfast": "⭐️⭐️⭐️⭐️ 아발론 뷔페. 한식 코너(김치, 국, 불고기 등)가 매우 잘 되어 있어 부모님이나 아동 동반 여행객 만족도 최상.",
-    "dinner": "아발론 석식 뷔페 (금/토 해산물 특선 추천, 성인 기준 산미구엘 생맥주 무제한 포함 여부 확인 필수).",
+    "lat": 10.282,
+    "lng": 123.99644,
+    "zone": "제이파크/샹스",
+    "breakfast": "아발론 (The Avalon) 메인 뷔페. 한식·필리피노·양식 조식, 가족·한식 여행객 만족도 높음.",
+    "dinner": "아발론 석식 뷔페(금·토 해산물 특선), 또는 코랄·칭하이 단품 이용.",
+    "reviewLinks": [
+      {
+        "label": "아발론 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/224117304237"
+      },
+      {
+        "label": "한식당 마루 리얼 후기",
+        "url": "https://m.blog.naver.com/aalove0902/224173906476"
+      },
+      {
+        "label": "코랄 씨푸드 카페 후기 보기",
+        "url": "https://m.cafe.naver.com/cebutravelplanner/17867"
+      },
+      {
+        "label": "일식당 논끼 후기 보기",
+        "url": "https://m.blog.naver.com/aalove0902/221162969712"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Galerie",
-        "summary": "유럽식 à la carte. 조용한 실내, 기념일 단품 식사."
+        "name": "아발론 (The Avalon - 메인 뷔페)",
+        "summary": "메인 뷔페. 조·석식 올데이 다이닝."
       },
       {
-        "name": "Olivo",
-        "summary": "이탈리안·지중해. 파스타·피자, 가족 단품."
+        "name": "칭하이 (Ching Hai - 중식당)",
+        "summary": "중식당. 딤섬·중식 단품·코스."
       },
       {
-        "name": "비치·풀 바",
-        "summary": "버거·핫도그·맥주. 워터파크·해변 이용객 간식."
+        "name": "코랄 (Coral - 해변 씨푸드 레스토랑)",
+        "summary": "해변 씨푸드 레스토랑. 신선한 해산물·오션뷰."
       },
       {
-        "name": "룸서비스",
-        "summary": "24시간 한정 메뉴. 늦은 도착·아이 동반 시 유용."
+        "name": "논끼 (Nonki - 일식당)",
+        "summary": "일식당. 스시·라멘·단품."
+      },
+      {
+        "name": "마루 (Maru - 정통 한식당)",
+        "summary": "정통 한식당. 한국인 자유여행객 필수 코스, 김치·비빔밥·구이 등."
       }
     ]
   },
   {
     "id": "r3",
     "name": "쉐라톤 세부 막탄 리조트",
-    "lat": 10.3045,
-    "lng": 124.0245,
-    "breakfast": "⭐️⭐️⭐️⭐️ 5 Cien 레스토랑. 신상 리조트답게 세련된 플레이팅, 현지식과 양식 조화가 좋고 특히 베이커리/디저트 섹션 강세.",
-    "dinner": "5 Cien 디너 뷔페 또는 디프(Dip) 페루-일본 퓨전 레스토랑에서 이색적인 다이닝 가능.",
+    "lat": 10.3172,
+    "lng": 124.0275,
+    "zone": "공항인근",
+    "breakfast": "5 Cien (5 시엔) 메인 올데이 뷔페. 현지식·양식 조화, 베이커리·디저트 섹션 강세.",
+    "dinner": "5 Cien 디너 뷔페, 딥 블루 핫팟, 또는 부히 바 해변 바.",
+    "reviewLinks": [
+      {
+        "label": "쉐라톤 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/223481796886"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Dip",
-        "summary": "페루·일본 퓨전. 세비체·스시·단품, 예약 추천."
+        "name": "5 Cien (5 시엔)",
+        "summary": "메인 올데이 뷔페. 조·석식·브런치."
       },
       {
-        "name": "Lobby Bar",
-        "summary": "칵테일·와인·라이트 스낵. 라운지 분위기."
+        "name": "딥 블루 (Dip Dip Dip)",
+        "summary": "고급 핫팟 레스토랑. 예약 추천."
       },
       {
-        "name": "Kai Cafe",
-        "summary": "카페·베이커리. 브런치 대용·디저트."
-      },
-      {
-        "name": "룸서비스",
-        "summary": "인터내셔널 단품. 늦은 석식·아이 메뉴."
+        "name": "부히 바 (Buhi Bar)",
+        "summary": "동굴 컨셉 해변 바. 칵테일·스낵·야경."
       }
     ]
   },
   {
     "id": "r4",
-    "name": "두짓타니 막탄 세부 리조트",
-    "lat": 10.3115,
-    "lng": 124.026,
-    "breakfast": "⭐️⭐️⭐️ Sea Breeze 레스토랑. 탁 트인 인피니티 풀과 막탄 서쪽 바다 뷰를 보며 식사 가능. 가짓수는 무난한 편.",
-    "dinner": "선셋이 아름다운 씨브리즈 디너 뷔페. 타이 풍미 레스토랑 벤자롱(Benjarong)의 태국 요리 단품도 강력 추천.",
+    "name": "두싯타니 막탄 리조트",
+    "lat": 10.3275,
+    "lng": 124.0348,
+    "zone": "공항인근",
+    "breakfast": "씨 브리즈 카페 (Sea Breeze Cafe) — 오픈 키친 메인 뷔페. 인피니티 풀·바다 뷰.",
+    "dinner": "씨 브리즈 석식 뷔페, 또는 벤자롱 타이 정통 단품(선셋·예약 권장).",
+    "reviewLinks": [
+      {
+        "label": "두짓타니 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/222869322071"
+      },
+      {
+        "label": "석식 뷔페 (세부아노 바베큐) 후기",
+        "url": "https://m.blog.naver.com/aalove0902/224215052743"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Benjarong",
-        "summary": "태국 정통 단품. 커리·똠얌, 프라이빗 다이닝."
+        "name": "씨 브리즈 카페 (Sea Breeze Cafe)",
+        "summary": "메인 오픈 키친 뷔페. 조·석식."
       },
       {
-        "name": "Pavilion",
-        "summary": "인터내셔널 à la carte. 비즈니스·가족 단품."
-      },
-      {
-        "name": "Pool Bar",
-        "summary": "풀사이드 음료·스낵. 인피니티 풀 뷰."
-      },
-      {
-        "name": "The Bakery",
-        "summary": "베이커리·샌드위치. 조식 전·간단 브런치."
+        "name": "벤자롱 (Benjarong)",
+        "summary": "타이 정통 레스토랑. 커리·똠얌·프라이빗 다이닝."
       }
     ]
   },
   {
     "id": "r5",
-    "name": "모벤픽 리조트 막탄 아일랜드",
-    "lat": 10.2995,
-    "lng": 124.0155,
-    "breakfast": "⭐️⭐️⭐️ 더 세일즈(The Sails) 레스토랑. 무난하고 깔끔한 인터내셔널 조식 뷔페 폼을 보여줌.",
-    "dinner": "★이비자 비치 클럽(Ibiza Beach Club) 필수★ 바다 위에서 즐기는 15코스 브라질리언 슈라스코 그릴과 야간 불쇼/공연 콤보.",
+    "name": "모벤픽 리조트 막탄",
+    "lat": 10.3092,
+    "lng": 124.0221,
+    "zone": "샹그릴라",
+    "breakfast": "더 세일즈 (The Sails) 메인 뷔페. 깔끔한 인터내셔널 조식.",
+    "dinner": "★ 이비자 비치 클럽 (Ibiza Beach Club) — 츄라스코 바베큐·쇼(예약 필수), 또는 더 세일즈 뷔페.",
+    "reviewLinks": [
+      {
+        "label": "모벤픽 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/221138932575"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Ibiza Beach Club",
-        "summary": "슈라스코·라이브 공연. 예약·드레스코드 확인."
+        "name": "이비자 비치 클럽 (Ibiza Beach Club)",
+        "summary": "해변 츄라스코 바베큐 & 쇼. 막탄 대표 석식 다이닝."
       },
       {
-        "name": "The Sails (단품)",
-        "summary": "뷔페 외 à la carte. 가벼운 런치·디너."
-      },
-      {
-        "name": "Beach Al Fresco",
-        "summary": "해변 BBQ·필리피노. 캐주얼·단체."
-      },
-      {
-        "name": "Ice Cream Club",
-        "summary": "모벤픽 아이스크림·디저트. 아이 동반 인기."
+        "name": "더 세일즈 (The Sails)",
+        "summary": "메인 뷔페. 조·석식."
       }
     ]
   },
   {
     "id": "r6",
-    "name": "크림슨 리조트 & 스파 세부",
-    "lat": 10.2925,
-    "lng": 124.019,
-    "breakfast": "⭐️⭐️⭐️⭐️ 사프론(Saffron) 레스토랑. 폼이 아주 정갈하고 아시안/웨스턴 메뉴 밸런스가 좋음. 뷰가 조용하고 프라이빗함.",
-    "dinner": "에네카(Eneka) 스페인 레스토랑의 타파스와 와인, 또는 사프론 디너 뷔페 운영 요일 확인 요망.",
+    "name": "크림슨 리조트",
+    "lat": 10.2971,
+    "lng": 124.014,
+    "zone": "샹그릴라",
+    "breakfast": "샤프론 카페 (Saffron Cafe) 메인 뷔페. 아시안·웨스턴 밸런스, 조용한 프라이빗 뷰.",
+    "dinner": "샤프론 석식 뷔페, Azure 비치 클럽, 또는 엔야 (Enya) 정통 일식.",
+    "reviewLinks": [
+      {
+        "label": "Azure 비치 클럽 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/221222147967"
+      },
+      {
+        "label": "크림슨 조식 뷔페 후기 보기",
+        "url": "https://m.blog.naver.com/aalove0902/80186965196"
+      },
+      {
+        "label": "크림슨 석식 뷔페 후기 보기",
+        "url": "https://m.blog.naver.com/aalove0902/80189898783"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Eneka",
-        "summary": "스페인 타파스·파에야. 와인 페어링, 데이트."
+        "name": "샤프론 카페 (Saffron Cafe)",
+        "summary": "메인 뷔페. 조·석식."
       },
       {
-        "name": "Azure Beach Club",
-        "summary": "비치 클럽·그릴. 주말 DJ·캐주얼 파티."
+        "name": "Azure 비치 클럽 (Azure Beach Club)",
+        "summary": "해변 모던 아시안 그릴 & 바."
       },
       {
-        "name": "Indochine",
-        "summary": "베트남·태국·라오스 퓨전. 향신 단품."
-      },
-      {
-        "name": "라군 스파 카페",
-        "summary": "스파 후 허브티·라이트 스낵."
+        "name": "엔야 (Enya)",
+        "summary": "정통 일식당. 스시·오마카세·단품."
       }
     ]
   },
   {
     "id": "r7",
-    "name": "더 리프 아일랜드 리조트 Mactan",
-    "lat": 10.294,
-    "lng": 124.0225,
-    "breakfast": "⭐️⭐️⭐️ 더 키친(The Kitchen). 모던하고 군더더기 없는 신상 메인 다이닝. 통창 너머로 보이는 오션뷰가 예술.",
-    "dinner": "싱싱한 씨푸드와 단품 메뉴 위주. 외부 맛집 배달이나 막탄 시내 이동 전 가볍게 즐기기 좋음.",
+    "name": "더 리프 아일랜드 리조트 막탄",
+    "lat": 10.30995,
+    "lng": 124.02385,
+    "zone": "샹그릴라",
+    "breakfast": "더 케이지 (The Gage) 메인 올데이 뷔페. ★ 아바카 베이킹 컴퍼니(Abaca Baking Company) 로비층 베이커리·브런치도 인기.",
+    "dinner": "더 케이지 뷔페·단품, 풀사이드 스낵 바 간편 식사.",
+    "reviewLinks": [
+      {
+        "label": "더 리프 조식 뷔페 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/222951424605"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "The Kitchen (단품)",
-        "summary": "씨푸드·파스타 단품. 뷔페 외 코스·à la carte."
+        "name": "더 케이지 (The Gage)",
+        "summary": "메인 올데이 다이닝 & 뷔페."
       },
       {
-        "name": "Palm Grove",
-        "summary": "야외 BBQ·필리피노. 해변 캐주얼."
+        "name": "아바카 베이킹 컴퍼니 (Abaca Baking Company)",
+        "summary": "리조트 로비층 유명 베이커리 카페. 빵·커피·브런치."
       },
       {
-        "name": "Lobby Bar",
-        "summary": "칵테일·스낵. 오션뷰 라운지."
-      },
-      {
-        "name": "배달·그랩 연동",
-        "summary": "뉴타운·제이파크 맛집 배달 많음. 리조트 내 간단 식사 후 외부 주문."
+        "name": "스낵 바 (Snack Bar)",
+        "summary": "풀사이드 바. 음료·간단 스낵."
       }
     ]
   },
   {
     "id": "r8",
-    "name": "마리바고 블루워터 비치 리조트",
-    "lat": 10.2865,
-    "lng": 123.991,
-    "breakfast": "⭐️⭐️⭐️ 알레그로(Allegro) 레스토랑. 필리핀 전통 가옥(쿠보) 스타일 환경에서 즐기는 로컬 풍미 조식. 망고는 수급 상황에 따라 다름.",
-    "dinner": "주말 야외 테마 뷔페(문화 공연 포함) 또는 해변가 코브(The Cove) 레스토랑에서 즐기는 필리핀식 해산물 요리.",
+    "name": "마리바고 블루워터 리조트",
+    "lat": 10.2891,
+    "lng": 124.0051,
+    "zone": "마리바고/블루워터",
+    "breakfast": "알레그로 (Allegro) 풀사이드 메인 뷔페·레스토랑. 쿠보 스타일 공간에서 조식.",
+    "dinner": "더 코브 (The Cove) 바다 위 해산물, 알레그로 석식, 또는 오이스터 바.",
+    "reviewLinks": [
+      {
+        "label": "마리바고 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/222933911348"
+      },
+      {
+        "label": "마리바고 중식 뷔페/단품 후기",
+        "url": "https://m.blog.naver.com/aalove0902/220702661165"
+      },
+      {
+        "label": "바다 위 해산물 레스토랑 '더 코브' 후기",
+        "url": "https://m.blog.naver.com/aalove0902/221380728219"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "The Cove",
-        "summary": "필리핀 해산물·그릴. 해변가 오션뷰."
+        "name": "알레그로 (Allegro)",
+        "summary": "메인 풀사이드 뷔페·레스토랑. 조·석식."
       },
       {
-        "name": "Amuma",
-        "summary": "필리핀·아시안 뷔페·단품. 가족·단체."
+        "name": "더 코브 (The Cove)",
+        "summary": "리조트 내부 바다 위 해산물 레스토랑. 그릴·필리핀 해산물."
       },
       {
-        "name": "Cowrie Cove",
-        "summary": "씨푸드·스테이크. 낭만 디너·기념일."
-      },
-      {
-        "name": "Marco Polo Plaza (인근)",
-        "summary": "리조트 밖 인근 다이닝. 블루워터 단지 내 이동."
+        "name": "오이스터 바 (Oyster Bar)",
+        "summary": "생물·굴·해산물 바. 라이트 다이닝·음료."
       }
     ]
   },
   {
     "id": "r9",
-    "name": "화이트 샌즈 리조트",
-    "lat": 10.2855,
-    "lng": 123.9885,
-    "breakfast": "⭐️⭐️ 부에나비스타(Buenavista) 레스토랑. 가성비 위주의 아담하고 소박한 라인업. 화려하진 않지만 기본 계란/베이컨 등은 충실함.",
-    "dinner": "루프탑 바 룸88(Room 88)에서 막탄 야경과 함께 칵테일 및 단품 안주류 즐기는 것을 추천.",
+    "name": "화이트샌즈 리조트",
+    "lat": 10.2869,
+    "lng": 124.0041,
+    "zone": "마리바고/블루워터",
+    "breakfast": "부에나 비스타 (Buena Vista) 해변가 레스토랑 & 바. 아침·브런치.",
+    "dinner": "부에나 비스타 해변 식사, 또는 룸 801 루프탑 라운지에서 칵테일·야경.",
+    "reviewLinks": [
+      {
+        "label": "화이트샌즈 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/223038355799"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Room 88",
-        "summary": "루프탑 바·야경. 칵테일·안주, 데이트."
+        "name": "부에나 비스타 (Buena Vista)",
+        "summary": "해변가 레스토랑 & 바. 조·석식·음료."
       },
       {
-        "name": "Beachfront Grill",
-        "summary": "해변 BBQ·로컬. 캐주얼·가성비."
-      },
-      {
-        "name": "Pool Snack Bar",
-        "summary": "간단 버거·음료. 소규모 리조트."
-      },
-      {
-        "name": "인근 마리바고 맛집",
-        "summary": "리조트 밖 레드크랩·그릴 등 차량 10분. 픽업 문의."
+        "name": "룸 801 (Room 801)",
+        "summary": "루프탑 라운지. 칵테일·야경·안주."
       }
     ]
   },
   {
     "id": "r10",
-    "name": "플랜테이션 베이 리조트 & 스파",
-    "lat": 10.2585,
-    "lng": 123.9805,
-    "breakfast": "⭐️⭐️⭐️ 킬리만자로 카페(Kilimanjaro). 거대한 해수 라군 한가운데서 24시간 상시 운영되는 이색적인 조식/단품 식사.",
-    "dinner": "피어 원(Fiere One) 아시안 해산물 뷔페 또는 테마 나이트 디너(요일별 몰입형 댄스 공연과 함께하는 뷔페) 강력 추천.",
+    "name": "플랜테이션 베이 리조트",
+    "lat": 10.2625,
+    "lng": 123.9802,
+    "zone": "제이파크/샹스",
+    "breakfast": "킬리만자로 카페 (Kilimanjaro Cafe) — 인공 해변 중심 24시간 레스토랑. 이색 조식.",
+    "dinner": "피지 레스토랑 해변 일식·씨푸드, 팔레르모 타파스, 또는 테마 나이트 뷔페.",
+    "reviewLinks": [
+      {
+        "label": "플랜테이션베이 조식 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/80185477810"
+      },
+      {
+        "label": "매일 바뀌는 '테마 디너' 리얼 후기",
+        "url": "https://m.blog.naver.com/aalove0902/220914292363"
+      },
+      {
+        "label": "이탈리안 레스토랑 '팔레르모' 후기",
+        "url": "https://m.blog.naver.com/aalove0902/221926352466"
+      },
+      {
+        "label": "해변가 일식/씨푸드 '피지' 후기 보기",
+        "url": "https://m.blog.naver.com/aalove0902/221369024422"
+      },
+      {
+        "label": "풀사이드 '에일리언 바' 안내",
+        "url": "https://m.blog.naver.com/aalove0902/220390181838"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Fiere One",
-        "summary": "아시안 해산물·테마 나이트. 공연·뷔페, 요일 확인."
+        "name": "킬리만자로 카페 (Kilimanjaro Cafe)",
+        "summary": "24시간 메인 다이닝. 인공 해변 중심 올데이 레스토랑."
       },
       {
-        "name": "Kilimanjaro (24h)",
-        "summary": "라군 위 카페·단품. 24시간·새벽 식사."
+        "name": "테마 디너 (Theme Dinner)",
+        "summary": "매일 밤 다른 컨셉의 야외 뷔페 & 공연."
       },
       {
-        "name": "Pepito's",
-        "summary": "멕시칸·필리피노. 타코·그릴, 캐주얼."
+        "name": "피지 (Fiji)",
+        "summary": "해변가 일식·씨푸드 레스토랑."
       },
       {
-        "name": "Spa Café",
-        "summary": "스파 구역 라이트 메뉴·음료."
+        "name": "팔레르모 (Palermo)",
+        "summary": "이탈리안 레스토랑 & 타파스 바."
+      },
+      {
+        "name": "루트 66 다이너 (Route 66 Diner)",
+        "summary": "서부 개척 시대 컨셉의 아메리칸 버거 & 샌드위치 식당."
+      },
+      {
+        "name": "에일리언 바 (Alien Bar)",
+        "summary": "독특한 감성의 풀사이드 바. 칵테일·음료·야경."
       }
     ]
   },
   {
     "id": "r11",
     "name": "솔레아 막탄 리조트",
-    "lat": 10.245,
-    "lng": 123.968,
-    "breakfast": "⭐️⭐️ 어스(Earth) 레스토랑. 규모가 워낙 커서 단체 관광객이 많아 혼잡할 수 있음. 가성비 중심의 대중적인 메뉴 구성.",
-    "dinner": "가성비가 아주 훌륭한 석식 뷔페. 리조트 내부에서 모든 걸 해결해야 하는 꼬도바(Cordova) 위치 특성상 좋은 대안.",
+    "lat": 10.2552,
+    "lng": 123.9534,
+    "zone": "솔레아",
+    "breakfast": "지구 레스토랑 (Earth Restaurant) 메인 뷔페. 대형 리조트 조식.",
+    "dinner": "지구 레스토랑 석식 뷔페, 또는 솔트 앤 스카이 루프탑 바.",
+    "reviewLinks": [
+      {
+        "label": "솔레아 조식 뷔페 생생 후기",
+        "url": "https://m.blog.naver.com/aalove0902/221332748403"
+      },
+      {
+        "label": "솔레아 석식 뷔페 리얼 후기",
+        "url": "https://m.blog.naver.com/aalove0902/223365529817"
+      }
+    ],
     "otherVenues": [
       {
-        "name": "Fuego",
-        "summary": "그릴·바베큐 단품. 해변·풀 인근."
+        "name": "지구 레스토랑 (Earth Restaurant)",
+        "summary": "메인 뷔페. 조·석식."
       },
       {
-        "name": "Lobby Restaurant (단품)",
-        "summary": "필리핀·양식 단품. 뷔페 외 선택."
-      },
-      {
-        "name": "Beach Bar",
-        "summary": "음료·스낵. 코르도바 해변."
-      },
-      {
-        "name": "단지 내 매점·간편식",
-        "summary": "대형 리조트·단체형. 간단 식사·컵라면 후 외부 이동."
+        "name": "솔트 앤 스카이 (Salt & Sky)",
+        "summary": "루프탑 바. 칵테일·선셋·야경."
       }
     ]
   }

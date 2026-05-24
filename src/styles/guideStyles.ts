@@ -5,10 +5,17 @@ export const guideStyles = StyleSheet.create({
   root: {
     flex: 1,
   },
-  mapInCard: {
-    marginBottom: 14,
+  infoCard: {
+    marginHorizontal: 12,
+    marginBottom: 8,
+    backgroundColor: colors.bgCard,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    borderRadius: colors.radius,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
   },
-  card: {
+  filterCard: {
     marginHorizontal: 12,
     marginBottom: 12,
     backgroundColor: colors.bgCard,
@@ -16,7 +23,110 @@ export const guideStyles = StyleSheet.create({
     borderColor: colors.cardBorder,
     borderRadius: colors.radius,
     paddingHorizontal: 18,
-    paddingVertical: 16,
+    paddingTop: 12,
+    paddingBottom: 16,
+  },
+  mapSection: {
+    marginHorizontal: 12,
+    marginBottom: 10,
+  },
+  resortDetailSection: {
+    marginTop: 10,
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: 'rgba(26, 115, 232, 0.45)',
+    overflow: 'hidden',
+  },
+  resortDetailHeader: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(26, 115, 232, 0.22)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(147, 197, 253, 0.25)',
+  },
+  resortDetailTitle: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: '#dbeafe',
+    marginBottom: 4,
+  },
+  resortDetailZone: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: 'rgba(219, 234, 254, 0.85)',
+  },
+  resortDetailBody: {
+    paddingTop: 8,
+  },
+  restaurantDetailSection: {
+    marginTop: 10,
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: 'rgba(45, 212, 191, 0.4)',
+    overflow: 'hidden',
+  },
+  restaurantDetailHeader: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(15, 118, 110, 0.35)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(153, 246, 228, 0.2)',
+  },
+  restaurantDetailTitle: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: colors.cardHeading,
+    marginBottom: 8,
+  },
+  restaurantDetailTags: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  restaurantDetailBody: {
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  restaurantDetailLinks: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+  },
+  resortBlogLinkWrap: {
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+  },
+  resortReviewLinkWrap: {
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+    gap: 8,
+  },
+  resortReviewLinkBtn: {
+    alignSelf: 'stretch',
+    width: '100%',
+  },
+  resortBlogLinkBtn: {
+    alignSelf: 'flex-start',
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(165, 243, 252, 0.32)',
+    backgroundColor: 'rgba(11, 37, 46, 0.42)',
+  },
+  resortBlogLinkBtnPressed: {
+    backgroundColor: 'rgba(165, 243, 252, 0.1)',
+    borderColor: 'rgba(165, 243, 252, 0.48)',
+  },
+  resortBlogLinkText: {
+    fontSize: 12,
+    fontFamily: fonts.semiBold,
+    color: 'rgba(165, 243, 252, 0.9)',
+    letterSpacing: -0.2,
   },
   cardTitle: {
     fontSize: 16,
@@ -30,7 +140,7 @@ export const guideStyles = StyleSheet.create({
     lineHeight: 19,
     color: colors.textMuted,
     marginTop: -2,
-    marginBottom: 14,
+    marginBottom: 0,
   },
   leadStrong: {
     color: colors.accent,
@@ -60,6 +170,82 @@ export const guideStyles = StyleSheet.create({
     overflow: 'hidden',
     marginHorizontal: 12,
     marginBottom: 6,
+  },
+  itemSelected: {
+    borderColor: 'rgba(26, 115, 232, 0.65)',
+    backgroundColor: 'rgba(26, 115, 232, 0.12)',
+  },
+  itemSelectedRestaurant: {
+    borderColor: 'rgba(45, 212, 191, 0.55)',
+    backgroundColor: 'rgba(15, 118, 110, 0.18)',
+  },
+  itemSelectedNightMarket: {
+    borderColor: 'rgba(167, 139, 250, 0.55)',
+    backgroundColor: 'rgba(76, 29, 149, 0.22)',
+  },
+  nightMarketTag: {
+    color: '#e9d5ff',
+    borderColor: 'rgba(196, 181, 253, 0.45)',
+    backgroundColor: 'rgba(76, 29, 149, 0.35)',
+  },
+  nightMarketDetailSection: {
+    marginTop: 10,
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: 'rgba(167, 139, 250, 0.45)',
+    overflow: 'hidden',
+  },
+  nightMarketDetailHeader: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(76, 29, 149, 0.28)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(196, 181, 253, 0.25)',
+  },
+  nightMarketDetailTitle: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: '#ede9fe',
+    marginBottom: 4,
+  },
+  nightMarketDetailSubtitle: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: 'rgba(221, 214, 254, 0.9)',
+    marginBottom: 4,
+  },
+  nightMarketDetailZone: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: 'rgba(233, 213, 255, 0.88)',
+  },
+  nightMarketDetailBody: {
+    paddingTop: 4,
+  },
+  nightMarketBanner: {
+    marginBottom: 0,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(76, 29, 149, 0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(196, 181, 253, 0.35)',
+  },
+  nightMarketBannerTitle: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: '#e9d5ff',
+    marginBottom: 4,
+  },
+  nightMarketBannerText: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: 'rgba(233, 213, 255, 0.92)',
+  },
+  nightMarketBannerHint: {
+    marginTop: 8,
+    color: 'rgba(233, 213, 255, 0.75)',
   },
   itemBtn: {
     flexDirection: 'row',
@@ -118,7 +304,7 @@ export const guideStyles = StyleSheet.create({
     marginLeft: 'auto',
   },
   pickupBanner: {
-    marginBottom: 12,
+    marginBottom: 0,
     padding: 10,
     borderRadius: 8,
     backgroundColor: 'rgba(180, 83, 9, 0.28)',
@@ -157,7 +343,7 @@ export const guideStyles = StyleSheet.create({
     backgroundColor: 'rgba(67, 56, 202, 0.35)',
   },
   mealBanner: {
-    marginBottom: 12,
+    marginBottom: 0,
     padding: 10,
     borderRadius: 8,
     backgroundColor: 'rgba(5, 150, 105, 0.28)',
@@ -226,7 +412,7 @@ export const guideStyles = StyleSheet.create({
     color: '#a5f3fc',
   },
   resortBanner: {
-    marginBottom: 12,
+    marginBottom: 0,
     padding: 10,
     borderRadius: 8,
     backgroundColor: 'rgba(26, 115, 232, 0.28)',

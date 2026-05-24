@@ -1,0 +1,46 @@
+[
+  {
+    "id": "nm1",
+    "name": "막탄 메르카토 야시장",
+    "nameEn": "Mercado de Mactan",
+    "lat": 10.297,
+    "lng": 124.0155,
+    "locationDesc": "막탄 뉴타운 근처",
+    "region": "mactan",
+    "blogUrl": "https://m.blog.naver.com/aalove0902/223451364466",
+    "blogTitle": "막탄 메르카토 야시장 생생 후기"
+  },
+  {
+    "id": "nm2",
+    "name": "막탄 푸드캠프 야시장",
+    "nameEn": "Food Camp",
+    "lat": 10.2645,
+    "lng": 123.981,
+    "locationDesc": "플랜테이션 베이 리조트 초입",
+    "region": "mactan",
+    "blogUrl": "https://m.blog.naver.com/aalove0902/223311111355",
+    "blogTitle": "막탄 푸드캠프 야시장 생생 후기"
+  },
+  {
+    "id": "nm3",
+    "name": "수그보 야시장",
+    "nameEn": "IT파크 Sugbo Mercado",
+    "lat": 10.3292,
+    "lng": 123.9061,
+    "locationDesc": "세부시티 IT파크 내",
+    "region": "cebu-city",
+    "blogUrl": "https://m.blog.naver.com/aalove0902/223355527596",
+    "blogTitle": "수그보 야시장 생생 후기"
+  },
+  {
+    "id": "nm4",
+    "name": "푸소 빌리지 야시장",
+    "nameEn": "Puso Village",
+    "lat": 10.2931,
+    "lng": 123.9064,
+    "locationDesc": "세부시티 다운타운 / 가사 고로도 인근 코스",
+    "region": "cebu-city",
+    "blogUrl": "https://m.blog.naver.com/aalove0902/224281436285",
+    "blogTitle": "푸소 빌리지 야시장 생생 후기"
+  }
+]

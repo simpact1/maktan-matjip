@@ -2,45 +2,60 @@ import { useEffect, useMemo, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import { colors, fonts, MACTAN_CENTER, menuTypeColors } from '../constants/theme';
+import { NightMarket } from '../types/nightMarket';
 import { ClusterMapProps, collectVisibleMapPoints } from './mapTypes';
 
 export const MAP_HEIGHT = 280;
 
 const RESORT_PIN = '#1a73e8';
+const RESORT_PIN_SELECTED = '#0d47a1';
+const NIGHT_MARKET_PIN = '#7c3aed';
+const NIGHT_MARKET_PIN_SELECTED = '#4c1d95';
 
 export function ClusterMap({
   restaurants,
   resorts,
-  mapLayerMode,
+  nightMarkets,
   showRestaurants,
   showResorts,
-  focusedItemId,
-  focusedResortId,
+  showNightMarkets,
+  selectedRestaurantId,
+  selectedResortId,
+  selectedNightMarketId,
   onSelectRestaurant,
   onSelectResort,
+  onSelectNightMarket,
+  onClearMapSelection,
 }: ClusterMapProps) {
   const mapRef = useRef<MapView>(null);
 
   const visiblePoints = useMemo(
-    () => collectVisibleMapPoints(restaurants, resorts, showRestaurants, showResorts),
-    [restaurants, resorts, showRestaurants, showResorts]
+    () =>
+      collectVisibleMapPoints(
+        restaurants,
+        resorts,
+        nightMarkets,
+        showRestaurants,
+        showResorts,
+        showNightMarkets
+      ),
+    [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
   );
 
   useEffect(() => {
     if (!mapRef.current || visiblePoints.length === 0) {
       return;
     }
-    const focusId = focusedResortId ?? focusedItemId;
-    if (focusId) {
-      const target = visiblePoints.find((p) => p.id === focusId);
+    if (selectedNightMarketId && showNightMarkets) {
+      const target = nightMarkets.find((m) => m.id === selectedNightMarketId);
       if (target) {
         const region: Region = {
           latitude: target.lat,
           longitude: target.lng,
-          latitudeDelta: 0.02,
-          longitudeDelta: 0.02,
+          latitudeDelta: target.region === 'cebu-city' ? 0.04 : 0.02,
+          longitudeDelta: target.region === 'cebu-city' ? 0.04 : 0.02,
         };
-        mapRef.current.animateToRegion(region, 450);
+        mapRef.current.animateToRegion(region, 550);
       }
       return;
     }
@@ -56,9 +71,9 @@ export function ClusterMap({
         450
       );
     }
-  }, [focusedItemId, focusedResortId, visiblePoints]);
+  }, [selectedNightMarketId, showNightMarkets, nightMarkets, visiblePoints]);
 
-  const mapVisible = showRestaurants || showResorts;
+  const mapVisible = showRestaurants || showResorts || showNightMarkets;
 
   if (!mapVisible) {
     return (
@@ -90,6 +105,7 @@ export function ClusterMap({
           showsMyLocationButton
           loadingEnabled
           loadingBackgroundColor="#aad3df"
+          onPress={() => onClearMapSelection?.()}
         >
           {showRestaurants &&
             restaurants.map((restaurant) => (
@@ -100,11 +116,12 @@ export function ClusterMap({
                   longitude: restaurant.lng,
                 }}
                 title={restaurant.name}
-                description={restaurant.desc}
-                pinColor={
-                  menuTypeColors[restaurant.menuType] ?? menuTypeColors['기타']
-                }
-                onPress={() => onSelectRestaurant(restaurant.id)}
+                description="지도 아래에서 상세 정보를 확인하세요"
+                pinColor={menuTypeColors[restaurant.menuType] ?? menuTypeColors['기타']}
+                onPress={(event) => {
+                  event.stopPropagation?.();
+                  onSelectRestaurant(restaurant.id);
+                }}
               />
             ))}
           {showResorts &&
@@ -113,9 +130,32 @@ export function ClusterMap({
                 key={`resort-${resort.id}`}
                 coordinate={{ latitude: resort.lat, longitude: resort.lng }}
                 title={resort.name}
-                description={`아침: ${resort.breakfast.slice(0, 40)}…`}
-                pinColor={RESORT_PIN}
-                onPress={() => onSelectResort(resort.id)}
+                description="지도 아래에서 상세 정보를 확인하세요"
+                pinColor={
+                  selectedResortId === resort.id ? RESORT_PIN_SELECTED : RESORT_PIN
+                }
+                onPress={(event) => {
+                  event.stopPropagation?.();
+                  onSelectResort(resort.id);
+                }}
+              />
+            ))}
+          {showNightMarkets &&
+            nightMarkets.map((market) => (
+              <Marker
+                key={`night-${market.id}`}
+                coordinate={{ latitude: market.lat, longitude: market.lng }}
+                title={market.name}
+                description={market.locationDesc}
+                pinColor={
+                  selectedNightMarketId === market.id
+                    ? NIGHT_MARKET_PIN_SELECTED
+                    : NIGHT_MARKET_PIN
+                }
+                onPress={(event) => {
+                  event.stopPropagation?.();
+                  onSelectNightMarket(market.id);
+                }}
               />
             ))}
         </MapView>

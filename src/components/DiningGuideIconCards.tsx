@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome6 } from '@expo/vector-icons';
 import {
   LayoutAnimation,
   Platform,
@@ -15,7 +15,12 @@ import {
   DiningGuideTip,
   DiningGuideTipId,
 } from '../constants/diningGuideTips';
-import { colors, fonts } from '../constants/theme';
+import {
+  NIGHT_MARKET_BLOG_LINKS,
+  NIGHT_MARKET_LINK_ICON_COLOR,
+  NIGHT_MARKET_LINK_ICON_SIZE,
+} from '../constants/nightMarketMapLinks';
+import { colors, diningGuideTipTheme, fonts } from '../constants/theme';
 
 type ExpandLinkLayout = 'default' | 'fruitRow4' | 'grid2x2';
 
@@ -27,16 +32,57 @@ const FRUIT_LINK_SCALE = 1.3;
 const fruitS = (n: number) => Math.round(n * FRUIT_LINK_SCALE);
 
 const MANGOSTEEN_LABEL = '망고스틴 고르는법';
-const CARD_GRADIENT: readonly [string, string] = ['#151c28', '#1a2332'];
 
-const CARD_MIN_HEIGHT = 92;
-const CARD_ICON_FONT_SIZE = 30;
-const CARD_ICON_LINE_HEIGHT = 33;
+const TIP_BUTTON_HEIGHT = 84;
+const TIP_BUTTON_RADIUS = 10;
+const CARD_ICON_FONT_SIZE = 26;
+const CARD_ICON_LINE_HEIGHT = 30;
 const EXPAND_LINK_DEFAULT_MIN_HEIGHT = 56;
 const EXPAND_LINK_DEFAULT_ICON_SIZE = 16;
+const NIGHT_MARKET_LABEL_FONT_SIZE = 12;
+const NIGHT_MARKET_CELL_MIN_HEIGHT = 78;
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental?.(true);
+}
+
+function NightMarketBlogLinkRow({
+  onOpenLink,
+}: {
+  onOpenLink: (url: string, title: string) => void;
+}) {
+  return (
+    <View style={styles.nightMarketMapRow}>
+      {NIGHT_MARKET_BLOG_LINKS.map((link) => (
+        <Pressable
+          key={link.label}
+          style={({ pressed }) => [
+            styles.nightMarketMapCell,
+            pressed && styles.nightMarketMapCellPressed,
+          ]}
+          onPress={() => onOpenLink(link.url, link.blogTitle)}
+          accessibilityRole="link"
+          accessibilityLabel={link.label}
+          accessibilityHint={`${link.blogTitle} 블로그로 이동합니다`}
+        >
+          <FontAwesome6
+            name={link.icon}
+            size={NIGHT_MARKET_LINK_ICON_SIZE}
+            color={NIGHT_MARKET_LINK_ICON_COLOR}
+            style={styles.nightMarketMapIcon}
+          />
+          <Text
+            style={styles.nightMarketMapLabel}
+            numberOfLines={3}
+            adjustsFontSizeToFit
+            minimumFontScale={0.78}
+          >
+            {link.label}
+          </Text>
+        </Pressable>
+      ))}
+    </View>
+  );
 }
 
 interface ExpandLinksProps {
@@ -77,11 +123,62 @@ function ExpandLinksRow({
   );
 }
 
-interface DiningGuideIconCardsProps {
-  onOpenLink: (url: string, title: string) => void;
+interface TipMenuButtonProps {
+  tip: DiningGuideTip;
+  isActive: boolean;
+  onPress: () => void;
 }
 
-export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) {
+function TipMenuButton({ tip, isActive, onPress }: TipMenuButtonProps) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed, hovered }) => [
+        styles.tipButton,
+        isActive && styles.tipButtonActive,
+        (pressed || hovered) && styles.tipButtonInteractive,
+      ]}
+      accessibilityRole="button"
+      accessibilityLabel={tip.title}
+      accessibilityState={{ expanded: isActive }}
+    >
+      <View style={styles.tipButtonContent} importantForAccessibility="no-hide-descendants">
+        <Text
+          style={styles.tipButtonIcon}
+          accessible={false}
+          importantForAccessibility="no"
+        >
+          {tip.icon}
+        </Text>
+        <Text
+          style={styles.tipButtonLabel}
+          accessible={false}
+          importantForAccessibility="no"
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {tip.compactTitle}
+        </Text>
+      </View>
+    </Pressable>
+  );
+}
+
+interface DiningGuideIconCardsProps {
+  onOpenLink: (url: string, title: string) => void;
+  nightMarketMode?: boolean;
+  onNightMarketModeChange?: (active: boolean) => void;
+  selectedNightMarketId?: string | null;
+  onSelectNightMarket?: (id: string) => void;
+}
+
+export function DiningGuideIconCards({
+  onOpenLink,
+  nightMarketMode = false,
+  onNightMarketModeChange,
+  selectedNightMarketId = null,
+  onSelectNightMarket,
+}: DiningGuideIconCardsProps) {
   const [expandedId, setExpandedId] = useState<DiningGuideTipId | null>(null);
 
   const GRID_ROWS = useMemo<DiningGuideTip[][]>(
@@ -89,10 +186,17 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
     [],
   );
 
-  const handlePress = useCallback((id: DiningGuideTipId) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setExpandedId((prev) => (prev === id ? null : id));
-  }, []);
+  const handlePress = useCallback(
+    (id: DiningGuideTipId) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setExpandedId((prev) => {
+        const next = prev === id ? null : id;
+        onNightMarketModeChange?.(next === 'night-market');
+        return next;
+      });
+    },
+    [onNightMarketModeChange]
+  );
 
   const expanded = DINING_GUIDE_TIPS.find((t) => t.id === expandedId);
 
@@ -175,44 +279,15 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
   );
 
   const renderCard = useCallback(
-    (tip: DiningGuideTip) => {
-      const isActive = expandedId === tip.id;
-      return (
-        <Pressable
-          key={tip.id}
-          onPress={() => handlePress(tip.id)}
-          style={({ pressed }) => [
-            styles.cardCell,
-            isActive && styles.cardOuterActive,
-            pressed && styles.cardOuterPressed,
-          ]}
-          accessibilityRole="button"
-          accessibilityLabel={tip.title}
-          accessibilityState={{ expanded: isActive }}
-        >
-          <LinearGradient
-            colors={CARD_GRADIENT}
-            start={{ x: 0.15, y: 0 }}
-            end={{ x: 0.85, y: 1 }}
-            style={styles.card}
-          >
-            <Text style={styles.cardIcon} accessibilityElementsHidden>
-              {tip.icon}
-            </Text>
-            <Text
-              style={styles.cardTitle}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.78}
-              ellipsizeMode="clip"
-            >
-              {tip.compactTitle}
-            </Text>
-          </LinearGradient>
-        </Pressable>
-      );
-    },
-    [expandedId, handlePress],
+    (tip: DiningGuideTip) => (
+      <TipMenuButton
+        key={tip.id}
+        tip={tip}
+        isActive={expandedId === tip.id || (tip.id === 'night-market' && nightMarketMode)}
+        onPress={() => handlePress(tip.id)}
+      />
+    ),
+    [expandedId, handlePress, nightMarketMode],
   );
 
   return (
@@ -229,7 +304,6 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
         <View
           style={styles.expandPanel}
           accessibilityLiveRegion="polite"
-          accessibilityRole="region"
           accessibilityLabel={`${expanded.title} 상세 정보`}
         >
           {expanded.expandSimple ? (
@@ -251,6 +325,8 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
           )}
           {expanded.expandLinks?.length ? (
             renderExpandLinks(expanded)
+          ) : expanded.id === 'night-market' ? (
+            <NightMarketBlogLinkRow onOpenLink={onOpenLink} />
           ) : (
             <Pressable
               onPress={() => onOpenLink(expanded.url, expanded.blogTitle)}
@@ -285,9 +361,9 @@ export function DiningGuideIconCards({ onOpenLink }: DiningGuideIconCardsProps) 
 
 const styles = StyleSheet.create({
   wrap: {
-    marginHorizontal: 12,
-    marginTop: 8,
-    marginBottom: 24,
+    marginHorizontal: 8,
+    marginTop: 10,
+    marginBottom: 10,
   },
   /** 2행 3열 — 각 셀 약 33% (gap 제외 균등 분할) */
   grid: {
@@ -299,63 +375,85 @@ const styles = StyleSheet.create({
     gap: GRID_GAP,
     width: '100%',
   },
-  cardCell: {
+  tipButton: {
     flex: 1,
     flexBasis: 0,
     minWidth: 0,
-    borderRadius: 10,
+    height: TIP_BUTTON_HEIGHT,
+    borderRadius: TIP_BUTTON_RADIUS,
     borderWidth: 1,
-    borderColor: '#2a3548',
+    borderColor: diningGuideTipTheme.border,
+    backgroundColor: diningGuideTipTheme.bg,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
+    ...(Platform.OS === 'web'
+      ? ({ cursor: 'pointer', transition: 'transform 0.15s ease, opacity 0.15s ease' } as object)
+      : null),
+  },
+  tipButtonContent: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+  },
+  tipButtonActive: {
+    borderColor: diningGuideTipTheme.borderActive,
+    backgroundColor: 'rgba(11, 37, 46, 0.78)',
+    shadowOpacity: 0.28,
     shadowRadius: 6,
     elevation: 3,
   },
-  cardOuterActive: {
-    borderColor: '#38bdf8',
-    shadowColor: '#38bdf8',
-    shadowOpacity: 0.2,
+  tipButtonInteractive: {
+    opacity: 0.88,
+    transform: [{ scale: 0.96 }],
   },
-  cardOuterPressed: {
-    opacity: 0.92,
-  },
-  card: {
-    minHeight: CARD_MIN_HEIGHT,
-    paddingVertical: 9,
-    paddingHorizontal: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5,
-  },
-  cardIcon: {
+  tipButtonIcon: {
     fontSize: CARD_ICON_FONT_SIZE,
     lineHeight: CARD_ICON_LINE_HEIGHT,
+    marginBottom: 0,
+    ...(Platform.OS === 'web'
+      ? ({ userSelect: 'none', pointerEvents: 'none' } as object)
+      : null),
   },
-  cardTitle: {
-    fontSize: 13,
-    lineHeight: 15,
+  tipButtonLabel: {
+    fontSize: 12,
+    lineHeight: 16,
     fontFamily: fonts.semiBold,
-    color: '#e2e8f0',
+    color: diningGuideTipTheme.text,
     textAlign: 'center',
     width: '100%',
-    paddingHorizontal: 1,
+    paddingHorizontal: 2,
+    marginTop: 0,
+    ...(Platform.OS === 'android' ? { includeFontPadding: false } : null),
+    ...(Platform.OS === 'web'
+      ? ({
+          userSelect: 'none',
+          pointerEvents: 'none',
+          color: diningGuideTipTheme.text,
+        } as object)
+      : null),
   },
   expandPanel: {
     marginTop: GRID_GAP,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    borderRadius: 10,
-    backgroundColor: 'rgba(21, 28, 40, 0.92)',
+    borderRadius: TIP_BUTTON_RADIUS,
+    backgroundColor: diningGuideTipTheme.panelBg,
     borderWidth: 1,
-    borderColor: 'rgba(56, 189, 248, 0.35)',
+    borderColor: diningGuideTipTheme.panelBorder,
   },
   expandLead: {
     fontSize: 14,
     fontFamily: fonts.semiBold,
     lineHeight: 21,
-    color: '#e2e8f0',
+    color: diningGuideTipTheme.text,
     marginBottom: 10,
   },
   expandBody: {
@@ -478,5 +576,48 @@ const styles = StyleSheet.create({
     fontFamily: fonts.semiBold,
     color: colors.link,
     textDecorationLine: 'underline',
+  },
+  nightMarketMapRow: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    flexWrap: 'nowrap',
+    gap: 6,
+    width: '100%',
+    marginTop: 10,
+    ...(Platform.OS === 'web'
+      ? ({ display: 'flex' } as object)
+      : null),
+  },
+  nightMarketMapCell: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+    minHeight: NIGHT_MARKET_CELL_MIN_HEIGHT,
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    borderRadius: 8,
+    backgroundColor: diningGuideTipTheme.bg,
+    borderWidth: 1,
+    borderColor: diningGuideTipTheme.panelBorder,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+  },
+  nightMarketMapCellPressed: {
+    opacity: 0.88,
+    backgroundColor: 'rgba(11, 37, 46, 0.78)',
+    borderColor: diningGuideTipTheme.borderActive,
+  },
+  nightMarketMapIcon: {
+    marginBottom: 2,
+  },
+  nightMarketMapLabel: {
+    fontSize: NIGHT_MARKET_LABEL_FONT_SIZE,
+    fontFamily: fonts.bold,
+    lineHeight: 16,
+    color: colors.text,
+    textAlign: 'center',
+    width: '100%',
+    paddingHorizontal: 1,
   },
 });

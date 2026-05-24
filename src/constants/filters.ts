@@ -18,7 +18,7 @@ export const ZONE_FILTER_OPTIONS: FilterOption<RestaurantZone>[] = [
   { value: '막탄뉴타운', label: '막탄뉴타운 근처' },
   { value: '마리바고/블루워터', label: '마리바고 블루워터 근처' },
   { value: '공항인근', label: '공항주변' },
-  { value: '코르도바', label: '코르도바' },
+  { value: '솔레아', label: '솔레아 근처' },
 ];
 
 export const MENU_TYPE_OPTIONS: FilterOption<MenuType>[] = [
