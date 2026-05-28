@@ -18,6 +18,10 @@ export function HomeScreen({ navigation }: Props) {
 
   const handleOpenLink = useCallback(
     (url: string, title: string) => {
+      if (/pf\.kakao\.com/i.test(url)) {
+        navigation.navigate('BlogWebView', { url, title });
+        return;
+      }
       if (isExternalMapOrWebUrl(url)) {
         openExternalUrl(url);
         return;

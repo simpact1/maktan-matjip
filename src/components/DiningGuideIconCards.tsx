@@ -16,6 +16,8 @@ import {
 } from '../constants/diningGuideTips';
 import { NIGHT_MARKET_BLOG_LINKS } from '../constants/nightMarketMapLinks';
 import { colors, diningGuideTipTheme, fonts } from '../constants/theme';
+import { openExternalUrl } from '../utils/openExternalUrl';
+import { PhilippineFoodSection } from './PhilippineFoodSection';
 
 type ExpandLinkLayout = 'default' | 'fruitRow4' | 'grid2x2';
 
@@ -27,6 +29,8 @@ const FRUIT_LINK_SCALE = 1.3;
 const fruitS = (n: number) => Math.round(n * FRUIT_LINK_SCALE);
 
 const MANGOSTEEN_LABEL = '망고스틴 고르는법';
+const FILIPINO_TRAD_FOOD_LABEL = '필리핀 전통먹거리';
+const FILIPINO_RECOMMEND_LABEL = '세부추천음식';
 
 const TIP_BUTTON_HEIGHT = 84;
 const TIP_BUTTON_RADIUS = 10;
@@ -204,11 +208,22 @@ export function DiningGuideIconCards({
     (link: DiningGuideExpandLink, layout: ExpandLinkLayout) => {
       const isFruitRow4 = layout === 'fruitRow4';
       const isMangostein = link.label === MANGOSTEEN_LABEL;
+      const isFilipinoTrad = link.label === FILIPINO_TRAD_FOOD_LABEL;
+      const isFilipinoRecommend = link.label === FILIPINO_RECOMMEND_LABEL;
+      const useTightRow4Text = isMangostein || isFilipinoTrad || isFilipinoRecommend;
+
+      const openLink = () => {
+        if (link.openInNewTab) {
+          openExternalUrl(link.url);
+          return;
+        }
+        onOpenLink(link.url, link.blogTitle);
+      };
 
       return (
         <Pressable
           key={link.url}
-          onPress={() => onOpenLink(link.url, link.blogTitle)}
+          onPress={openLink}
           style={({ pressed }) => [
             styles.expandLinkBtnCell,
             styles.expandLinkBtn,
@@ -235,10 +250,10 @@ export function DiningGuideIconCards({
               styles.expandLinkBtnText,
               layout === 'grid2x2' && styles.expandLinkBtnTextCompact,
               isFruitRow4 && styles.expandLinkBtnTextFruit,
-              isFruitRow4 && isMangostein && styles.expandLinkBtnTextFruitTight,
+              isFruitRow4 && useTightRow4Text && styles.expandLinkBtnTextFruitTight,
             ]}
             numberOfLines={1}
-            adjustsFontSizeToFit={isFruitRow4 && !isMangostein}
+            adjustsFontSizeToFit={isFruitRow4 && !useTightRow4Text}
             minimumFontScale={0.72}
             ellipsizeMode="clip"
           >
@@ -300,7 +315,15 @@ export function DiningGuideIconCards({
         ))}
       </View>
 
-      {expanded ? (
+      {expanded?.id === 'filipino-food' ? (
+        <View
+          style={styles.filipinoFoodPanelWrap}
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={`${expanded.title} 상세 정보`}
+        >
+          <PhilippineFoodSection onOpenLink={onOpenLink} />
+        </View>
+      ) : expanded ? (
         <View
           style={styles.expandPanel}
           accessibilityLiveRegion="polite"
@@ -440,6 +463,10 @@ const styles = StyleSheet.create({
         } as object)
       : null),
   },
+  filipinoFoodPanelWrap: {
+    marginTop: GRID_GAP,
+    width: '100%',
+  },
   expandPanel: {
     marginTop: GRID_GAP,
     paddingHorizontal: 12,
@@ -545,6 +572,9 @@ const styles = StyleSheet.create({
     fontSize: fruitS(9),
     lineHeight: fruitS(12),
     paddingHorizontal: 0,
+    ...(Platform.OS === 'web'
+      ? ({ whiteSpace: 'nowrap' } as object)
+      : null),
   },
   /** 망고스틴 — 가장 긴 라벨, 한 줄에 맞춤 */
   expandLinkBtnTextFruitTight: {

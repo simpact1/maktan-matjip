@@ -8,16 +8,16 @@ export const restaurants: Restaurant[] = rawData as Restaurant[];
  * 기존 pickupDrop 태그와 무관하게 이 ID만 노출한다.
  */
 export const PICKUP_DROP_RESTAURANT_IDS = [
-  '4', // 씨푸드 에이스 크랩
+  '4', // 에이스크랩
   '21', // 씨푸드 부코 씨사이드
   '25', // 씨푸드 점보7
   '29', // 모닝글로리
   '34', // 멍석갈비
   '36', // 마리바고 그릴
-  '37', // 씨푸드 마리바고크랩
-  '38', // 레드크랩 (Red Crab)
+  '37', // 마리바고크랩
+  '38', // 레드크랩
   '49', // 7107 레스토랑
-  '51', // 씨푸드 막탄크랩
+  '51', // 막탄크랩
 ] as const;
 
 const pickupDropIdOrder = new Map(

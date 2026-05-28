@@ -1,4 +1,8 @@
 import { NIGHT_MARKET_GUIDE_PASSAGE } from './nightMarketGuideText';
+import {
+  PHILIPPINE_FOOD_ITEMS,
+  PHILIPPINE_FOOD_SUBTITLE,
+} from './philippineFoodItems';
 
 export type DiningGuideTipId =
   | 'meal-tips'
@@ -13,6 +17,8 @@ export interface DiningGuideExpandLink {
   url: string;
   blogTitle: string;
   icon?: string;
+  /** 웹에서 탭/클릭 시 새 창(_blank)으로 열기 */
+  openInNewTab?: boolean;
 }
 
 export interface DiningGuideTip {
@@ -57,12 +63,12 @@ export const DINING_GUIDE_TIPS: DiningGuideTip[] = [
   {
     id: 'filipino-food',
     icon: '🍖',
-    title: '필리핀 추천음식',
+    title: '필리핀 음식',
     compactTitle: '필리핀음식',
-    summary:
-      '레촌(통돼지 구이), 감바스, 갈릭라이스 등 호불호 없이 한국인 입맛에 딱 맞는 전통 메뉴 추천!',
-    url: 'https://m.blog.naver.com/aalove0902/220367370658',
-    blogTitle: '필리핀 추천음식',
+    summary: PHILIPPINE_FOOD_SUBTITLE,
+    url: PHILIPPINE_FOOD_ITEMS[0].link,
+    blogTitle: '필리핀 음식',
+    expandSimple: true,
   },
   {
     id: 'beer-drinks',

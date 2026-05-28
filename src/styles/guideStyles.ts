@@ -92,9 +92,28 @@ export const guideStyles = StyleSheet.create({
   restaurantDetailLinks: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'center',
     gap: 8,
     paddingHorizontal: 11,
     paddingBottom: 10,
+  },
+  restaurantReserveBtn: {
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: '#f97316',
+    borderWidth: 1,
+    borderColor: '#ea580c',
+  },
+  restaurantReserveBtnPressed: {
+    backgroundColor: '#ea580c',
+    borderColor: '#c2410c',
+  },
+  restaurantReserveBtnText: {
+    fontSize: 12,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+    letterSpacing: -0.2,
   },
   resortBlogLinkWrap: {
     paddingHorizontal: 11,

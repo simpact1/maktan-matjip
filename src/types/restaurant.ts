@@ -57,4 +57,8 @@ export interface Restaurant {
   resortMealNote?: string;
   link?: string;
   links?: BlogLink[];
+  /** 카카오톡 채널 예약(막탄 크랩 맛집 등) */
+  reservationLink?: string;
+  /** 막탄 대표 크랩 맛집 5곳 (예약 버튼·UI 판별) */
+  isCrab?: boolean;
 }
