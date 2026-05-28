@@ -147,7 +147,10 @@ export function MactanPlacesGuide({
 
   const visibleListRows = useMemo((): ListRow[] => {
     if (nightMarketMode) {
-      return nightMarkets.map((item) => ({ kind: 'nightMarket' as const, item }));
+      return (nightMarkets ?? []).map((item) => ({
+        kind: 'nightMarket' as const,
+        item,
+      }));
     }
     const rows: ListRow[] = [];
     if (showRestaurantsOnMap) {
@@ -197,7 +200,12 @@ export function MactanPlacesGuide({
   useEffect(() => {
     if (!nightMarketMode) {
       onClearNightMarketSelection?.();
+      return;
     }
+    setTabMapActive(true);
+    setListMode('all');
+    setSelectedRestaurantId(null);
+    setSelectedResortId(null);
   }, [nightMarketMode, onClearNightMarketSelection]);
 
   const selectedRestaurant = useMemo(

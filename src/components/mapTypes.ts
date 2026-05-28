@@ -44,8 +44,11 @@ export function collectVisibleMapPoints(
       points.push({ id: r.id, lat: r.lat, lng: r.lng, kind: 'resort' });
     }
   }
-  if (showNightMarkets) {
+  if (showNightMarkets && Array.isArray(nightMarkets)) {
     for (const m of nightMarkets) {
+      if (m?.id == null || m.lat == null || m.lng == null) {
+        continue;
+      }
       points.push({ id: m.id, lat: m.lat, lng: m.lng, kind: 'nightMarket' });
     }
   }

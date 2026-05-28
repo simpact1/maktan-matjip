@@ -141,7 +141,7 @@ export function ClusterMap({
               />
             ))}
           {showNightMarkets &&
-            nightMarkets.map((market) => (
+            (nightMarkets ?? []).map((market) => (
               <Marker
                 key={`night-${market.id}`}
                 coordinate={{ latitude: market.lat, longitude: market.lng }}

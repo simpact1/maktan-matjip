@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { FontAwesome6 } from '@expo/vector-icons';
 import {
   LayoutAnimation,
   Platform,
@@ -15,11 +14,7 @@ import {
   DiningGuideTip,
   DiningGuideTipId,
 } from '../constants/diningGuideTips';
-import {
-  NIGHT_MARKET_BLOG_LINKS,
-  NIGHT_MARKET_LINK_ICON_COLOR,
-  NIGHT_MARKET_LINK_ICON_SIZE,
-} from '../constants/nightMarketMapLinks';
+import { NIGHT_MARKET_BLOG_LINKS } from '../constants/nightMarketMapLinks';
 import { colors, diningGuideTipTheme, fonts } from '../constants/theme';
 
 type ExpandLinkLayout = 'default' | 'fruitRow4' | 'grid2x2';
@@ -51,6 +46,14 @@ function NightMarketBlogLinkRow({
 }: {
   onOpenLink: (url: string, title: string) => void;
 }) {
+  if (!NIGHT_MARKET_BLOG_LINKS.length) {
+    return (
+      <Text style={styles.nightMarketLinksFallback}>
+        야시장 링크를 불러오지 못했습니다. 앱을 새로고침해 주세요.
+      </Text>
+    );
+  }
+
   return (
     <View style={styles.nightMarketMapRow}>
       {NIGHT_MARKET_BLOG_LINKS.map((link) => (
@@ -65,12 +68,9 @@ function NightMarketBlogLinkRow({
           accessibilityLabel={link.label}
           accessibilityHint={`${link.blogTitle} 블로그로 이동합니다`}
         >
-          <FontAwesome6
-            name={link.icon}
-            size={NIGHT_MARKET_LINK_ICON_SIZE}
-            color={NIGHT_MARKET_LINK_ICON_COLOR}
-            style={styles.nightMarketMapIcon}
-          />
+          <Text style={styles.nightMarketMapEmoji} accessibilityElementsHidden>
+            {link.emoji}
+          </Text>
           <Text
             style={styles.nightMarketMapLabel}
             numberOfLines={3}
@@ -608,8 +608,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(11, 37, 46, 0.78)',
     borderColor: diningGuideTipTheme.borderActive,
   },
-  nightMarketMapIcon: {
+  nightMarketMapEmoji: {
+    fontSize: 20,
+    lineHeight: 24,
     marginBottom: 2,
+  },
+  nightMarketLinksFallback: {
+    marginTop: 10,
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: colors.textDesc,
+    textAlign: 'center',
   },
   nightMarketMapLabel: {
     fontSize: NIGHT_MARKET_LABEL_FONT_SIZE,

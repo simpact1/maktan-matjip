@@ -237,20 +237,6 @@ export function ClusterMap({
     [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
   );
 
-  const mapKey = useMemo(
-    () =>
-      [
-        showRestaurants
-          ? restaurants.map((r) => `${r.id}:${r.lat},${r.lng}`).join(',')
-          : '',
-        showResorts ? resorts.map((r) => `${r.id}:${r.lat},${r.lng}`).join(',') : '',
-        showNightMarkets
-          ? nightMarkets.map((m) => `${m.id}:${m.lat},${m.lng}`).join(',')
-          : '',
-      ].join('|'),
-    [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
-  );
-
   const mapVisible = showRestaurants || showResorts || showNightMarkets;
 
   if (!mapVisible) {
@@ -276,7 +262,6 @@ export function ClusterMap({
     <View style={styles.wrap}>
       <View style={styles.mapBox}>
         <MapContainer
-          key={mapKey}
           center={center}
           zoom={12}
           style={webMapStyle}
@@ -308,7 +293,7 @@ export function ClusterMap({
               />
             ))}
           {showNightMarkets &&
-            nightMarkets.map((market) => (
+            (nightMarkets ?? []).map((market) => (
               <NightMarketMapMarker
                 key={`night-${market.id}-${market.lat}-${market.lng}`}
                 market={market}
