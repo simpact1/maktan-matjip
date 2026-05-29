@@ -80,64 +80,6 @@
     ]
   },
   {
-    "id": "r3",
-    "name": "쉐라톤 세부 막탄 리조트",
-    "lat": 10.3172,
-    "lng": 124.0275,
-    "zone": "공항인근",
-    "breakfast": "5 Cien (5 시엔) 메인 올데이 뷔페. 현지식·양식 조화, 베이커리·디저트 섹션 강세.",
-    "dinner": "5 Cien 디너 뷔페, 딥 블루 핫팟, 또는 부히 바 해변 바.",
-    "reviewLinks": [
-      {
-        "label": "쉐라톤 조식 생생 후기",
-        "url": "https://m.blog.naver.com/aalove0902/223481796886"
-      }
-    ],
-    "otherVenues": [
-      {
-        "name": "5 Cien (5 시엔)",
-        "summary": "메인 올데이 뷔페. 조·석식·브런치."
-      },
-      {
-        "name": "딥 블루 (Dip Dip Dip)",
-        "summary": "고급 핫팟 레스토랑. 예약 추천."
-      },
-      {
-        "name": "부히 바 (Buhi Bar)",
-        "summary": "동굴 컨셉 해변 바. 칵테일·스낵·야경."
-      }
-    ]
-  },
-  {
-    "id": "r4",
-    "name": "두싯타니 막탄 리조트",
-    "lat": 10.3275,
-    "lng": 124.0348,
-    "zone": "공항인근",
-    "breakfast": "씨 브리즈 카페 (Sea Breeze Cafe) — 오픈 키친 메인 뷔페. 인피니티 풀·바다 뷰.",
-    "dinner": "씨 브리즈 석식 뷔페, 또는 벤자롱 타이 정통 단품(선셋·예약 권장).",
-    "reviewLinks": [
-      {
-        "label": "두짓타니 조식 생생 후기",
-        "url": "https://m.blog.naver.com/aalove0902/222869322071"
-      },
-      {
-        "label": "석식 뷔페 (세부아노 바베큐) 후기",
-        "url": "https://m.blog.naver.com/aalove0902/224215052743"
-      }
-    ],
-    "otherVenues": [
-      {
-        "name": "씨 브리즈 카페 (Sea Breeze Cafe)",
-        "summary": "메인 오픈 키친 뷔페. 조·석식."
-      },
-      {
-        "name": "벤자롱 (Benjarong)",
-        "summary": "타이 정통 레스토랑. 커리·똠얌·프라이빗 다이닝."
-      }
-    ]
-  },
-  {
     "id": "r5",
     "name": "모벤픽 리조트 막탄",
     "lat": 10.3092,

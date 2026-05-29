@@ -214,71 +214,6 @@
     "companionType": "모두"
   },
   {
-    "id": "14",
-    "name": "보스커피 (아울렛점)",
-    "lat": 10.302343336586688,
-    "lng": 123.96238773971392,
-    "desc": "푸에블로 베르데 아울렛 인근 보스커피 아울렛점",
-    "link": "https://m.blog.naver.com/aalove0902/220541702106",
-    "category": "cafe",
-    "zone": "공항인근",
-    "menuType": "카페",
-    "pickupDrop": false,
-    "resortMeal": [
-      "조식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
-    "id": "15",
-    "name": "Rib Shack (아울렛점)",
-    "lat": 10.300446325004792,
-    "lng": 123.96317508217267,
-    "desc": "푸에블로 베르데 가성비 립 맛집",
-    "link": "https://m.blog.naver.com/aalove0902/222755320891",
-    "category": "other",
-    "zone": "공항인근",
-    "menuType": "기타",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
-    "id": "16",
-    "name": "엔젤스 피자 (바삭점)",
-    "lat": 10.296404773229789,
-    "lng": 123.9661675188098,
-    "desc": "막탄 가성비 최고 쫄깃한 엔젤스 피자 바삭점",
-    "link": "https://m.blog.naver.com/aalove0902/222145851712",
-    "category": "other",
-    "zone": "공항인근",
-    "menuType": "기타",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
-    "id": "17",
-    "name": "차오킹 (그랜드몰점)",
-    "lat": 10.287410191592198,
-    "lng": 123.97230414955703,
-    "desc": "가이사노 그랜드몰 내부 인기 중식 브랜드",
-    "link": "https://m.blog.naver.com/aalove0902/221586064549",
-    "category": "other",
-    "zone": "공항인근",
-    "menuType": "중식",
-    "pickupDrop": false,
-    "resortMeal": [
-      "조식",
-      "석식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
     "id": "18",
     "name": "막탄 뉴타운 제이코 (J.CO)",
     "lat": 10.30735519107202,
@@ -486,22 +421,6 @@
     "companionType": "아이동반"
   },
   {
-    "id": "30",
-    "name": "대가 (Daega)",
-    "lat": 10.298879411459431,
-    "lng": 123.96479819135708,
-    "desc": "막탄 가성비 넘치는 고품격 한식 삼겹살/숯불 화로구이",
-    "link": "https://m.blog.naver.com/aalove0902/221629844064",
-    "category": "korean",
-    "zone": "공항인근",
-    "menuType": "한식",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "모두"
-  },
-  {
     "id": "31",
     "name": "막탄 레드하우스",
     "lat": 10.284112866791412,
@@ -566,22 +485,6 @@
       "석식"
     ],
     "companionType": "부모님동반"
-  },
-  {
-    "id": "35",
-    "name": "막탄타임스퀘어 탐앤탐스",
-    "lat": 10.298809735300992,
-    "lng": 123.9656034872189,
-    "desc": "타임스퀘어 광장 넓고 조용한 탐앤탐스",
-    "link": "https://m.blog.naver.com/aalove0902/221632294802",
-    "category": "cafe",
-    "zone": "공항인근",
-    "menuType": "카페",
-    "pickupDrop": false,
-    "resortMeal": [
-      "조식"
-    ],
-    "companionType": "아이동반"
   },
   {
     "id": "36",
@@ -672,70 +575,6 @@
     "companionType": "아이동반"
   },
   {
-    "id": "41",
-    "name": "팝시스 (Papsy's)",
-    "lat": 10.316970955359341,
-    "lng": 123.9641720786821,
-    "desc": "가이사노 막탄 옆 로컬 BBQ 바베큐 전문점",
-    "link": "https://m.blog.naver.com/aalove0902/224088713516",
-    "category": "local",
-    "zone": "공항인근",
-    "menuType": "로컬",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
-    "id": "42",
-    "name": "추비추비 (아울렛점)",
-    "lat": 10.302640413318503,
-    "lng": 123.96180550871063,
-    "desc": "아울렛 내부 새우 감성 식당",
-    "link": "https://m.blog.naver.com/aalove0902/222358136591",
-    "category": "seafood",
-    "zone": "공항인근",
-    "menuType": "씨푸드",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
-    "id": "43",
-    "name": "망이나살 (아울렛점)",
-    "lat": 10.301107492966837,
-    "lng": 123.96247730583154,
-    "desc": "무제한 밥과 함께하는 필리핀 닭고기 구이 강자",
-    "link": "https://m.blog.naver.com/aalove0902/221673870938",
-    "category": "local",
-    "zone": "공항인근",
-    "menuType": "로컬",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "아이동반"
-  },
-  {
-    "id": "44",
-    "name": "가야 (Kaya)",
-    "lat": 10.298651917715521,
-    "lng": 123.9643541372992,
-    "desc": "공항 인근에서 가장 깔끔한 고급 한식 전문점",
-    "link": "https://m.blog.naver.com/aalove0902/221693261346",
-    "category": "korean",
-    "zone": "공항인근",
-    "menuType": "한식",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "부모님동반"
-  },
-  {
     "id": "45",
     "name": "할리스",
     "lat": 10.324123890776715,
@@ -748,23 +587,6 @@
     "pickupDrop": false,
     "resortMeal": [
       "조식"
-    ],
-    "companionType": "모두"
-  },
-  {
-    "id": "46",
-    "name": "딤섬브레이크(그랜드몰점)",
-    "lat": 10.287280689824149,
-    "lng": 123.97112905182254,
-    "desc": "바삭 가이사노 그랜드몰 내부 홍콩 스팀 딤섬 전문점",
-    "link": "https://m.blog.naver.com/aalove0902/223065492706",
-    "category": "other",
-    "zone": "공항인근",
-    "menuType": "중식",
-    "pickupDrop": false,
-    "resortMeal": [
-      "조식",
-      "석식"
     ],
     "companionType": "모두"
   },
@@ -783,22 +605,6 @@
       "석식"
     ],
     "companionType": "부모님동반"
-  },
-  {
-    "id": "48",
-    "name": "마리나 씨뷰",
-    "lat": 10.32832240475665,
-    "lng": 123.97650483914835,
-    "desc": "요트클럽의 석양이 아름다운 최고의 오션뷰 레스토랑",
-    "link": "https://m.blog.naver.com/aalove0902/223487650258",
-    "category": "seafood",
-    "zone": "공항인근",
-    "menuType": "씨푸드",
-    "pickupDrop": false,
-    "resortMeal": [
-      "석식"
-    ],
-    "companionType": "커플"
   },
   {
     "id": "49",
