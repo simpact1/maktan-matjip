@@ -23,7 +23,7 @@ export function filterRestaurants(
   const normalizedQuery = filters.query.trim().toLowerCase();
 
   return items.filter((item) => {
-    if (filters.zone && item.zone !== filters.zone) {
+    if (filters.zone && (item.zone !== filters.zone || item.hiddenInZoneFilter)) {
       return false;
     }
     if (filters.menuType && item.menuType !== filters.menuType) {

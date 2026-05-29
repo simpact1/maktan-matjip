@@ -61,4 +61,6 @@ export interface Restaurant {
   reservationLink?: string;
   /** 막탄 대표 크랩 맛집 5곳 (예약 버튼·UI 판별) */
   isCrab?: boolean;
+  /** 특정 구역(zone) 필터 선택 시 숨김 (전체 리스트엔 노출). 예: 공항근처 카테고리에서 제외 */
+  hiddenInZoneFilter?: boolean;
 }
