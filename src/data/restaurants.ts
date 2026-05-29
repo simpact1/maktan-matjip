@@ -34,7 +34,7 @@ export const pickupDropRestaurants = restaurants
 export const resortMealRestaurants = restaurants.filter((r) => r.resortMeal.length > 0);
 
 /**
- * 🌅 뷰맛집 탭 고정 허용 목록 (6곳).
+ * 🌅 뷰/야경맛집 탭 고정 허용 목록 (13곳).
  * 동반자·메뉴 태그와 무관하게 이 ID만 노출한다.
  */
 export const VIEW_SPOT_RESTAURANT_IDS = [
@@ -44,6 +44,13 @@ export const VIEW_SPOT_RESTAURANT_IDS = [
   '26', // 카바나 (Cabana)
   '48', // 마리나 씨뷰
   '54', // 만송이 장미 카페
+  '64', // 세부시티 안자니
+  '65', // 세부시티 탑스힐
+  '66', // 막탄그랜드골든호텔 루프탑
+  '67', // 막탄 스케이프 스카이덱
+  '68', // 세부시티 라 파리지엔 스카이
+  '69', // 세부시티 미스터A
+  '70', // 세부시티 Verified 루프탑
 ] as const;
 
 const viewSpotIdOrder = new Map(
