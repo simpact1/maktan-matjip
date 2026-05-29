@@ -45,7 +45,7 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "아이동반"
+    "companionType": "모두"
   },
   {
     "id": "4",
@@ -80,7 +80,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "6",
@@ -162,7 +162,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "11",
@@ -195,7 +195,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "모두"
   },
   {
     "id": "13",
@@ -227,7 +227,7 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "아이동반",
+    "companionType": "모두",
     "hiddenInZoneFilter": true
   },
   {
@@ -244,7 +244,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반",
+    "companionType": "모두",
     "hiddenInZoneFilter": true
   },
   {
@@ -279,7 +279,7 @@
       "조식",
       "석식"
     ],
-    "companionType": "아이동반",
+    "companionType": "모두",
     "hiddenInZoneFilter": true
   },
   {
@@ -296,7 +296,7 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "아이동반"
+    "companionType": "모두"
   },
   {
     "id": "19",
@@ -313,7 +313,7 @@
       "조식"
     ],
     "resortMealNote": "막탄 뉴타운 — 리조트 조식·브런치",
-    "companionType": "아이동반"
+    "companionType": "모두"
   },
   {
     "id": "20",
@@ -329,7 +329,7 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "아이동반"
+    "companionType": "모두"
   },
   {
     "id": "21",
@@ -396,7 +396,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반"
+    "companionType": "커플"
   },
   {
     "id": "25",
@@ -434,7 +434,7 @@
       "석식"
     ],
     "resortMealNote": "더마크·모벤픽 — 오션뷰 석식",
-    "companionType": "커플"
+    "companionType": "모두"
   },
   {
     "id": "27",
@@ -468,7 +468,7 @@
       "조식",
       "석식"
     ],
-    "companionType": "아이동반"
+    "companionType": "모두"
   },
   {
     "id": "29",
@@ -487,7 +487,7 @@
       "석식"
     ],
     "resortMealNote": "제이파크·뉴타운 — 조식·석식 퓨전 로컬",
-    "companionType": "아이동반"
+    "companionType": "모두"
   },
   {
     "id": "30",
@@ -570,7 +570,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "35",
@@ -586,7 +586,7 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "아이동반",
+    "companionType": "모두",
     "hiddenInZoneFilter": true
   },
   {
@@ -642,7 +642,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "39",
@@ -659,7 +659,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "40",
@@ -708,7 +708,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반",
+    "companionType": "모두",
     "hiddenInZoneFilter": true
   },
   {
@@ -725,7 +725,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반",
+    "companionType": "커플",
     "hiddenInZoneFilter": true
   },
   {
@@ -742,7 +742,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반",
+    "companionType": "모두",
     "hiddenInZoneFilter": true
   },
   {
@@ -793,7 +793,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "48",
@@ -843,7 +843,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "모두"
   },
   {
     "id": "51",
@@ -888,7 +888,7 @@
       "조식",
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "커플"
   },
   {
     "id": "53",
@@ -1066,7 +1066,7 @@
     "menuType": "뷰맛집",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두",
+    "companionType": "커플",
     "hiddenInZoneFilter": true
   },
   {
@@ -1111,7 +1111,7 @@
     "menuType": "뷰맛집",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두",
+    "companionType": "커플",
     "hiddenInZoneFilter": true
   },
   {
@@ -1156,7 +1156,7 @@
     "menuType": "뷰맛집",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두",
+    "companionType": "커플",
     "hiddenInZoneFilter": true
   },
   {
