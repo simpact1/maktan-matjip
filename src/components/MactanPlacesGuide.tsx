@@ -25,7 +25,6 @@ import {
 } from '../data/restaurants';
 import { nightMarkets } from '../data/nightMarkets';
 import { mactanResorts } from '../data/resorts';
-import { NIGHT_MARKET_GUIDE_PASSAGE } from '../constants/nightMarketGuideText';
 import {
   COMPANION_FILTER_OPTIONS,
   MENU_TYPE_OPTIONS,
@@ -340,18 +339,11 @@ export function MactanPlacesGuide({
         onChange={handleGuideModeChange}
       />
 
+      {nightMarketMode ? null : (
       <View style={guideStyles.infoCard}>
         <Text style={guideStyles.cardTitle}>{cardTitle}</Text>
 
-        {nightMarketMode ? (
-          <View style={guideStyles.nightMarketBanner}>
-            <Text style={guideStyles.nightMarketBannerTitle}>🌙 야시장</Text>
-            <Text style={guideStyles.nightMarketBannerText}>{NIGHT_MARKET_GUIDE_PASSAGE}</Text>
-            <Text style={[guideStyles.nightMarketBannerText, guideStyles.nightMarketBannerHint]}>
-              지도 🎪 마커 또는 아래 목록을 탭하면 위치·생생 후기를 볼 수 있습니다.
-            </Text>
-          </View>
-        ) : listMode === 'pickupDrop' ? (
+        {listMode === 'pickupDrop' ? (
           <View style={guideStyles.pickupBanner}>
             <Text style={guideStyles.pickupBannerTitle}>
               리조트·호텔 ↔ 식당 무료 송영
@@ -386,6 +378,7 @@ export function MactanPlacesGuide({
           </Text>
         )}
       </View>
+      )}
 
       <View style={guideStyles.mapSection}>
         <MapErrorBoundary
