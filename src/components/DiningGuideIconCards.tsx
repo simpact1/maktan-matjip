@@ -658,5 +658,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     paddingHorizontal: 1,
+    ...(Platform.OS === 'web'
+      ? ({
+          whiteSpace: 'normal',
+          wordBreak: 'keep-all',
+          overflowWrap: 'break-word',
+        } as object)
+      : null),
   },
 });
