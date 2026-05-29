@@ -45,6 +45,19 @@ if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental?.(true);
 }
 
+// 웹에서 야시장 후기 링크 라벨이 좁은 칸에서 한 글자씩 끊기지 않고
+// 단어(어절) 단위로 줄바꿈되도록 실제 CSS를 주입한다. (RN-web 스타일 누락 방지)
+if (Platform.OS === 'web' && typeof document !== 'undefined') {
+  const NM_LABEL_STYLE_ID = 'nm-blog-label-style';
+  if (!document.getElementById(NM_LABEL_STYLE_ID)) {
+    const styleEl = document.createElement('style');
+    styleEl.id = NM_LABEL_STYLE_ID;
+    styleEl.textContent =
+      '[data-nmlabel="true"]{word-break:keep-all!important;white-space:normal!important;overflow-wrap:break-word!important;text-align:center!important;}';
+    document.head.appendChild(styleEl);
+  }
+}
+
 function NightMarketBlogLinkRow({
   onOpenLink,
 }: {
@@ -78,8 +91,9 @@ function NightMarketBlogLinkRow({
           <Text
             style={styles.nightMarketMapLabel}
             numberOfLines={3}
-            adjustsFontSizeToFit
-            minimumFontScale={0.78}
+            {...(Platform.OS === 'web'
+              ? ({ dataSet: { nmlabel: 'true' } } as object)
+              : null)}
           >
             {link.label}
           </Text>
