@@ -1,7 +1,6 @@
 import { Pressable, Text, View } from 'react-native';
 import { guideStyles } from '../styles/guideStyles';
 import { MactanResort } from '../types/resort';
-import { openExternalUrl } from '../utils/openExternalUrl';
 
 interface ResortDetailBodyProps {
   resort: MactanResort;
@@ -27,7 +26,7 @@ export function ResortDetailBody({ resort, onOpenLink }: ResortDetailBodyProps) 
         <Text style={guideStyles.resortMealLabel}>🍽️ 저녁 식사 가이드{'\n'}</Text>
         {resort.dinner}
       </Text>
-      {reviewLinks.length > 0 ? (
+      {reviewLinks.length > 0 && onOpenLink ? (
         <View style={guideStyles.resortReviewLinkWrap}>
           {reviewLinks.map((link) => (
             <Pressable
@@ -37,7 +36,7 @@ export function ResortDetailBody({ resort, onOpenLink }: ResortDetailBodyProps) 
                 guideStyles.resortReviewLinkBtn,
                 pressed && guideStyles.resortBlogLinkBtnPressed,
               ]}
-              onPress={() => openExternalUrl(link.url)}
+              onPress={() => onOpenLink(link.url, link.label)}
               accessibilityRole="link"
               accessibilityLabel={link.label}
             >

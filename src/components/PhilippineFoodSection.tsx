@@ -113,12 +113,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.semiBold,
     color: '#ffffff',
     textAlign: 'center',
-    paddingHorizontal: 2,
+    paddingHorizontal: 1,
     ...(Platform.OS === 'web'
       ? ({
+          minWidth: 0,
           whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          fontSize: 'clamp(7.5px, 2.2vw, 13px)',
         } as object)
       : null),
   },

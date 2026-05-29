@@ -34,7 +34,8 @@ const card: CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: 8,
+  minWidth: 0,
+  padding: 6,
   backgroundColor: '#0c4a60',
   border: '1px solid #176a84',
   borderRadius: 12,
@@ -47,13 +48,13 @@ const card: CSSProperties = {
 
 const cardLabel: CSSProperties = {
   width: '100%',
+  minWidth: 0,
   textAlign: 'center',
   fontWeight: 600,
   whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  fontSize: 'clamp(9px, 2.5vw, 14px)',
+  fontSize: 'clamp(7.5px, 2.2vw, 13px)',
 };
+
 
 export function PhilippineFoodSection({ onOpenLink }: Props) {
   return (
