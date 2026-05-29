@@ -8,7 +8,11 @@ import { ScreenBackground } from '../components/ScreenBackground';
 import { restaurants } from '../data/restaurants';
 import { RootStackScreenProps } from '../navigation/types';
 import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
-import { isExternalMapOrWebUrl, openExternalUrl } from '../utils/openExternalUrl';
+import {
+  isExternalMapOrWebUrl,
+  openExternalUrl,
+  openUrlInSameWindow,
+} from '../utils/openExternalUrl';
 
 type Props = RootStackScreenProps<'Home'>;
 
@@ -23,9 +27,10 @@ export function HomeScreen({ navigation }: Props) {
         return;
       }
       // 네이버 카페는 iframe/인앱 WebView 임베드를 차단(하얀 화면)하므로
-      // m.blog 변환을 건너뛰고 외부 브라우저로 안전하게 연결한다.
+      // m.blog 변환을 건너뛰고, 새 탭이 아닌 현재 창에서 그대로 이동한다.
+      // (모바일 주소 m.cafe.naver.com 체계는 그대로 유지)
       if (/cafe\.naver\.com/i.test(url)) {
-        openExternalUrl(url);
+        openUrlInSameWindow(url);
         return;
       }
       if (isExternalMapOrWebUrl(url)) {

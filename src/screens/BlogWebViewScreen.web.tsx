@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts, gradient } from '../constants/theme';
 import { RootStackParamList } from '../navigation/types';
 import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
-import { openExternalUrl } from '../utils/openExternalUrl';
+import { openUrlInSameWindow } from '../utils/openExternalUrl';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BlogWebView'>;
 
@@ -23,7 +23,7 @@ export function BlogWebViewScreen({ navigation, route }: Props) {
 
   useEffect(() => {
     if (embedBlocked) {
-      openExternalUrl(url);
+      openUrlInSameWindow(url);
     }
   }, [embedBlocked, url]);
 
@@ -47,19 +47,19 @@ export function BlogWebViewScreen({ navigation, route }: Props) {
           <View style={styles.fallbackWrap}>
             <Text style={styles.fallbackTitle}>네이버 카페 후기</Text>
             <Text style={styles.fallbackText}>
-              네이버 카페 글은 앱 안에서 바로 표시되지 않아 새 창에서 열었습니다.
-              창이 열리지 않았다면 아래 버튼을 눌러주세요.
+              네이버 카페 후기로 이동합니다. 이동되지 않으면 아래 버튼을 눌러주세요.
+              브라우저 뒤로가기로 앱으로 돌아올 수 있습니다.
             </Text>
             <Pressable
-              onPress={() => openExternalUrl(url)}
+              onPress={() => openUrlInSameWindow(url)}
               style={({ pressed }) => [
                 styles.fallbackButton,
                 pressed && styles.fallbackButtonPressed,
               ]}
               accessibilityRole="link"
-              accessibilityLabel="새 창에서 카페 후기 보기"
+              accessibilityLabel="카페 후기 보기"
             >
-              <Text style={styles.fallbackButtonText}>새 창에서 후기 보기</Text>
+              <Text style={styles.fallbackButtonText}>카페 후기 보기</Text>
             </Pressable>
           </View>
         ) : (

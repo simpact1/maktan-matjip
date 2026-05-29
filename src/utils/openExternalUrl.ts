@@ -26,3 +26,21 @@ export function openExternalUrl(url: string): void {
     // ignore — OS may reject unknown schemes
   });
 }
+
+/**
+ * 새 탭을 열지 않고 현재 브라우저 창에서 그대로 이동한다.
+ * (네이버 카페처럼 iframe 임베드는 막히지만 새 창 없이 현재 창 전환이 필요한 경우)
+ * 사용자는 브라우저 뒤로가기로 앱으로 복귀할 수 있다.
+ */
+export function openUrlInSameWindow(url: string): void {
+  if (Platform.OS === 'web') {
+    if (typeof window !== 'undefined') {
+      window.location.href = url;
+      return;
+    }
+  }
+
+  Linking.openURL(url).catch(() => {
+    // ignore — OS may reject unknown schemes
+  });
+}
