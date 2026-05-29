@@ -37,15 +37,7 @@ export function PhilippineFoodSection({ onOpenLink }: Props) {
             <Text style={styles.emoji} accessibilityElementsHidden>
               {item.emoji}
             </Text>
-            <Text
-              style={styles.cardLabel}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.65}
-              ellipsizeMode="tail"
-            >
-              {item.title}
-            </Text>
+            <Text style={styles.cardLabel}>{item.title}</Text>
           </Pressable>
         ))}
       </View>
@@ -109,7 +101,7 @@ const styles = StyleSheet.create({
   },
   cardLabel: {
     width: '100%',
-    fontSize: 11,
+    fontSize: 9,
     fontFamily: fonts.semiBold,
     color: '#ffffff',
     textAlign: 'center',
@@ -118,7 +110,9 @@ const styles = StyleSheet.create({
       ? ({
           minWidth: 0,
           whiteSpace: 'nowrap',
-          fontSize: 'clamp(7.5px, 2.2vw, 13px)',
+          overflow: 'visible',
+          textOverflow: 'clip',
+          fontSize: '7.5px',
         } as object)
       : null),
   },

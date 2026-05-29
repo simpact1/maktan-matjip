@@ -46,19 +46,33 @@ const card: CSSProperties = {
   transition: 'background-color 0.15s ease',
 };
 
-const cardLabel: CSSProperties = {
-  width: '100%',
-  minWidth: 0,
-  textAlign: 'center',
-  fontWeight: 600,
-  whiteSpace: 'nowrap',
-  fontSize: 'clamp(7.5px, 2.2vw, 13px)',
-};
+/**
+ * 모바일 기본 7.5px 고정 → sm(640px) 12px → md(768px) 14px.
+ * inline clamp 대신 실제 CSS 클래스로 강제해, 어떤 초소형 화면에서도
+ * '필리핀 전통먹거리' 9글자가 잘리지 않고 한 줄에 출력된다.
+ */
+const LABEL_CSS = `
+.ph-food-label{
+  display:block;
+  width:100%;
+  min-width:0;
+  text-align:center;
+  font-weight:600;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:visible;
+  text-overflow:clip;
+  font-size:7.5px;
+}
+@media (min-width:640px){.ph-food-label{font-size:12px;}}
+@media (min-width:768px){.ph-food-label{font-size:14px;}}
+`;
 
 
 export function PhilippineFoodSection({ onOpenLink }: Props) {
   return (
     <div style={wrap}>
+      <style>{LABEL_CSS}</style>
       <div style={{ marginBottom: 16 }}>
         <h2
           style={{
@@ -104,7 +118,7 @@ export function PhilippineFoodSection({ onOpenLink }: Props) {
             <span style={{ fontSize: 24, marginBottom: 4 }} aria-hidden>
               {item.emoji}
             </span>
-            <span style={cardLabel}>{item.title}</span>
+            <span className="ph-food-label">{item.title}</span>
           </a>
         ))}
       </div>
