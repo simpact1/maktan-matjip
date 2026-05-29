@@ -1158,5 +1158,20 @@
     "resortMeal": [],
     "companionType": "모두",
     "hiddenInZoneFilter": true
+  },
+  {
+    "id": "71",
+    "name": "엔젤스피자 막탄타운센터",
+    "lat": 10.296196154599187,
+    "lng": 123.9649140523454,
+    "desc": "막탄 타운센터(MTC)에 위치한 가성비 좋고 현지인들에게도 인기 높은 로컬 피자 맛집",
+    "link": "https://m.blog.naver.com/aalove0902/222145851712",
+    "category": "other",
+    "zone": "마리바고/블루워터",
+    "menuType": "기타",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "hiddenInZoneFilter": true
   }
 ]
