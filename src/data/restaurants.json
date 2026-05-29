@@ -91,7 +91,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223673322236",
     "category": "japanese",
     "zone": "막탄뉴타운",
-    "menuType": "뷔페",
+    "menuType": "일식",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
@@ -239,7 +239,7 @@
     "link": "https://m.blog.naver.com/aalove0902/222755320891",
     "category": "other",
     "zone": "공항인근",
-    "menuType": "기타",
+    "menuType": "로컬",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
@@ -357,7 +357,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223146217994",
     "category": "seafood",
     "zone": "솔레아",
-    "menuType": "씨푸드",
+    "menuType": "로컬",
     "pickupDrop": false,
     "pickupDropNote": "10,000 Roses·리조트권 — 투어·식사 패키지 송영",
     "resortMeal": [
@@ -374,7 +374,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223776356085",
     "category": "seafood",
     "zone": "솔레아",
-    "menuType": "씨푸드",
+    "menuType": "로컬",
     "pickupDrop": false,
     "pickupDropNote": "코르도바·막탄 호텔 — 픽업·드랍 (예약 필수)",
     "resortMeal": [
@@ -427,7 +427,7 @@
     "link": "https://m.blog.naver.com/aalove0902/224111577376",
     "category": "seafood",
     "zone": "샹그릴라",
-    "menuType": "뷔페",
+    "menuType": "로컬",
     "pickupDrop": true,
     "pickupDropNote": "더마크·모벤픽·뉴타운 — 호텔·리조트 송영",
     "resortMeal": [
@@ -515,7 +515,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223726512301",
     "category": "other",
     "zone": "제이파크/샹스",
-    "menuType": "중식",
+    "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
@@ -670,7 +670,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223564955706",
     "category": "seafood",
     "zone": "막탄뉴타운",
-    "menuType": "씨푸드",
+    "menuType": "로컬",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
@@ -703,7 +703,7 @@
     "link": "https://m.blog.naver.com/aalove0902/222358136591",
     "category": "seafood",
     "zone": "공항인근",
-    "menuType": "씨푸드",
+    "menuType": "로컬",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
@@ -804,7 +804,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223487650258",
     "category": "seafood",
     "zone": "공항인근",
-    "menuType": "씨푸드",
+    "menuType": "로컬",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
@@ -838,7 +838,7 @@
     "link": "https://m.blog.naver.com/aalove0902/223899816380",
     "category": "japanese",
     "zone": "제이파크/샹스",
-    "menuType": "일식",
+    "menuType": "로컬",
     "pickupDrop": false,
     "resortMeal": [
       "석식"
