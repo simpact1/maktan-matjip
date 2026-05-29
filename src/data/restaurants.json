@@ -190,7 +190,7 @@
     "category": "local",
     "zone": "솔레아",
     "menuType": "로컬",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "코르도바·리조트권 — 단체 예약 시 픽업·드랍 협의",
     "resortMeal": [
       "석식"
@@ -358,7 +358,7 @@
     "category": "seafood",
     "zone": "솔레아",
     "menuType": "씨푸드",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "10,000 Roses·리조트권 — 투어·식사 패키지 송영",
     "resortMeal": [
       "석식"
@@ -375,7 +375,7 @@
     "category": "seafood",
     "zone": "솔레아",
     "menuType": "씨푸드",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "코르도바·막탄 호텔 — 픽업·드랍 (예약 필수)",
     "resortMeal": [
       "석식"
@@ -446,7 +446,7 @@
     "category": "korean",
     "zone": "샹그릴라",
     "menuType": "한식",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "막탄 뉴타운·리조트권 — 무료 픽업·드랍 (예약)",
     "resortMeal": [
       "석식"
@@ -548,7 +548,7 @@
     "category": "korean",
     "zone": "막탄뉴타운",
     "menuType": "한식",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "제이파크·뉴타운 — 픽업·드랍 (전화 예약)",
     "resortMeal": [
       "석식"
@@ -565,7 +565,7 @@
     "category": "korean",
     "zone": "마리바고/블루워터",
     "menuType": "한식",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "마리바고·블루워터권 — 리조트 송영",
     "resortMeal": [
       "석식"
@@ -654,7 +654,7 @@
     "category": "local",
     "zone": "마리바고/블루워터",
     "menuType": "로컬",
-    "pickupDrop": true,
+    "pickupDrop": false,
     "pickupDropNote": "화이트샌즈·인근 리조트 — 송영 문의",
     "resortMeal": [
       "석식"
