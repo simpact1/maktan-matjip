@@ -22,6 +22,12 @@ export function HomeScreen({ navigation }: Props) {
         navigation.navigate('BlogWebView', { url, title });
         return;
       }
+      // 네이버 카페는 iframe/인앱 WebView 임베드를 차단(하얀 화면)하므로
+      // m.blog 변환을 건너뛰고 외부 브라우저로 안전하게 연결한다.
+      if (/cafe\.naver\.com/i.test(url)) {
+        openExternalUrl(url);
+        return;
+      }
       if (isExternalMapOrWebUrl(url)) {
         openExternalUrl(url);
         return;
