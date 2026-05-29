@@ -320,7 +320,7 @@ export function MactanPlacesGuide({
     : listMode === 'pickupDrop'
       ? '픽업·드랍 가능 맛집'
       : listMode === 'viewSpots'
-        ? '뷰맛집'
+        ? '뷰/야경맛집'
         : listMode === 'resortDining'
           ? `막탄 ${mactanResorts.length}대 리조트 다이닝`
           : '막탄 맛집 & 카페';
@@ -361,9 +361,9 @@ export function MactanPlacesGuide({
           </View>
         ) : listMode === 'viewSpots' ? (
           <View style={guideStyles.mealBanner}>
-            <Text style={guideStyles.mealBannerTitle}>오션뷰·선셋 분위기 맛집</Text>
+            <Text style={guideStyles.mealBannerTitle}>파노라마 오션뷰와 환상적인 시티 야경 맛집</Text>
             <Text style={guideStyles.mealBannerText}>
-              바다 전망과 로맨틱한 분위기가 좋은 뷰맛집만 모았습니다.
+              낮에는 푸른 바다와 선셋을, 밤에는 반짝이는 루프탑과 로맨틱한 야경을 즐길 수 있는 명소만 모았습니다.
             </Text>
           </View>
         ) : listMode === 'resortDining' ? (
