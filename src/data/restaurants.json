@@ -162,7 +162,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "커플"
   },
   {
     "id": "11",
@@ -195,7 +195,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "커플"
   },
   {
     "id": "13",
@@ -211,7 +211,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "커플"
   },
   {
     "id": "14",
@@ -570,7 +570,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "부모님동반"
   },
   {
     "id": "35",
@@ -604,7 +604,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "커플"
   },
   {
     "id": "37",
@@ -742,7 +742,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두",
+    "companionType": "부모님동반",
     "hiddenInZoneFilter": true
   },
   {
@@ -776,7 +776,7 @@
       "조식",
       "석식"
     ],
-    "companionType": "모두",
+    "companionType": "커플",
     "hiddenInZoneFilter": true
   },
   {
@@ -793,7 +793,7 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "부모님동반"
   },
   {
     "id": "48",
@@ -940,7 +940,7 @@
     "menuType": "한식",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "아이동반"
   },
   {
     "id": "56",
@@ -982,7 +982,7 @@
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "아이동반"
   },
   {
     "id": "59",
@@ -996,7 +996,7 @@
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "아이동반"
   },
   {
     "id": "60",
@@ -1010,7 +1010,7 @@
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "커플"
   },
   {
     "id": "61",
@@ -1024,7 +1024,7 @@
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "아이동반"
   },
   {
     "id": "62",
@@ -1171,7 +1171,7 @@
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두",
+    "companionType": "아이동반",
     "hiddenInZoneFilter": true
   }
 ]
