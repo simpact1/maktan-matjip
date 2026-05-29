@@ -35,6 +35,7 @@ import { filterRestaurants } from '../utils/filterRestaurants';
 import { filterResorts } from '../utils/filterResorts';
 import { guideStyles } from '../styles/guideStyles';
 import { ClusterMap } from './ClusterMap';
+import { MapErrorBoundary } from './MapErrorBoundary';
 import { GuideModeSwitch } from './GuideModeSwitch';
 import { NightMarketDetailSection } from './NightMarketDetailSection';
 import { NightMarketListItem } from './NightMarketListItem';
@@ -387,21 +388,25 @@ export function MactanPlacesGuide({
       </View>
 
       <View style={guideStyles.mapSection}>
-        <ClusterMap
-          restaurants={mapRestaurants}
-          resorts={mapResorts}
-          nightMarkets={nightMarkets}
-          showRestaurants={showRestaurantsOnMap}
-          showResorts={showResortMarkersOnMap}
-          showNightMarkets={showNightMarketsOnMap}
-          selectedRestaurantId={selectedRestaurantId}
-          selectedResortId={selectedResortId}
-          selectedNightMarketId={selectedNightMarketId}
-          onSelectRestaurant={handleSelectRestaurant}
-          onSelectResort={handleSelectResort}
-          onSelectNightMarket={handleSelectNightMarket}
-          onClearMapSelection={handleClearMapSelection}
-        />
+        <MapErrorBoundary
+          resetKey={`${nightMarketMode ? 'night' : listMode}-${zone ?? 'all'}`}
+        >
+          <ClusterMap
+            restaurants={mapRestaurants}
+            resorts={mapResorts}
+            nightMarkets={nightMarkets}
+            showRestaurants={showRestaurantsOnMap}
+            showResorts={showResortMarkersOnMap}
+            showNightMarkets={showNightMarketsOnMap}
+            selectedRestaurantId={selectedRestaurantId}
+            selectedResortId={selectedResortId}
+            selectedNightMarketId={selectedNightMarketId}
+            onSelectRestaurant={handleSelectRestaurant}
+            onSelectResort={handleSelectResort}
+            onSelectNightMarket={handleSelectNightMarket}
+            onClearMapSelection={handleClearMapSelection}
+          />
+        </MapErrorBoundary>
         {selectedRestaurant || selectedResort || selectedNightMarket ? (
           <View ref={mapDetailRef} nativeID="map-detail-section">
             {selectedRestaurant ? (

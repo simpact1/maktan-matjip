@@ -262,6 +262,7 @@ export function ClusterMap({
     <View style={styles.wrap}>
       <View style={styles.mapBox}>
         <MapContainer
+          key={`map-${showRestaurants ? 'r' : ''}${showResorts ? 's' : ''}${showNightMarkets ? 'n' : ''}`}
           center={center}
           zoom={12}
           style={webMapStyle}
