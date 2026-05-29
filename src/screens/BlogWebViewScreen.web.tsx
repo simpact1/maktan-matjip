@@ -1,17 +1,31 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { CSSProperties } from 'react';
+import { useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, fonts, gradient } from '../constants/theme';
 import { RootStackParamList } from '../navigation/types';
 import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
+import { openExternalUrl } from '../utils/openExternalUrl';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BlogWebView'>;
 
+// 네이버 카페 등 iframe 임베드를 차단하는 도메인은 인앱 WebView에서 하얀 화면이 뜬다.
+function isEmbedBlockedUrl(url: string): boolean {
+  return /cafe\.naver\.com/i.test(url);
+}
+
 export function BlogWebViewScreen({ navigation, route }: Props) {
   const { url, title } = route.params;
-  const mobileUrl = toMobileNaverBlogUrl(url);
+  const embedBlocked = isEmbedBlockedUrl(url);
+  const mobileUrl = embedBlocked ? url : toMobileNaverBlogUrl(url);
+
+  useEffect(() => {
+    if (embedBlocked) {
+      openExternalUrl(url);
+    }
+  }, [embedBlocked, url]);
 
   return (
     <LinearGradient
@@ -29,14 +43,35 @@ export function BlogWebViewScreen({ navigation, route }: Props) {
             {title}
           </Text>
         </View>
-        <View style={styles.webWrap}>
-          <iframe
-            title={title}
-            src={mobileUrl}
-            style={iframeStyle}
-            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-          />
-        </View>
+        {embedBlocked ? (
+          <View style={styles.fallbackWrap}>
+            <Text style={styles.fallbackTitle}>네이버 카페 후기</Text>
+            <Text style={styles.fallbackText}>
+              네이버 카페 글은 앱 안에서 바로 표시되지 않아 새 창에서 열었습니다.
+              창이 열리지 않았다면 아래 버튼을 눌러주세요.
+            </Text>
+            <Pressable
+              onPress={() => openExternalUrl(url)}
+              style={({ pressed }) => [
+                styles.fallbackButton,
+                pressed && styles.fallbackButtonPressed,
+              ]}
+              accessibilityRole="link"
+              accessibilityLabel="새 창에서 카페 후기 보기"
+            >
+              <Text style={styles.fallbackButtonText}>새 창에서 후기 보기</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <View style={styles.webWrap}>
+            <iframe
+              title={title}
+              src={mobileUrl}
+              style={iframeStyle}
+              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+            />
+          </View>
+        )}
       </SafeAreaView>
     </LinearGradient>
   );
@@ -87,5 +122,41 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: colors.cardBorder,
+  },
+  fallbackWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 28,
+    gap: 14,
+  },
+  fallbackTitle: {
+    fontSize: 18,
+    fontFamily: fonts.bold,
+    color: colors.text,
+    textAlign: 'center',
+  },
+  fallbackText: {
+    fontSize: 14,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 22,
+    maxWidth: 360,
+  },
+  fallbackButton: {
+    marginTop: 6,
+    paddingVertical: 12,
+    paddingHorizontal: 22,
+    borderRadius: 9,
+    backgroundColor: '#03c75a',
+  },
+  fallbackButtonPressed: {
+    opacity: 0.88,
+  },
+  fallbackButtonText: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
   },
 });
