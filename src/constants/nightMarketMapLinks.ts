@@ -8,7 +8,7 @@ export interface NightMarketBlogLink {
 }
 
 const BLOG_LINK_SPECS: { marketId: string; label: string; emoji: string }[] = [
-  { marketId: 'nm3', label: '세부 수그보 메르카도', emoji: '🍴' },
+  { marketId: 'nm3', label: '세부 수그보 야시장', emoji: '🍴' },
   { marketId: 'nm4', label: '세부 푸소 빌리지', emoji: '🏙️' },
   { marketId: 'nm1', label: '막탄 메르카토', emoji: '⛺' },
   { marketId: 'nm2', label: '막탄 푸드파크', emoji: '🍔' },
