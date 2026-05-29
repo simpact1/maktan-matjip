@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
           whiteSpace: 'nowrap',
           overflow: 'visible',
           textOverflow: 'clip',
-          fontSize: '7.5px',
+          fontSize: '10px',
         } as object)
       : null),
   },

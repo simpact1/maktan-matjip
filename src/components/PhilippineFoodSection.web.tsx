@@ -1,8 +1,5 @@
 import React, { type CSSProperties } from 'react';
-import {
-  PHILIPPINE_FOOD_ITEMS,
-  PHILIPPINE_FOOD_SUBTITLE,
-} from '../constants/philippineFoodItems';
+import { PHILIPPINE_FOOD_ITEMS } from '../constants/philippineFoodItems';
 
 type Props = {
   onOpenLink: (url: string, title: string) => void;
@@ -13,11 +10,15 @@ const wrap: CSSProperties = {
   maxWidth: '56rem',
   marginLeft: 'auto',
   marginRight: 'auto',
-  padding: 16,
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingTop: 8,
+  paddingBottom: 8,
   backgroundColor: '#062d3d',
   color: '#ffffff',
   borderRadius: 8,
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.25)',
+  boxSizing: 'border-box',
   fontFamily:
     'system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
 };
@@ -27,6 +28,7 @@ const grid: CSSProperties = {
   gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
   gap: 8,
   width: '100%',
+  boxSizing: 'border-box',
 };
 
 const card: CSSProperties = {
@@ -34,22 +36,32 @@ const card: CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  width: '100%',
   minWidth: 0,
-  padding: 6,
+  minHeight: 85,
+  padding: 8,
   backgroundColor: '#0c4a60',
   border: '1px solid #176a84',
   borderRadius: 12,
-  minHeight: 90,
-  aspectRatio: '1',
+  boxSizing: 'border-box',
   textDecoration: 'none',
   color: '#ffffff',
   transition: 'background-color 0.15s ease',
 };
 
+const iconWrap: CSSProperties = {
+  width: 32,
+  height: 32,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 4,
+};
+
 /**
- * 모바일 기본 7.5px 고정 → sm(640px) 12px → md(768px) 14px.
- * inline clamp 대신 실제 CSS 클래스로 강제해, 어떤 초소형 화면에서도
- * '필리핀 전통먹거리' 9글자가 잘리지 않고 한 줄에 출력된다.
+ * 모바일 기본 10px → sm(640px) 12px → md(768px) 14px.
+ * 실제 CSS 클래스로 강제하고 overflow:visible + nowrap을 주어,
+ * 어떤 화면에서도 '필리핀 전통먹거리' 9글자가 '...'으로 잘리지 않는다.
  */
 const LABEL_CSS = `
 .ph-food-label{
@@ -62,21 +74,20 @@ const LABEL_CSS = `
   white-space:nowrap;
   overflow:visible;
   text-overflow:clip;
-  font-size:7.5px;
+  font-size:10px;
 }
 @media (min-width:640px){.ph-food-label{font-size:12px;}}
 @media (min-width:768px){.ph-food-label{font-size:14px;}}
 `;
 
-
 export function PhilippineFoodSection({ onOpenLink }: Props) {
   return (
     <div style={wrap}>
       <style>{LABEL_CSS}</style>
-      <div style={{ marginBottom: 16 }}>
+      <div style={{ marginBottom: 12 }}>
         <h2
           style={{
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: 700,
             display: 'flex',
             alignItems: 'center',
@@ -86,16 +97,6 @@ export function PhilippineFoodSection({ onOpenLink }: Props) {
         >
           <span aria-hidden>🍖</span> 필리핀 음식
         </h2>
-        <p
-          style={{
-            fontSize: 12,
-            color: '#d1d5db',
-            marginTop: 4,
-            marginBottom: 0,
-          }}
-        >
-          {PHILIPPINE_FOOD_SUBTITLE}
-        </p>
       </div>
 
       <div style={grid}>
@@ -115,7 +116,7 @@ export function PhilippineFoodSection({ onOpenLink }: Props) {
               e.currentTarget.style.backgroundColor = '#0c4a60';
             }}
           >
-            <span style={{ fontSize: 24, marginBottom: 4 }} aria-hidden>
+            <span style={{ ...iconWrap, fontSize: 22 }} aria-hidden>
               {item.emoji}
             </span>
             <span className="ph-food-label">{item.title}</span>
