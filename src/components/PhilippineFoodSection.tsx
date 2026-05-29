@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'web'
       ? ({
           minWidth: 0,
-          whiteSpace: 'nowrap',
-          overflow: 'visible',
-          textOverflow: 'clip',
+          whiteSpace: 'normal',
+          wordBreak: 'keep-all',
+          overflowWrap: 'break-word',
           fontSize: '10px',
         } as object)
       : null),

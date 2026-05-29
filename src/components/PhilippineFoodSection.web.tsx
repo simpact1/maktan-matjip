@@ -60,8 +60,8 @@ const iconWrap: CSSProperties = {
 
 /**
  * 모바일 기본 10px → sm(640px) 12px → md(768px) 14px.
- * 실제 CSS 클래스로 강제하고 overflow:visible + nowrap을 주어,
- * 어떤 화면에서도 '필리핀 전통먹거리' 9글자가 '...'으로 잘리지 않는다.
+ * word-break:keep-all + white-space:normal 로 '필리핀 전통먹거리'처럼 긴 라벨이
+ * 박스 밖으로 삐져나오지 않고 단어(어절) 단위로 자연스럽게 줄바꿈되어 칸 안에 정렬된다.
  */
 const LABEL_CSS = `
 .ph-food-label{
@@ -71,9 +71,9 @@ const LABEL_CSS = `
   text-align:center;
   font-weight:600;
   line-height:1.2;
-  white-space:nowrap;
-  overflow:visible;
-  text-overflow:clip;
+  white-space:normal;
+  word-break:keep-all;
+  overflow-wrap:break-word;
   font-size:10px;
 }
 @media (min-width:640px){.ph-food-label{font-size:12px;}}
