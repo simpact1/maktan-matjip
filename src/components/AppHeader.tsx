@@ -10,10 +10,10 @@ export function AppHeader({ onOpenLink }: AppHeaderProps) {
   return (
     <View style={styles.hero}>
       <Text style={styles.eyebrow}>Philippines · Cebu</Text>
-      <Text style={styles.title}>막탄 맛집 & 카페 가이드</Text>
+      <Text style={styles.title}>세부 여행 필수 앱! 막탄 맛집·카페 가이드</Text>
       <Text style={styles.sub}>
-        <Text style={styles.subStrong}>막탄</Text> 맛집·카페 54곳을 지도와 목록으로
-        안내합니다. 세부여행플래너 블로그 후기와 연결됩니다.
+        <Text style={styles.subStrong}>동선 낭비 제로!</Text> 픽업드랍부터 숨은 야경 명소까지
+        지도 한 장으로 끝내세요. 실패 없는 진짜 세부 맛집 후기가 실시간으로 연동됩니다.
       </Text>
 
       <View style={styles.partner}>
