@@ -13,7 +13,9 @@ export function filterResorts(
   let result = resorts;
 
   if (filters.zone) {
-    result = result.filter((r) => r.zone === filters.zone);
+    result = result.filter(
+      (r) => r.zone === filters.zone && !r.hiddenInZoneFilter
+    );
   }
 
   const normalizedQuery = filters.query.trim().toLowerCase();

@@ -24,4 +24,6 @@ export interface MactanResort {
   blogLink?: ResortBlogLink;
   /** 레스토랑별 후기 바로가기 (선택, 저녁 가이드 하단) */
   reviewLinks?: ResortBlogLink[];
+  /** 특정 구역(zone) 필터 선택 시 숨김 (전체 지도에는 노출). 예: 공항근처 카테고리에서 제외) */
+  hiddenInZoneFilter?: boolean;
 }
