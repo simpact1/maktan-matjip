@@ -266,7 +266,7 @@ export function ClusterMap({
           center={center}
           zoom={12}
           style={webMapStyle}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
