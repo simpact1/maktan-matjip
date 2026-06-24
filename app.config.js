@@ -39,6 +39,7 @@ module.exports = {
       /** Netlify/Vercel 등 정적 호스팅용 단일 페이지 빌드 */
       output: 'single',
       favicon: './assets/icon.png',
+      template: './web/index.html',
     },
   },
 };

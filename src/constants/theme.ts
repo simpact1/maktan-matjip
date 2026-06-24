@@ -62,6 +62,9 @@ export const menuTypeColors: Record<string, string> = {
   뷰맛집: '#f472b6',
   뷔페: '#fb923c',
   카페: '#fbbf24',
+  양식: '#60a5fa',
+  타이: '#f59e0b',
+  멕시칸: '#ef4444',
   기타: '#94a3b8',
 };
 

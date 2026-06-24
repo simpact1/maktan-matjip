@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppHeader } from '../components/AppHeader';
 import { DiningGuideIconCards } from '../components/DiningGuideIconCards';
 import { MactanPlacesGuide } from '../components/MactanPlacesGuide';
+import { RelatedApps, NAV_H } from '../components/RelatedApps';
 import { ScreenBackground } from '../components/ScreenBackground';
 import { restaurants } from '../data/restaurants';
 import { RootStackScreenProps } from '../navigation/types';
@@ -68,9 +69,10 @@ export function HomeScreen({ navigation }: Props) {
             selectedNightMarketId={selectedNightMarketId}
             onSelectNightMarket={handleSelectNightMarket}
             onClearNightMarketSelection={handleClearNightMarketSelection}
+            listContentStyle={{ paddingBottom: NAV_H + 16 }}
             listHeaderTop={
               <View style={styles.heroWrap}>
-                <AppHeader onOpenLink={handleOpenLink} />
+                <AppHeader />
                 <DiningGuideIconCards
                   onOpenLink={handleOpenLink}
                   nightMarketMode={nightMarketMode}
@@ -81,6 +83,7 @@ export function HomeScreen({ navigation }: Props) {
               </View>
             }
           />
+          <RelatedApps />
         </View>
       </SafeAreaView>
     </ScreenBackground>
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 520,
     alignSelf: 'center',
+    position: 'relative',
   },
   heroWrap: {
     paddingTop: 8,

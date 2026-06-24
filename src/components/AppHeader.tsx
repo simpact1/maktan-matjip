@@ -1,54 +1,13 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { PARTNER_LINKS } from '../constants/partnerLinks';
+import { StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../constants/theme';
 
-interface AppHeaderProps {
-  onOpenLink: (url: string, title: string) => void;
-}
-
-export function AppHeader({ onOpenLink }: AppHeaderProps) {
+export function AppHeader() {
   return (
     <View style={styles.hero}>
-      <Text style={styles.eyebrow}>Philippines · Cebu</Text>
-      <Text style={styles.title}>세부 여행 필수 앱! 막탄 맛집·카페 가이드</Text>
+      <Text style={styles.title} accessibilityRole="header">세부·막탄 맛집 가이드</Text>
       <Text style={styles.sub}>
-        <Text style={styles.subStrong}>동선 낭비 제로!</Text> 픽업드랍부터 숨은 야경 명소까지
-        지도 한 장으로 끝내세요. 실패 없는 진짜 세부 맛집 후기가 실시간으로 연동됩니다.
+        <Text style={styles.subStrong}>현지 거주자가 직접 다녀온 막탄·세부 맛집 가이드.</Text> 지도 위치 확인부터 블로그 후기, 픽업드랍 예약까지 한 번에 해결하세요.
       </Text>
-
-      <View style={styles.partner}>
-        <Text style={styles.partnerTitle}>세부여행플래너</Text>
-        <View style={styles.partnerLinks}>
-          <Pressable
-            onPress={() =>
-              onOpenLink(PARTNER_LINKS.naverBlog, '세부여행정보')
-            }
-            style={({ pressed }) => [
-              styles.plink,
-              styles.plinkNaver,
-              pressed && styles.plinkPressed,
-            ]}
-            accessibilityRole="link"
-            accessibilityLabel="세부여행정보"
-          >
-            <Text style={styles.plinkNaverText}>세부여행정보</Text>
-          </Pressable>
-          <Pressable
-            onPress={() =>
-              onOpenLink(PARTNER_LINKS.kakaoChannel, '카카오톡 채널')
-            }
-            style={({ pressed }) => [
-              styles.plink,
-              styles.plinkKakao,
-              pressed && styles.plinkPressed,
-            ]}
-            accessibilityRole="link"
-            accessibilityLabel="카카오톡 채널"
-          >
-            <Text style={styles.plinkKakaoText}>카카오톡 채널</Text>
-          </Pressable>
-        </View>
-      </View>
     </View>
   );
 }
@@ -88,55 +47,5 @@ const styles = StyleSheet.create({
   subStrong: {
     color: colors.accent,
     fontFamily: fonts.semiBold,
-  },
-  partner: {
-    marginTop: 14,
-    paddingTop: 14,
-    width: '100%',
-    maxWidth: 360,
-    borderTopWidth: 1,
-    borderTopColor: colors.cardBorder,
-    alignItems: 'center',
-  },
-  partnerTitle: {
-    fontSize: 13,
-    fontFamily: fonts.semiBold,
-    color: colors.accent,
-    marginBottom: 10,
-  },
-  partnerLinks: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 8,
-    width: '100%',
-  },
-  plink: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 9,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    minWidth: 130,
-    alignItems: 'center',
-  },
-  plinkPressed: {
-    opacity: 0.88,
-  },
-  plinkNaver: {
-    backgroundColor: '#03c75a',
-  },
-  plinkNaverText: {
-    fontSize: 14,
-    fontFamily: fonts.semiBold,
-    color: '#ffffff',
-  },
-  plinkKakao: {
-    backgroundColor: '#fee500',
-  },
-  plinkKakaoText: {
-    fontSize: 14,
-    fontFamily: fonts.semiBold,
-    color: '#191919',
   },
 });

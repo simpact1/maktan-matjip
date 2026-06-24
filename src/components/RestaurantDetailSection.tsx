@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { getZoneLabel } from '../constants/filters';
+import { colors, fonts } from '../constants/theme';
 import { guideStyles } from '../styles/guideStyles';
 import { Restaurant } from '../types/restaurant';
 import { RestaurantDetailBody } from './RestaurantDetailBody';
@@ -46,6 +47,16 @@ export function RestaurantDetailSection({
     <View style={guideStyles.restaurantDetailSection}>
       <View style={guideStyles.restaurantDetailHeader}>
         <Text style={guideStyles.restaurantDetailTitle}>{restaurant.name}</Text>
+        {restaurant.rating ? (
+          <Text style={{
+            fontSize: 12,
+            color: '#fef9c3',
+            fontFamily: fonts.regular,
+            marginBottom: 6,
+          }}>
+            ⭐ {restaurant.rating} ({restaurant.ratingCount?.toLocaleString()}개 리뷰)
+          </Text>
+        ) : null}
         <View style={guideStyles.restaurantDetailTags}>
           {itemTags.map((tag) => (
             <Text key={tag.key} style={[guideStyles.itemTag, tag.style]}>

@@ -42,6 +42,7 @@ import { PlaceListItem } from './PlaceListItem';
 import { ResortDetailSection } from './ResortDetailSection';
 import { ResortListItem } from './ResortListItem';
 import { RestaurantDetailSection } from './RestaurantDetailSection';
+import { FaqAccordion } from './FaqAccordion';
 import { TagFilterBar } from './TagFilterBar';
 
 interface MactanPlacesGuideProps {
@@ -52,6 +53,7 @@ interface MactanPlacesGuideProps {
   selectedNightMarketId?: string | null;
   onSelectNightMarket?: (id: string) => void;
   onClearNightMarketSelection?: () => void;
+  listContentStyle?: object;
 }
 
 type ListRow =
@@ -73,9 +75,11 @@ export function MactanPlacesGuide({
   selectedNightMarketId = null,
   onSelectNightMarket,
   onClearNightMarketSelection,
+  listContentStyle,
 }: MactanPlacesGuideProps) {
   const listRef = useRef<FlatList<ListRow>>(null);
   const mapDetailRef = useRef<View>(null);
+  const mapSectionY = useRef<number>(0);
   const listFade = useRef(new Animated.Value(1)).current;
   const [listMode, setListMode] = useState<GuideListMode>('all');
   const [zone, setZone] = useState<RestaurantZone | null>(null);
@@ -224,20 +228,17 @@ export function MactanPlacesGuide({
   );
 
   const scrollToMapDetail = useCallback(() => {
-    if (Platform.OS === 'web') {
-      const node =
-        document.getElementById('map-detail-section') ??
-        (mapDetailRef.current as unknown as HTMLElement | null);
-      node?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setTimeout(() => {
+      listRef.current?.scrollToOffset({
+        offset: mapSectionY.current - 20,
+        animated: true,
+      });
+    }, 300);
   }, []);
 
   useEffect(() => {
-    if (!selectedRestaurantId && !selectedResortId && !selectedNightMarketId) {
-      return;
-    }
-    const timer = setTimeout(scrollToMapDetail, 80);
-    return () => clearTimeout(timer);
+    if (!selectedRestaurantId && !selectedResortId && !selectedNightMarketId) return;
+    scrollToMapDetail();
   }, [selectedRestaurantId, selectedResortId, selectedNightMarketId, scrollToMapDetail]);
 
   const handleSelectRestaurant = useCallback(
@@ -315,16 +316,6 @@ export function MactanPlacesGuide({
     ]
   );
 
-  const cardTitle = nightMarketMode
-    ? '막탄·세부시티 야시장'
-    : listMode === 'pickupDrop'
-      ? '픽업·드랍 가능 맛집'
-      : listMode === 'viewSpots'
-        ? '뷰/야경맛집'
-        : listMode === 'resortDining'
-          ? `막탄 ${mactanResorts.length}대 리조트 다이닝`
-          : '막탄 맛집 & 카페';
-
   const listHeader = (
     <View>
       {listHeaderTop}
@@ -341,8 +332,6 @@ export function MactanPlacesGuide({
 
       {nightMarketMode ? null : (
       <View style={guideStyles.infoCard}>
-        <Text style={guideStyles.cardTitle}>{cardTitle}</Text>
-
         {listMode === 'pickupDrop' ? (
           <View style={guideStyles.pickupBanner}>
             <Text style={guideStyles.pickupBannerTitle}>
@@ -372,15 +361,19 @@ export function MactanPlacesGuide({
           </View>
         ) : (
           <Text style={guideStyles.lead}>
-            <Text style={guideStyles.leadStrong}>맛집 54곳</Text>과{' '}
-            <Text style={guideStyles.leadStrong}>리조트 {mactanResorts.length}곳</Text> 식사 정보를
-            지도에서 함께 볼 수 있습니다. 마커를 탭하면 지도 아래에 상세 정보가 표시됩니다.
+            세부·막탄 맛집과 리조트 다이닝 정보를 지도에서 한눈에 확인하세요.{' '}
+            마커를 탭하면 지도 아래에 상세 정보와 블로그 후기가 표시됩니다.
           </Text>
         )}
       </View>
       )}
 
-      <View style={guideStyles.mapSection}>
+      <View
+        style={guideStyles.mapSection}
+        onLayout={(e) => {
+          mapSectionY.current = e.nativeEvent.layout.y;
+        }}
+      >
         <MapErrorBoundary
           resetKey={`${nightMarketMode ? 'night' : listMode}-${zone ?? 'all'}`}
         >
@@ -457,7 +450,8 @@ export function MactanPlacesGuide({
       keyExtractor={(row) => `${row.kind}-${row.item.id}`}
       renderItem={renderItem}
       ListHeaderComponent={listHeader}
-      contentContainerStyle={guideStyles.listContent}
+      ListFooterComponent={<FaqAccordion />}
+      contentContainerStyle={[guideStyles.listContent, listContentStyle]}
       style={guideStyles.root}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator

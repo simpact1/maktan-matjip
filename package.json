@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web --port 8086",
     "web:preview": "expo start --web --port 8086",
-    "build:web": "expo export -p web"
+    "build:web": "expo export -p web && node scripts/injectHtmlMeta.js"
   },
   "dependencies": {
     "@expo-google-fonts/noto-sans-kr": "^0.3.0",

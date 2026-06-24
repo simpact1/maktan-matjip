@@ -22,7 +22,7 @@ const TABS: {
   { key: 'pickupDrop', label: '🚐 픽업·드랍', countKey: 'pickup', activeStyle: 'tabActivePickup' },
   {
     key: 'viewSpots',
-    label: '🌅 뷰맛집',
+    label: '🌅 뷰/야경맛집',
     countKey: 'view',
     activeStyle: 'tabActiveMeal',
   },
@@ -90,10 +90,6 @@ export function GuideModeSwitch({
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.hint}>
-        탭을 눌러 목록·지도를 전환하세요. 같은 탭을 다시 누르면 지도 마커를
-        숨기거나 다시 표시합니다.
-      </Text>
       <View style={styles.row}>
         {renderTab(TABS[0]!)}
         {renderTab(TABS[1]!)}
@@ -110,13 +106,6 @@ const styles = StyleSheet.create({
   wrap: {
     marginHorizontal: 12,
     marginBottom: 8,
-  },
-  hint: {
-    fontSize: 11,
-    fontFamily: fonts.regular,
-    color: colors.textMuted,
-    marginBottom: 8,
-    textAlign: 'center',
   },
   row: {
     flexDirection: 'row',

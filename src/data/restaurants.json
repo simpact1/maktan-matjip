@@ -4,7 +4,7 @@
     "name": "할로망고 (샹스점)",
     "lat": 10.283600000442283,
     "lng": 123.99360837489256,
-    "desc": "제이파크 앞 샹스 아일랜드 타운센터 망고 아이스크림",
+    "desc": "샹스 아일랜드 타운센터 내 위치한 망고 아이스크림 전문 디저트 카페. 생망고를 듬뿍 올린 망고 아이스크림과 다양한 망고 음료가 시그니처이며 더운 날씨에 시원하게 즐기기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223749751073",
     "category": "cafe",
     "zone": "제이파크/샹스",
@@ -13,14 +13,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.6,
+    "ratingCount": 65
   },
   {
     "id": "2",
     "name": "고래식당",
     "lat": 10.283559094041927,
     "lng": 123.99357484728125,
-    "desc": "샹스 아일랜드 타운센터 시래기 생선조림 한식당",
+    "desc": "샹스 아일랜드 타운센터 내 위치한 한식 생선조림 전문점. 시래기 생선조림과 돌솥밥 조합이 일품이며 세부에서 집밥 같은 한식이 그리울 때 찾기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223458016771",
     "category": "korean",
     "zone": "제이파크/샹스",
@@ -29,14 +31,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "부모님동반",
+    "rating": 4.6,
+    "ratingCount": 64
   },
   {
     "id": "3",
     "name": "청담 제면소",
     "lat": 10.283440333494758,
     "lng": 123.99350376874533,
-    "desc": "샹스 아일랜드 타운센터 뜨끈한 국물이 일품인 칼국수 전문점",
+    "desc": "샹스 아일랜드 타운센터 내 위치한 칼국수 전문 한식당. 뜨끈하고 진한 국물의 칼국수와 각종 면 요리가 시그니처이며 세부에서 따뜻한 한국식 면 요리가 그리울 때 찾기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223527063475",
     "category": "korean",
     "zone": "제이파크/샹스",
@@ -45,14 +49,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.5,
+    "ratingCount": 227
   },
   {
     "id": "4",
     "name": "에이스크랩",
     "lat": 10.293314957756738,
     "lng": 123.99823141125636,
-    "desc": "맛있는 알리망오 요리와 필리핀 씨푸드",
+    "desc": "샹스 아일랜드 타운센터 내 한국인이 운영하는 알리망오 크랩 전문점. 당일 공급받은 신선한 알리망오를 수조에서 직접 고를 수 있으며 칠리·갈릭버터·블랙페퍼 소스와 갈릭라이스 조합이 일품인 곳",
     "link": "https://m.blog.naver.com/aalove0902/80187457383",
     "reservationLink": "https://pf.kakao.com/_xcjmfj/chat?extra=AceCrab",
     "isCrab": true,
@@ -64,14 +70,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 1487
   },
   {
     "id": "5",
     "name": "논끼 (제이파크점)",
     "lat": 10.2827,
     "lng": 123.9942,
-    "desc": "샹스 아일랜드 타운센터 내 원조 정통 일식 맛집",
+    "desc": "샹스 아일랜드 타운센터 내 위치한 정통 일식 레스토랑. 라멘, 스시, 돈카츠 등 다양한 일식 메뉴를 즐길 수 있으며 세부 막탄의 대표 일식 맛집으로 오랫동안 사랑받는 곳",
     "link": "https://m.blog.naver.com/aalove0902/221162969712",
     "category": "japanese",
     "zone": "제이파크/샹스",
@@ -80,14 +88,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.1,
+    "ratingCount": 214
   },
   {
     "id": "6",
     "name": "쿠모 (Kumo)",
     "lat": 10.3073095,
     "lng": 124.0098029,
-    "desc": "LG가든워크 2층 무제한 일식 뷔페",
+    "desc": "막탄 뉴타운 LG가든워크 2층의 무제한 일식 뷔페 레스토랑. 초밥, 사시미, 라멘, 튀김 등 다양한 일식 메뉴를 무제한으로 즐길 수 있어 일식 마니아들에게 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223673322236",
     "category": "japanese",
     "zone": "막탄뉴타운",
@@ -96,14 +106,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.8,
+    "ratingCount": 1519
   },
   {
     "id": "7",
     "name": "더 그랜드 테이블",
     "lat": 10.307228973125335,
     "lng": 124.00927729447777,
-    "desc": "LG가든워크 무제한 고기 샤브샤브 부페",
+    "desc": "막탄 뉴타운 LG가든워크 내 무제한 고기 샤브샤브 뷔페 레스토랑. 신선한 육류와 해산물을 무제한으로 즐길 수 있으며 가족 단위 여행자들에게 든든한 한 끼를 제공하는 곳",
     "link": "https://m.blog.naver.com/aalove0902/224026951184",
     "category": "other",
     "zone": "막탄뉴타운",
@@ -114,14 +126,16 @@
       "석식"
     ],
     "resortMealNote": "뉴타운 리조트 — 브런치·석식 뷔페 대안",
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.3,
+    "ratingCount": 33
   },
   {
     "id": "8",
     "name": "엔젤스 피자 (LG가든워크점)",
     "lat": 10.30728969107269,
     "lng": 124.0096670093397,
-    "desc": "LG가든워크 내부 가성비 최고 쫄깃한 피자 명소",
+    "desc": "막탄 뉴타운 LG가든워크 내 위치한 가성비 피자 전문점. 쫄깃한 도우에 다양한 토핑을 올린 피자가 시그니처이며 아이 동반 가족들이 즐겨 찾는 세부 대표 피자 맛집",
     "link": "https://m.blog.naver.com/aalove0902/223788437600",
     "category": "other",
     "zone": "막탄뉴타운",
@@ -130,14 +144,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 4.1,
+    "ratingCount": 336
   },
   {
     "id": "9",
     "name": "고든램지 스트리트 버거",
     "lat": 10.306343162226367,
     "lng": 124.01620804609358,
-    "desc": "LG가든워크 고품격 핫플레이스 수제버거",
+    "desc": "막탄 뉴타운 LG가든워크의 고품격 수제버거 전문점. 세계적인 셰프 고든램지 브랜드의 두툼하고 육즙 넘치는 버거를 즐길 수 있는 세부 핫플레이스",
     "link": "https://m.blog.naver.com/aalove0902/224097875449",
     "category": "other",
     "zone": "막탄뉴타운",
@@ -146,14 +162,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 4.1,
+    "ratingCount": 426
   },
   {
     "id": "10",
     "name": "AA바베큐(쏘옹점)",
     "lat": 10.2965551,
     "lng": 124.0011555,
-    "desc": "쏘옹 1 거리에 위치한 로컬 감성 만점 고유 바비큐 맛집",
+    "desc": "쏘옹 1 거리에 위치한 로컬 감성 바베큐 전문점. 숯불에 구운 고소한 바베큐와 갈릭라이스, 망고 셰이크 조합이 일품이며 현지인과 여행자 모두에게 사랑받는 막탄 숨은 맛집",
     "link": "https://m.blog.naver.com/aalove0902/222685317143",
     "category": "local",
     "zone": "마리바고/블루워터",
@@ -162,14 +180,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4,
+    "ratingCount": 803
   },
   {
     "id": "11",
     "name": "라 파리지엔느",
     "lat": 10.3101086,
     "lng": 124.0201661,
-    "desc": "모벤픽 리조트 맞은편 육지 도로변 프랑스식 베이커리 & 와인 바",
+    "desc": "모벤픽 리조트 맞은편 육지 도로변의 프랑스풍 베이커리 카페. 갓 구운 크루아상과 바게트, 와인 한 잔을 즐길 수 있으며 막탄 샹그릴라 인근 여행자들에게 인기 있는 브런치 명소",
     "link": "https://m.blog.naver.com/aalove0902/223708369196",
     "category": "cafe",
     "zone": "샹그릴라",
@@ -178,14 +198,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4,
+    "ratingCount": 131
   },
   {
     "id": "12",
     "name": "란타우 코르도바",
     "lat": 10.256181213973507,
     "lng": 123.93350544127196,
-    "desc": "코르도바 해안 로맨틱 오션뷰 필리핀식 식당",
+    "desc": "코르도바 해안에 위치한 수상 레스토랑. 가리비 치즈 구이, 레촌, 갈릭 쉬림프 등 필리핀 현지 요리를 선셋과 함께 즐길 수 있으며 세부 여행자들이 꼭 한 번씩 들르는 명소",
     "link": "https://m.blog.naver.com/aalove0902/223701944059",
     "category": "local",
     "zone": "솔레아",
@@ -195,14 +217,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.3,
+    "ratingCount": 3333
   },
   {
     "id": "13",
     "name": "산미구엘 플라자",
     "lat": 10.28440810698757,
     "lng": 123.99540863503064,
-    "desc": "춘하추동 인근 맥주 마시기 가장 좋은 야외 광장",
+    "desc": "제이파크 인근 야외 광장에서 시원한 산미구엘 맥주를 즐길 수 있는 명소. 저렴한 가격에 현지 분위기를 만끽할 수 있으며 저녁 시간 여행자들의 단골 휴식처",
     "link": "https://m.blog.naver.com/aalove0902/224075762336",
     "category": "other",
     "zone": "제이파크/샹스",
@@ -211,14 +235,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.5,
+    "ratingCount": 483
   },
   {
     "id": "14",
     "name": "보스커피 (아울렛점)",
     "lat": 10.302343336586688,
     "lng": 123.96238773971392,
-    "desc": "푸에블로 베르데 아울렛 인근 보스커피 아울렛점",
+    "desc": "푸에블로 베르데 아울렛 인근의 필리핀 대표 커피 전문점. 진하고 고소한 보스커피 시그니처 블렌드와 다양한 음료를 즐길 수 있으며 쇼핑 중 여유로운 휴식을 취하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/220541702106",
     "category": "cafe",
     "zone": "공항인근",
@@ -228,14 +254,16 @@
       "조식"
     ],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.1,
+    "ratingCount": 218
   },
   {
     "id": "15",
     "name": "Rib Shack (아울렛점)",
     "lat": 10.300446325004792,
     "lng": 123.96317508217267,
-    "desc": "푸에블로 베르데 가성비 립 맛집",
+    "desc": "푸에블로 베르데 아울렛 내 위치한 립 전문 레스토랑. 부드럽고 진한 소스가 배어든 립 메뉴가 시그니처이며 합리적인 가격에 가성비 좋은 한 끼를 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/222755320891",
     "category": "other",
     "zone": "공항인근",
@@ -245,14 +273,16 @@
       "석식"
     ],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 3,
+    "ratingCount": 63
   },
   {
     "id": "16",
     "name": "엔젤스 피자 (바삭점)",
     "lat": 10.296404773229789,
     "lng": 123.9661675188098,
-    "desc": "막탄 가성비 최고 쫄깃한 엔젤스 피자 바삭점",
+    "desc": "막탄 바삭 지역에 위치한 엔젤스 피자 전문점. 쫄깃하고 바삭한 도우의 다양한 토핑 피자를 합리적인 가격에 즐길 수 있으며 아이 동반 가족 여행자들에게 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/222145851712",
     "category": "other",
     "zone": "공항인근",
@@ -262,14 +292,16 @@
       "석식"
     ],
     "companionType": "아이동반",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 3.5,
+    "ratingCount": 158
   },
   {
     "id": "17",
     "name": "차오킹 (그랜드몰점)",
     "lat": 10.287410191592198,
     "lng": 123.97230414955703,
-    "desc": "가이사노 그랜드몰 내부 인기 중식 브랜드",
+    "desc": "가이사노 그랜드몰 내 위치한 필리핀 인기 중식 프랜차이즈. 딤섬, 볶음밥, 누들 등 대중적인 중식 메뉴를 합리적인 가격에 즐길 수 있으며 쇼핑 중 간편하게 식사하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/221586064549",
     "category": "other",
     "zone": "공항인근",
@@ -280,14 +312,16 @@
       "석식"
     ],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 3.3,
+    "ratingCount": 112
   },
   {
     "id": "18",
     "name": "막탄 뉴타운 제이코 (J.CO)",
     "lat": 10.30735519107202,
     "lng": 124.00965071574873,
-    "desc": "뉴타운 입구 부드럽고 달콤한 도넛 명가",
+    "desc": "막탄 뉴타운 입구의 필리핀 인기 도넛 전문점. 부드럽고 달콤한 글레이즈드 도넛부터 크림 도넛까지 다양한 종류를 즐길 수 있으며 달콤한 간식이 필요할 때 들르기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223227611120",
     "category": "cafe",
     "zone": "막탄뉴타운",
@@ -296,14 +330,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4,
+    "ratingCount": 120
   },
   {
     "id": "19",
     "name": "뉴타운 스타벅스",
     "lat": 10.30780849896938,
     "lng": 124.01418459745946,
-    "desc": "막탄 뉴타운 스타벅스 매장",
+    "desc": "막탄 뉴타운 중심가에 위치한 스타벅스 매장. 케이크, 샌드위치 등 다양한 푸드 메뉴와 시그니처 음료를 즐길 수 있으며 뉴타운 쇼핑 후 편안하게 휴식을 취하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/221366498604",
     "category": "cafe",
     "zone": "막탄뉴타운",
@@ -313,14 +349,16 @@
       "조식"
     ],
     "resortMealNote": "막탄 뉴타운 — 리조트 조식·브런치",
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 690
   },
   {
     "id": "20",
     "name": "막탄 뉴타운 시벳커피",
     "lat": 10.307798570501376,
     "lng": 124.0122697502036,
-    "desc": "필리핀 로컬 사향고양이 시벳커피 전문점",
+    "desc": "막탄 뉴타운의 필리핀 사향고양이 시벳커피 전문점. 세계 3대 진귀한 커피인 시벳커피를 합리적인 가격에 즐길 수 있으며 무료 와이파이와 조용한 분위기로 작업하기도 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/221266464813",
     "category": "cafe",
     "zone": "막탄뉴타운",
@@ -329,14 +367,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.1,
+    "ratingCount": 330
   },
   {
     "id": "21",
     "name": "씨푸드 부코 씨사이드",
     "lat": 10.282409946690276,
     "lng": 123.99946122010785,
-    "desc": "바다 위 탁 트인 전경을 보며 즐기는 씨푸드",
+    "desc": "제이파크 리조트에서 차로 5분 거리의 오션뷰 씨푸드 레스토랑. 수족관에서 직접 고른 살아있는 알리망오를 바로 요리해주며 선셋 시간에 방문하면 더욱 로맨틱한 분위기를 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223116849161",
     "category": "seafood",
     "zone": "제이파크/샹스",
@@ -346,14 +386,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.8,
+    "ratingCount": 2676
   },
   {
     "id": "22",
     "name": "파롤라 (Parola Seaview)",
     "lat": 10.242896594077298,
     "lng": 123.95580576668543,
-    "desc": "10,000 Roses 옆 낭만적인 바다 뷰 레스토랑",
+    "desc": "코르도바 로로항 인근 야외 오션뷰 레스토랑. 크리스피 파타, 블랙페퍼 쉬림프, 깡콩 볶음 등 한국인 입맛에도 잘 맞는 필리핀 현지 요리를 탁 트인 바다를 보며 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223146217994",
     "category": "seafood",
     "zone": "솔레아",
@@ -363,14 +405,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.5,
+    "ratingCount": 961
   },
   {
     "id": "23",
     "name": "성카 (Sungka)",
     "lat": 10.254716639055298,
     "lng": 123.9413443931207,
-    "desc": "코르도바 로컬 무드의 운치 있는 씨푸드",
+    "desc": "코르도바 로컬 감성의 씨푸드 레스토랑. 신선한 해산물 요리를 조용하고 운치 있는 분위기에서 즐길 수 있으며 막탄 리조트에서 픽업 예약 후 방문하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223776356085",
     "category": "seafood",
     "zone": "솔레아",
@@ -380,14 +424,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 3.7,
+    "ratingCount": 338
   },
   {
     "id": "24",
     "name": "바베큐 딥질로그 (Dipzilog)",
     "lat": 10.286450187042089,
     "lng": 123.99767584709464,
-    "desc": "마리곤돈 인근 로컬 감성의 고소한 바베큐",
+    "desc": "마리바고 지역의 로컬 감성 바베큐 전문점. 숯불에 구운 고소한 바베큐와 갈릭라이스 조합이 일품이며 현지인들도 즐겨 찾는 저렴하고 맛있는 숨은 맛집",
     "link": "https://m.blog.naver.com/aalove0902/223135451468",
     "category": "local",
     "zone": "마리바고/블루워터",
@@ -396,14 +442,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.5,
+    "ratingCount": 168
   },
   {
     "id": "25",
     "name": "씨푸드 점보7",
     "lat": 10.294997342073195,
     "lng": 123.99923589850997,
-    "desc": "푸짐한 씨푸드 패키지와 알리망오 크랩 전문점",
+    "desc": "막탄 마리바고 지역의 고급 씨푸드 레스토랑. 알리망오 크랩 찜과 바비큐, 라푸라푸 사시미 세트 등 신선한 해산물 요리가 가득하며 막탄 전 리조트 무료 픽업·드랍이 가능한 곳",
     "link": "https://m.blog.naver.com/aalove0902/220477437043",
     "reservationLink": "https://pf.kakao.com/_xcjmfj/chat?extra=Jumbo7",
     "isCrab": true,
@@ -416,14 +464,16 @@
       "석식"
     ],
     "resortMealNote": "마리바고 리조트 — 대표 석식 씨푸드",
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 3.9,
+    "ratingCount": 583
   },
   {
     "id": "26",
     "name": "카바나 (Cabana)",
     "lat": 10.3104,
     "lng": 124.0241,
-    "desc": "모벤픽 리조트 바로 옆 더마크 오션뷰 1등 맛집",
+    "desc": "더마크 리조트 2층에 위치한 막탄 대표 오션뷰 레스토랑. 오징어 양파링 타워, 쉬림프 로제 파스타, 카바나 플래터 등 다양한 메뉴를 탁 트인 바다 전망과 함께 즐길 수 있으며 선셋 시간이 특히 로맨틱한 곳",
     "link": "https://m.blog.naver.com/aalove0902/224111577376",
     "category": "seafood",
     "zone": "샹그릴라",
@@ -434,14 +484,16 @@
       "석식"
     ],
     "resortMealNote": "더마크·모벤픽 — 오션뷰 석식",
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.8,
+    "ratingCount": 5710
   },
   {
     "id": "27",
     "name": "장수촌",
     "lat": 10.311333400162592,
     "lng": 124.018829314142,
-    "desc": "막탄 몸보신 끝판왕 백숙 한식당",
+    "desc": "막탄 샹그릴라 인근 한식 보양식 전문점. 진한 육수가 일품인 닭백숙과 삼계탕이 시그니처이며 장거리 여행의 피로를 풀기 좋은 세부 대표 한식 보양 맛집",
     "link": "https://m.blog.naver.com/aalove0902/222852699976",
     "category": "korean",
     "zone": "샹그릴라",
@@ -451,14 +503,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "부모님동반",
+    "rating": 4.2,
+    "ratingCount": 345
   },
   {
     "id": "28",
     "name": "막탄 Soom (숨카페)",
     "lat": 10.293978308208521,
     "lng": 123.99783800976523,
-    "desc": "정원 인테리어가 아름다운 분위기 좋은 카페",
+    "desc": "마리바고 지역의 아름다운 정원 인테리어가 돋보이는 감성 카페. 열대 식물로 꾸며진 분위기 좋은 공간에서 커피와 디저트를 즐길 수 있으며 인생샷 명소로도 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223160260547",
     "category": "cafe",
     "zone": "마리바고/블루워터",
@@ -468,14 +522,16 @@
       "조식",
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.6,
+    "ratingCount": 366
   },
   {
     "id": "29",
     "name": "모닝글로리",
     "lat": 10.311576194365662,
     "lng": 124.02301778221337,
-    "desc": "제이파크 앞 세부 퓨전 로컬 푸드 1등 맛집",
+    "desc": "막탄 마리바고 지역의 아시아 퓨전 레스토랑. 베트남·태국 스타일 메뉴와 갈릭라이스, 생망고 셰이크가 인기이며 한국 여행자들 사이에서 세부 필수 맛집으로 손꼽히는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223712480171",
     "category": "local",
     "zone": "샹그릴라",
@@ -487,14 +543,16 @@
       "석식"
     ],
     "resortMealNote": "제이파크·뉴타운 — 조식·석식 퓨전 로컬",
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.8,
+    "ratingCount": 4738
   },
   {
     "id": "30",
     "name": "대가 (Daega)",
     "lat": 10.298879411459431,
     "lng": 123.96479819135708,
-    "desc": "막탄 가성비 넘치는 고품격 한식 삼겹살/숯불 화로구이",
+    "desc": "공항 인근에 위치한 고품격 한식 고기구이 레스토랑. 참숯 화로에 구워먹는 삼겹살과 갈비가 시그니처이며 세부에서 한국식 고기구이를 제대로 즐길 수 있는 가성비 맛집",
     "link": "https://m.blog.naver.com/aalove0902/221629844064",
     "category": "korean",
     "zone": "공항인근",
@@ -504,14 +562,16 @@
       "석식"
     ],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.3,
+    "ratingCount": 324
   },
   {
     "id": "31",
     "name": "막탄 레드하우스",
     "lat": 10.284112866791412,
     "lng": 123.99483135443522,
-    "desc": "제이파크 근처 대만 훠궈 샤브샤브 맛집",
+    "desc": "제이파크 근처 대만식 훠궈 샤브샤브 전문점. 직접 고른 재료를 뜨끈한 국물에 끓여 먹는 샤브샤브가 시그니처이며 부모님 동반 가족 여행자들에게 든든한 한 끼를 제공하는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223726512301",
     "category": "other",
     "zone": "제이파크/샹스",
@@ -520,14 +580,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "부모님동반",
+    "rating": 4.2,
+    "ratingCount": 160
   },
   {
     "id": "32",
     "name": "제이파크 카페 스노우",
     "lat": 10.282539181267431,
     "lng": 123.99566314894346,
-    "desc": "시원하고 풍성한 생망고 디저트 전문점",
+    "desc": "제이파크 리조트 인근의 생망고 디저트 전문 카페. 풍성하게 올려진 생망고 빙수와 망고 스무디가 시그니처이며 더운 세부 날씨에 시원하게 즐기기 좋은 아이 동반 필수 코스",
     "link": "https://m.blog.naver.com/aalove0902/223767211042",
     "category": "cafe",
     "zone": "제이파크/샹스",
@@ -536,14 +598,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 4.2,
+    "ratingCount": 68
   },
   {
     "id": "33",
     "name": "황소막창",
     "lat": 10.304138816120073,
     "lng": 124.0076904773596,
-    "desc": "제이파크 앞 고소한 풍미 가득 막창 고기 맛집",
+    "desc": "막탄 뉴타운 인근 고소한 막창과 고기 요리 전문 한식당. 직화로 구워낸 막창과 삼겹살이 시그니처이며 세부에서 한국식 고기구이가 그리울 때 찾기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/221583903423",
     "category": "korean",
     "zone": "막탄뉴타운",
@@ -553,14 +617,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "부모님동반",
+    "rating": 4.2,
+    "ratingCount": 463
   },
   {
     "id": "34",
     "name": "멍석갈비",
     "lat": 10.290101908667387,
     "lng": 123.99836283948218,
-    "desc": "가성비 참숯 가득 갈비 한식당",
+    "desc": "마리바고 지역의 참숯 직화 갈비 전문 한식당. 가성비 좋은 양념갈비와 생갈비가 인기이며 막탄 리조트 여행자들이 즐겨 찾는 세부 대표 한식 맛집",
     "link": "https://m.blog.naver.com/aalove0902/223159996543",
     "category": "korean",
     "zone": "마리바고/블루워터",
@@ -570,14 +636,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "부모님동반",
+    "rating": 4.6,
+    "ratingCount": 113
   },
   {
     "id": "35",
     "name": "막탄타임스퀘어 탐앤탐스",
     "lat": 10.298809735300992,
     "lng": 123.9656034872189,
-    "desc": "타임스퀘어 광장 넓고 조용한 탐앤탐스",
+    "desc": "막탄 타임스퀘어 광장 내 위치한 한국 커피 브랜드 탐앤탐스. 넓고 쾌적한 공간에서 커피와 베이커리를 즐길 수 있으며 익숙한 한국 브랜드로 편안하게 쉬어가기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/221632294802",
     "category": "cafe",
     "zone": "공항인근",
@@ -587,14 +655,16 @@
       "조식"
     ],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.4,
+    "ratingCount": 223
   },
   {
     "id": "36",
     "name": "마리바고 그릴",
     "lat": 10.289037994741687,
     "lng": 123.99849246879884,
-    "desc": "마리바고 블루워터 인근 자연 속 고품격 로컬 식당",
+    "desc": "마리바고 블루워터 인근 자연 속 오두막 감성의 로컬 레스토랑. 한적하고 운치 있는 분위기에서 필리핀 전통 요리를 즐길 수 있으며 밤이 되면 더욱 낭만적인 분위기를 자아내는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223328302510",
     "category": "local",
     "zone": "마리바고/블루워터",
@@ -604,14 +674,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.5,
+    "ratingCount": 430
   },
   {
     "id": "37",
     "name": "마리바고크랩",
     "lat": 10.287285652897712,
     "lng": 123.99828326016855,
-    "desc": "마리바고 지역 대표 크랩 맛집",
+    "desc": "2013년부터 운영해온 세부 대표 해산물 레스토랑. 알리망오 크랩, 락랍스터, 점보타이거 새우 등 신선한 해산물을 블랙페퍼·칠리·갈릭버터 소스 중 골라 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/222803135351",
     "reservationLink": "https://pf.kakao.com/_xcjmfj/chat?extra=MaribagoCrab",
     "isCrab": true,
@@ -623,14 +695,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.6,
+    "ratingCount": 448
   },
   {
     "id": "38",
     "name": "레드크랩",
     "lat": 10.292116097549805,
     "lng": 123.99827806199502,
-    "desc": "세부 여행 필수 코스, 실패 없는 인기 레드크랩",
+    "desc": "마리바고 지역의 알리망오 크랩 전문 맛집. 칠리·블랙페퍼·갈릭버터 소스 중 선택 가능하며 갈릭라이스와 함께 먹으면 환상적인 조합을 자랑하는 세부 여행 필수 코스",
     "link": "https://m.blog.naver.com/aalove0902/220948168390",
     "reservationLink": "https://pf.kakao.com/_xcjmfj/chat?extra=RedCrab",
     "isCrab": true,
@@ -642,14 +716,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.5,
+    "ratingCount": 3258
   },
   {
     "id": "39",
     "name": "라부요 (Labuyo)",
     "lat": 10.28649824057786,
     "lng": 123.99832797078193,
-    "desc": "화이트샌즈 옆 고유의 필리핀 전통 요리",
+    "desc": "화이트샌즈 옆 블루워터 도보권 내 위치한 필리핀 전통 음식 전문점. 스파이시 쉬림프, 철판 오징어구이, 갈릭라이스 조합이 일품이며 망고빙수와 그린망고 셰이크도 꼭 맛봐야 할 곳",
     "link": "https://m.blog.naver.com/aalove0902/223843700921",
     "category": "local",
     "zone": "마리바고/블루워터",
@@ -659,14 +735,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 1056
   },
   {
     "id": "40",
     "name": "추비추비 (뉴타운점)",
     "lat": 10.307777459138242,
     "lng": 124.01423580940929,
-    "desc": "막탄 뉴타운에서 즐기는 대중적인 블랙페퍼 새우 요리",
+    "desc": "막탄 뉴타운 내 필리핀 인기 씨푸드 체인 레스토랑. 블랙페퍼 쉬림프와 치즈갈릭 가리비가 시그니처이며 갈릭라이스와 망고 셰이크를 곁들이면 환상적인 조합을 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223564955706",
     "category": "seafood",
     "zone": "막탄뉴타운",
@@ -675,14 +753,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 3.6,
+    "ratingCount": 532
   },
   {
     "id": "41",
     "name": "팝시스 (Papsy's)",
     "lat": 10.316970955359341,
     "lng": 123.9641720786821,
-    "desc": "가이사노 막탄 옆 로컬 BBQ 바베큐 전문점",
+    "desc": "가이사노 막탄 옆 현지인도 즐겨 찾는 로컬 바베큐 전문점. 숯불향 가득한 겉바속촉 닭 바베큐가 시그니처이며 밥과의 궁합이 탁월하고 후식으로 할로할로까지 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/224088713516",
     "category": "local",
     "zone": "공항인근",
@@ -692,14 +772,16 @@
       "석식"
     ],
     "companionType": "아이동반",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.4,
+    "ratingCount": 301
   },
   {
     "id": "42",
     "name": "추비추비 (아울렛점)",
     "lat": 10.302640413318503,
     "lng": 123.96180550871063,
-    "desc": "아울렛 내부 새우 감성 식당",
+    "desc": "푸에블로 베르데 아울렛 내 위치한 필리핀 인기 씨푸드 체인 레스토랑. 블랙페퍼 쉬림프와 쉬림프 인 어 백이 인기이며 쇼핑 후 가볍게 씨푸드를 즐기기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/222358136591",
     "category": "seafood",
     "zone": "공항인근",
@@ -709,14 +791,16 @@
       "석식"
     ],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.1,
+    "ratingCount": 274
   },
   {
     "id": "43",
     "name": "망이나살 (아울렛점)",
     "lat": 10.301107492966837,
     "lng": 123.96247730583154,
-    "desc": "무제한 밥과 함께하는 필리핀 닭고기 구이 강자",
+    "desc": "푸에블로 베르데 아울렛 내 위치한 필리핀 대표 치킨 바베큐 프랜차이즈. 숯불에 구운 닭고기 이나살과 무제한 밥이 시그니처이며 현지인들도 줄 서서 먹는 가성비 최고의 로컬 맛집",
     "link": "https://m.blog.naver.com/aalove0902/221673870938",
     "category": "local",
     "zone": "공항인근",
@@ -726,14 +810,16 @@
       "석식"
     ],
     "companionType": "커플",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 3.7,
+    "ratingCount": 248
   },
   {
     "id": "44",
     "name": "가야 (Kaya)",
     "lat": 10.298651917715521,
     "lng": 123.9643541372992,
-    "desc": "공항 인근에서 가장 깔끔한 고급 한식 전문점",
+    "desc": "공항 인근 가장 깔끔하고 고급스러운 한식 전문점. 정갈한 한식 코스 요리와 든든한 한정식을 즐길 수 있으며 부모님 동반 여행자들에게 특히 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/221693261346",
     "category": "korean",
     "zone": "공항인근",
@@ -743,14 +829,16 @@
       "석식"
     ],
     "companionType": "부모님동반",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.7,
+    "ratingCount": 323
   },
   {
     "id": "45",
     "name": "할리스",
     "lat": 10.324123890776715,
     "lng": 123.97782873032058,
-    "desc": "마리나몰 건너편 휴식하기 좋은 익숙한 힐링 카페",
+    "desc": "마리나몰 건너편에 위치한 한국인에게 친숙한 커피 전문점. 넓고 쾌적한 공간에서 커피와 베이커리를 즐길 수 있으며 공항 이동 전 여유로운 휴식을 취하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223105240121",
     "category": "cafe",
     "zone": "공항인근",
@@ -759,14 +847,16 @@
     "resortMeal": [
       "조식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.7,
+    "ratingCount": 208
   },
   {
     "id": "46",
     "name": "딤섬브레이크(그랜드몰점)",
     "lat": 10.287280689824149,
     "lng": 123.97112905182254,
-    "desc": "바삭 가이사노 그랜드몰 내부 홍콩 스팀 딤섬 전문점",
+    "desc": "막탄 가이사노 그랜드몰 내 홍콩 스타일 딤섬 전문점. 바삭한 튀김 딤섬과 쫄깃한 찐 딤섬을 합리적인 가격에 즐길 수 있으며 쇼핑 중 간편하게 즐기기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223065492706",
     "category": "other",
     "zone": "공항인근",
@@ -777,14 +867,16 @@
       "석식"
     ],
     "companionType": "커플",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 2.4,
+    "ratingCount": 19
   },
   {
     "id": "47",
     "name": "예가",
     "lat": 10.324243955385223,
     "lng": 123.97757123826587,
-    "desc": "마리나몰 건너편 정갈한 밑반찬과 든든한 한국 음식들",
+    "desc": "마리나몰 건너편의 정갈한 한식 전문점. 집밥 같은 밑반찬과 함께 다양한 한국 음식을 즐길 수 있으며 부모님 동반 여행자들에게 든든한 한 끼를 제공하는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223122436174",
     "category": "korean",
     "zone": "공항인근",
@@ -793,14 +885,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "부모님동반"
+    "companionType": "부모님동반",
+    "rating": 4.6,
+    "ratingCount": 379
   },
   {
     "id": "48",
     "name": "마리나 씨뷰",
     "lat": 10.32832240475665,
     "lng": 123.97650483914835,
-    "desc": "요트클럽의 석양이 아름다운 최고의 오션뷰 레스토랑",
+    "desc": "요트클럽 인근 세부 최고의 선셋 오션뷰 레스토랑. 붉게 물드는 석양을 바라보며 해산물 요리를 즐길 수 있어 커플 여행자들에게 특히 인기 있는 낭만적인 다이닝 명소",
     "link": "https://m.blog.naver.com/aalove0902/223487650258",
     "category": "seafood",
     "zone": "공항인근",
@@ -810,14 +904,16 @@
       "석식"
     ],
     "companionType": "커플",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.4,
+    "ratingCount": 748
   },
   {
     "id": "49",
     "name": "7107 레스토랑",
     "lat": 10.2951,
     "lng": 123.9984,
-    "desc": "어메이징쇼장 인근 깔끔하고 정갈한 로컬 레스토랑",
+    "desc": "어메이징쇼 공연장 인근의 깔끔하고 정갈한 로컬 레스토랑. 필리핀 전통 요리를 합리적인 가격에 즐길 수 있으며 어메이징쇼 관람 전후 식사 장소로 안성맞춤인 곳",
     "link": "https://m.blog.naver.com/aalove0902/224181322195",
     "category": "local",
     "zone": "마리바고/블루워터",
@@ -827,14 +923,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.9,
+    "ratingCount": 5776
   },
   {
     "id": "50",
     "name": "쿠메도레 (Kumedore)",
     "lat": 10.281663045299377,
     "lng": 123.99274788037346,
-    "desc": "제이파크 옆 깔끔하고 정갈한 전통 일식",
+    "desc": "제이파크 옆 위치한 깔끔하고 정갈한 일식 전문점. 신선한 재료로 만든 다양한 일식 메뉴를 즐길 수 있으며 제이파크 리조트 투숙객들이 즐겨 찾는 막탄 일식 맛집",
     "link": "https://m.blog.naver.com/aalove0902/223899816380",
     "category": "japanese",
     "zone": "제이파크/샹스",
@@ -843,14 +941,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.6,
+    "ratingCount": 122
   },
   {
     "id": "51",
     "name": "막탄크랩",
     "lat": 10.306545575802668,
     "lng": 124.00932703155108,
-    "desc": "깔끔한 인테리어와 중독성 있는 소스의 막탄크랩",
+    "desc": "막탄 뉴타운 중심가의 깔끔한 인테리어와 중독성 있는 소스로 유명한 크랩 전문점. 알리망오 크랩을 다양한 소스로 즐길 수 있으며 막탄 리조트 픽업·드랍 서비스도 제공하는 곳",
     "link": "https://m.blog.naver.com/aalove0902/220477437043",
     "reservationLink": "https://pf.kakao.com/_xcjmfj/chat?extra=MactanCrab",
     "isCrab": true,
@@ -862,14 +962,16 @@
     "resortMeal": [
       "석식"
     ],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.8,
+    "ratingCount": 641
   },
   {
     "id": "52",
     "name": "라온 스퀘어 카페",
     "lat": 10.30074256247171,
     "lng": 124.00910896004542,
-    "desc": "고급 스파와 멋진 휴식 라운지가 공존하는 디저트 카페 명소",
+    "desc": "막탄 뉴타운의 고급 스파와 디저트 카페가 결합된 복합 힐링 공간. 아름다운 라운지 인테리어와 달콤한 디저트 메뉴가 인기이며 여행의 피로를 풀기에 제격인 곳",
     "links": [
       {
         "text": "최신 카페 후기 (24년)",
@@ -888,14 +990,16 @@
       "조식",
       "석식"
     ],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.4,
+    "ratingCount": 297
   },
   {
     "id": "53",
     "name": "명동 24",
     "lat": 10.306376632890348,
     "lng": 124.0091214033464,
-    "desc": "막탄 중심가에 위치한 새벽 투어 전후 든든한 24시간 한식당",
+    "desc": "막탄 뉴타운 중심가의 24시간 운영 한식당. 새벽 투어 전후로 든든한 한식을 즐길 수 있으며 해장국, 김치찌개 등 다양한 한식 메뉴를 언제든 맛볼 수 있는 곳",
     "links": [
       {
         "text": "상세 포스팅 보기",
@@ -912,154 +1016,176 @@
       "석식"
     ],
     "resortMealNote": "새벽 투어·리조트 — 24시간 조식·야식",
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 3.8,
+    "ratingCount": 14
   },
   {
     "id": "54",
     "name": "만송이 장미 카페",
     "lat": 10.256972506566088,
     "lng": 123.93163181838185,
-    "desc": "LED 장미 정원으로 유명한 코르도바 대표 포토존·야경 카페",
+    "desc": "코르도바 란타우 플로팅 레스토랑 옆에 위치한 LED 장미 정원 카페. 수천 개의 LED 장미가 밤하늘을 수놓는 환상적인 야경으로 유명하며 연인과 가족 모두에게 인기 있는 세부 대표 포토존",
     "link": "https://m.blog.naver.com/aalove0902/224011234131",
     "category": "cafe",
     "zone": "솔레아",
     "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.1,
+    "ratingCount": 5639
   },
   {
     "id": "55",
     "name": "김떡순",
     "lat": 10.284502488499383,
     "lng": 123.99547439195398,
-    "desc": "막탄 제이파크 인근 분식 맛집 김떡순",
+    "desc": "막탄 제이파크 인근의 한국식 분식 전문점. 김밥, 떡볶이, 순대 등 친숙한 한국 분식 메뉴를 세부에서 즐길 수 있어 아이 동반 가족 여행자들에게 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/220312690694",
     "category": "korean",
     "zone": "제이파크/샹스",
     "menuType": "한식",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 4.2,
+    "ratingCount": 263
   },
   {
     "id": "56",
     "name": "맥도날드 마리바고",
     "lat": 10.286022615060515,
     "lng": 123.99787765125501,
-    "desc": "마리바고 세이브모어 옆 맥도날드 매장",
+    "desc": "마리바고 세이브모어 옆에 위치한 맥도날드 매장. 24시간 운영하며 막탄 리조트 인근에서 간편하게 식사하거나 아이들이 좋아하는 메뉴를 즐길 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/221399858448",
     "category": "other",
     "zone": "마리바고/블루워터",
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 3.7,
+    "ratingCount": 462
   },
   {
     "id": "57",
     "name": "니모카페",
     "lat": 10.304998728813532,
     "lng": 124.00405000603888,
-    "desc": "아기자기한 분위기의 막탄 니모카페",
+    "desc": "막탄 뉴타운 내 아기자기한 인테리어로 꾸며진 감성 카페. 니모 캐릭터 테마의 귀여운 분위기와 다양한 음료가 인기이며 가족 나들이나 인생샷 촬영 명소로 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/224228987521",
     "category": "cafe",
     "zone": "막탄뉴타운",
     "menuType": "카페",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.7,
+    "ratingCount": 465
   },
   {
     "id": "58",
     "name": "뉴타운 졸리비",
     "lat": 10.309548234481433,
     "lng": 124.01080917258085,
-    "desc": "막탄 뉴타운 입구 졸리비 매장",
+    "desc": "막탄 뉴타운 입구에 위치한 필리핀 대표 패스트푸드 브랜드 졸리비. 필리핀 현지인들이 사랑하는 치킨조이와 스파게티가 시그니처이며 아이 동반 가족 여행자들에게 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/221517447981",
     "category": "other",
     "zone": "막탄뉴타운",
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 4,
+    "ratingCount": 1396
   },
   {
     "id": "59",
     "name": "뉴타운 맥도날드",
     "lat": 10.307914682958463,
     "lng": 124.01153482496414,
-    "desc": "막탄 뉴타운 중심가 맥도날드 매장",
+    "desc": "막탄 뉴타운 중심가에 위치한 맥도날드 매장. 익숙한 메뉴를 합리적인 가격에 즐길 수 있으며 뉴타운 쇼핑이나 관광 중 간편하게 식사하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/221806193205",
     "category": "other",
     "zone": "막탄뉴타운",
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 3,
+    "ratingCount": 470
   },
   {
     "id": "60",
     "name": "막탄 알프레스코",
     "lat": 10.30859816223943,
     "lng": 124.01152409614338,
-    "desc": "막탄 뉴타운 내 야외 푸드코트 알프레스코",
+    "desc": "막탄 뉴타운 내 야외 푸드코트 알프레스코. 다양한 필리핀 로컬 음식 부스가 모여 있어 저렴하게 현지 음식을 즐길 수 있으며 저녁 야외 분위기를 만끽하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902",
     "category": "other",
     "zone": "막탄뉴타운",
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "커플"
+    "companionType": "커플",
+    "rating": 4.2,
+    "ratingCount": 619
   },
   {
     "id": "61",
     "name": "아일랜드 센트럴 졸리비",
     "lat": 10.32598422739726,
     "lng": 123.97603969690964,
-    "desc": "공항 인근 아일랜드 센트럴 몰 졸리비 매장",
+    "desc": "공항 인근 아일랜드 센트럴 몰 내 위치한 졸리비 매장. 필리핀 현지 패스트푸드를 경험할 수 있으며 공항 이동 전후 아이들과 간편하게 식사하기 좋은 곳",
     "link": "https://m.blog.naver.com/aalove0902/223511926280",
     "category": "other",
     "zone": "공항인근",
     "menuType": "기타",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "아이동반"
+    "companionType": "아이동반",
+    "rating": 4,
+    "ratingCount": 580
   },
   {
     "id": "62",
     "name": "공항근처 논끼",
     "lat": 10.324687879534055,
     "lng": 123.97741280479747,
-    "desc": "공항 및 마리나몰 인근에 위치한 원조 정통 일식 맛집",
+    "desc": "공항 및 마리나몰 인근의 정통 일식 레스토랑. 라멘, 스시, 돈카츠 등 다양한 일식 메뉴를 즐길 수 있으며 공항 이동 전 마지막 식사 장소로 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/224256711995",
     "category": "japanese",
     "zone": "공항인근",
     "menuType": "일식",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 4.2,
+    "ratingCount": 413
   },
   {
     "id": "63",
     "name": "공항근처 명동24",
     "lat": 10.323085822248794,
     "lng": 123.9786872068931,
-    "desc": "공항 인근에서 새벽 투어 전후로 들리기 좋은 든든한 24시간 한식당",
+    "desc": "공항 인근에 위치한 24시간 운영 한식당. 이른 아침 출발 전이나 늦은 밤 도착 후에도 든든한 한식을 즐길 수 있어 공항 이용 여행자들에게 특히 인기 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223900863525",
     "category": "korean",
     "zone": "공항인근",
     "menuType": "한식",
     "pickupDrop": false,
     "resortMeal": [],
-    "companionType": "모두"
+    "companionType": "모두",
+    "rating": 5,
+    "ratingCount": 11
   },
   {
     "id": "64",
     "name": "세부시티 안자니",
     "lat": 10.335852094123176,
     "lng": 123.89683360969445,
-    "desc": "세부시티 니벨힐스에 위치한 분위기 좋은 고급 이탈리안 레스토랑",
+    "desc": "세부시티 니벨힐스에 위치한 분위기 좋은 고급 이탈리안 레스토랑. 시내와 바다가 한눈에 내려다보이는 탁 트인 전망과 함께 파스타, 스테이크 등 정통 이탈리안 요리를 즐길 수 있는 커플 맛집",
     "link": "https://m.blog.naver.com/aalove0902/80184134063",
     "category": "other",
     "zone": "공항인근",
@@ -1067,14 +1193,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "커플",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.5,
+    "ratingCount": 772
   },
   {
     "id": "65",
     "name": "세부시티 탑스힐",
     "lat": 10.370709071859311,
     "lng": 123.87077483668119,
-    "desc": "세부 시내와 바다가 한눈에 내려다보이는 최고의 전망대 야경 명소",
+    "desc": "해발 600m에 위치한 세부 최고의 전망대 야경 명소. 세부 시내와 막탄 바다가 한눈에 내려다보이며 탑스힐 내 다양한 레스토랑에서 환상적인 야경을 감상하며 식사할 수 있는 곳",
     "link": "https://m.blog.naver.com/aalove0902/223606554053",
     "category": "other",
     "zone": "공항인근",
@@ -1082,14 +1210,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.5,
+    "ratingCount": 5529
   },
   {
     "id": "66",
-    "name": "막탄그랜드골든호텔 루프탑",
+    "name": "히든 스타 레스토랑 바",
     "lat": 10.291340732814584,
     "lng": 123.97208757059042,
-    "desc": "막탄 가이사노 그랜드몰 인근 화려한 시티뷰를 감상할 수 있는 루프탑 바",
+    "desc": "막탄 가이사노 그랜드몰 인근 건물 옥상의 루프탑 바. 화려한 막탄 시티뷰를 감상하며 음료와 안주를 즐길 수 있으며 저녁 시간 야경을 즐기기에 제격인 숨은 명소",
     "link": "https://m.blog.naver.com/aalove0902/223931903674",
     "category": "other",
     "zone": "제이파크/샹스",
@@ -1097,14 +1227,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.2,
+    "ratingCount": 28
   },
   {
     "id": "67",
     "name": "막탄 스케이프 스카이덱",
     "lat": 10.323376179373179,
     "lng": 123.972885928736,
-    "desc": "막탄 뉴브릿지 인근 건물의 탁 트인 스카이뷰 루프탑 라운지",
+    "desc": "막탄 뉴브릿지 인근 건물의 탁 트인 스카이뷰 루프탑 라운지. 막탄과 세부시티 전경을 한눈에 감상할 수 있으며 특히 해질 무렵 노을과 야경이 아름다운 커플 명소",
     "link": "https://m.blog.naver.com/aalove0902/223125719683",
     "category": "other",
     "zone": "공항인근",
@@ -1112,14 +1244,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "커플",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.4,
+    "ratingCount": 1179
   },
   {
     "id": "68",
     "name": "세부시티 라 파리지엔 스카이",
     "lat": 10.372654836252787,
     "lng": 123.87084639620173,
-    "desc": "탑스힐 가는 길목에서 환상적인 파노라마 야경을 즐기는 프랑스풍 와인 바",
+    "desc": "탑스힐 가는 길목에 위치한 프랑스풍 와인 다이닝. 보라색·핑크색 네온 조명이 몽환적인 분위기를 자아내며 화덕 피자, 파스타, 와인을 즐기며 세부 시티 파노라마 야경을 감상할 수 있는 커플 명소",
     "link": "https://m.blog.naver.com/aalove0902/223133686404",
     "category": "other",
     "zone": "공항인근",
@@ -1127,14 +1261,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.3,
+    "ratingCount": 1963
   },
   {
     "id": "69",
     "name": "세부시티 미스터A",
     "lat": 10.351956810400782,
     "lng": 123.88994421339312,
-    "desc": "오랜 명성을 자랑하는 로컬 최고의 야경 전망 레스토랑 겸 피자리아",
+    "desc": "세부시티 중심가에서 오랜 명성을 자랑하는 야경 전망 레스토랑 겸 피자리아. 세부 시내가 한눈에 내려다보이는 루프탑에서 피자와 파스타를 즐길 수 있으며 현지인과 여행자 모두에게 사랑받는 야경 맛집",
     "link": "https://m.blog.naver.com/aalove0902/221406498112",
     "category": "other",
     "zone": "공항인근",
@@ -1142,14 +1278,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "모두",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.3,
+    "ratingCount": 1404
   },
   {
     "id": "70",
     "name": "세부시티 Verified 루프탑",
     "lat": 10.325239810181115,
     "lng": 123.9063575864148,
-    "desc": "세부시티 중심가 빌딩 고층에 위치한 트렌디하고 힙한 루프탑 라운지 바",
+    "desc": "세부시티 중심가 빌딩 고층에 위치한 트렌디한 루프탑 라운지 바. 세부 시티뷰와 야경을 한눈에 내려다보며 칵테일과 음료를 즐길 수 있는 힙한 분위기의 커플 명소",
     "link": "https://m.blog.naver.com/aalove0902/223480996763",
     "category": "other",
     "zone": "공항인근",
@@ -1157,14 +1295,16 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "커플",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 4.5,
+    "ratingCount": 764
   },
   {
     "id": "71",
     "name": "엔젤스피자 막탄타운센터",
     "lat": 10.296196154599187,
     "lng": 123.9649140523454,
-    "desc": "막탄 타운센터(MTC)에 위치한 가성비 좋고 현지인들에게도 인기 높은 로컬 피자 맛집",
+    "desc": "막탄 타운센터(MTC) 내 위치한 가성비 피자 전문점. 쫄깃한 도우와 넉넉한 토핑이 특징이며 현지인들에게도 인기 높은 로컬 피자 맛집으로 아이 동반 가족 여행자들에게 적합한 곳",
     "link": "https://m.blog.naver.com/aalove0902/222145851712",
     "category": "other",
     "zone": "마리바고/블루워터",
@@ -1172,6 +1312,440 @@
     "pickupDrop": false,
     "resortMeal": [],
     "companionType": "아이동반",
-    "hiddenInZoneFilter": true
+    "hiddenInZoneFilter": true,
+    "rating": 3.5,
+    "ratingCount": 158
+  },
+  {
+    "id": "72",
+    "name": "셀라돈",
+    "lat": 10.370709071901956,
+    "lng": 123.87087139571948,
+    "desc": "탑스힐 전망대 인근에 위치한 정통 타이 레스토랑. 똠얌꿍과 팟타이 등 태국 본연의 맛을 세부 야경과 함께 즐길 수 있는 이색 맛집",
+    "link": "https://blog.naver.com/aalove0902/224231373297",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "타이",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.3,
+    "ratingCount": 5222
+  },
+  {
+    "id": "73",
+    "name": "칠리스(SM몰)",
+    "lat": 10.312933628062114,
+    "lng": 123.91781661369868,
+    "desc": "SM시티 세부 2층에 위치한 미국식 텍스멕 패밀리 레스토랑. 베이비백립, 파히타, 버거 등 푸짐한 미국식 메뉴와 마가리타를 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/224043192531",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "멕시칸",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "커플",
+    "rating": 3.8,
+    "ratingCount": 73
+  },
+  {
+    "id": "74",
+    "name": "메사(SM씨사이드)",
+    "lat": 10.282065051129319,
+    "lng": 123.88132701105845,
+    "desc": "SM씨사이드 내 필리핀 전통 가정식을 현대적으로 재해석한 로컬 레스토랑. 크리스피 파타, 시니강 등 정통 필리핀 요리를 깔끔한 분위기에서 맛볼 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/224021281493",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 3.1,
+    "ratingCount": 59
+  },
+  {
+    "id": "75",
+    "name": "쿠야제이(아얄라)",
+    "lat": 10.318331987801557,
+    "lng": 123.90521876688362,
+    "desc": "아얄라몰 내 위치한 필리핀 대표 로컬 레스토랑 체인. 레촌, 크리스피 파타 등 필리핀 전통 요리를 합리적인 가격에 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223995018246",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 3.6,
+    "ratingCount": 402
+  },
+  {
+    "id": "76",
+    "name": "라파리지엔(시티점)",
+    "lat": 10.331399357843893,
+    "lng": 123.89835887637378,
+    "desc": "세부시티 중심가에 위치한 프랑스풍 베이커리 카페. 크루아상, 에그 베네딕트 등 브런치 메뉴가 인기이며 커피와 함께 여유로운 휴식을 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223959637117",
+    "category": "cafe",
+    "zone": "세부시티",
+    "menuType": "카페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.3,
+    "ratingCount": 5222
+  },
+  {
+    "id": "77",
+    "name": "텐 이자카야",
+    "lat": 10.370709071901956,
+    "lng": 123.87087139571948,
+    "desc": "탑스힐 전망대 인근에서 세부 야경을 감상하며 즐기는 일식 이자카야. 사케와 함께 다양한 안주 메뉴를 즐길 수 있어 저녁 분위기를 내기에 제격인 곳",
+    "link": "https://blog.naver.com/aalove0902/223739942610",
+    "category": "japanese",
+    "zone": "세부시티",
+    "menuType": "일식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.1,
+    "ratingCount": 19
+  },
+  {
+    "id": "78",
+    "name": "서울 블랙(SM씨사이드)",
+    "lat": 10.282065051129319,
+    "lng": 123.88132701105845,
+    "desc": "SM씨사이드 내 위치한 한식 레스토랑. 삼겹살, 갈비 등 정통 한국 고기구이 메뉴를 세부에서 즐길 수 있어 한식이 그리운 여행자들에게 인기 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223718487932",
+    "category": "korean",
+    "zone": "세부시티",
+    "menuType": "한식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.7,
+    "ratingCount": 254
+  },
+  {
+    "id": "79",
+    "name": "더 버즈카페(SM씨사이드)",
+    "lat": 10.282065051129319,
+    "lng": 123.88132701105845,
+    "desc": "SM씨사이드 내 위치한 감성 로컬 카페 레스토랑. 필리핀 로컬 음식과 음료를 편안한 분위기에서 즐길 수 있으며 쇼핑 중 잠시 쉬어가기 좋은 곳",
+    "link": "https://blog.naver.com/aalove0902/223687373523",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 432
+  },
+  {
+    "id": "80",
+    "name": "탑오브세부",
+    "lat": 10.370709071901956,
+    "lng": 123.87087139571948,
+    "desc": "해발 600m 탑스힐에 위치한 세부 최고의 야경 전망 레스토랑. 크리스피 파타와 갈릭라이스 조합이 일품이며 해질 무렵 방문하면 노을과 야경을 모두 감상할 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223643793775",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 2496
+  },
+  {
+    "id": "81",
+    "name": "카사베르데(아얄라몰)",
+    "lat": 10.318331987801557,
+    "lng": 123.90521876688362,
+    "desc": "아얄라몰 내 위치한 필리핀 대표 패밀리 레스토랑. 특제 바비큐 소스를 바른 브라이언스 립이 유명하며 캐주얼한 분위기에서 다양한 필리핀·양식 메뉴를 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223454694318",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "양식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 3.9,
+    "ratingCount": 856
+  },
+  {
+    "id": "82",
+    "name": "슬레이트 디스트릭",
+    "lat": 10.266840015376795,
+    "lng": 123.87777139137248,
+    "desc": "세부시티 SRP 지역에 위치한 트렌디한 감성 다이닝 공간. 로컬 식재료를 활용한 창의적인 메뉴와 세련된 인테리어로 커플 및 젊은 층에게 인기 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223428846805",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "커플",
+    "rating": 4.8,
+    "ratingCount": 578
+  },
+  {
+    "id": "83",
+    "name": "아웃백 세보",
+    "lat": 10.383433914887803,
+    "lng": 123.85539169571976,
+    "desc": "세부시티 북부에 위치한 아웃백 스테이크하우스. 블루밍 어니언, 립아이 스테이크 등 익숙한 미국식 메뉴를 즐길 수 있어 가족 외식 장소로 제격인 곳",
+    "link": "https://blog.naver.com/aalove0902/223326410552",
+    "category": "cafe",
+    "zone": "세부시티",
+    "menuType": "카페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.3,
+    "ratingCount": 294
+  },
+  {
+    "id": "84",
+    "name": "쉐프 마퀸 버거",
+    "lat": 10.329485084422576,
+    "lng": 123.90691496688403,
+    "desc": "세부시티 중심가의 수제버거 전문점. 신선한 재료로 만든 두툼한 패티의 수제버거가 시그니처이며 커플이나 친구들과 가볍게 즐기기 좋은 곳",
+    "link": "https://blog.naver.com/aalove0902/223315941927",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "양식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "커플",
+    "rating": 3.6,
+    "ratingCount": 139
+  },
+  {
+    "id": "85",
+    "name": "오이스터 베이",
+    "lat": 10.33539529214559,
+    "lng": 123.95039795154382,
+    "desc": "세부시티 남쪽에 위치한 씨푸드 전문 레스토랑. 신선한 굴과 새우, 랍스터 등 해산물을 원하는 방식으로 조리해주며 필리핀 씨푸드를 제대로 맛볼 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223310036313",
+    "category": "seafood",
+    "zone": "세부시티",
+    "menuType": "씨푸드",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.1,
+    "ratingCount": 720
+  },
+  {
+    "id": "86",
+    "name": "란타우(일코르소)",
+    "lat": 10.26937190478397,
+    "lng": 123.87966153445089,
+    "desc": "세부시티 SRP 일코르소 단지 내 위치한 오션뷰 로컬 레스토랑. 망고 크랩 샐러드와 참치 뱃살 구이가 인기 메뉴이며 탁 트인 바다를 보며 식사할 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223243188359",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 2650
+  },
+  {
+    "id": "87",
+    "name": "레오나(아얄라몰)",
+    "lat": 10.318331987801557,
+    "lng": 123.90521876688362,
+    "desc": "아얄라몰 내 위치한 필리핀 인기 레스토랑 체인. 다양한 필리핀 전통 요리와 퓨전 메뉴를 합리적인 가격에 즐길 수 있어 현지인들에게 꾸준히 사랑받는 곳",
+    "link": "https://blog.naver.com/aalove0902/223083526577",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "기타",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.3,
+    "ratingCount": 46
+  },
+  {
+    "id": "88",
+    "name": "논끼(SM몰)",
+    "lat": 10.312933628062114,
+    "lng": 123.91781661369868,
+    "desc": "SM시티 세부 내 위치한 정통 일식 레스토랑 체인. 라멘, 스시, 돈카츠 등 다양한 일식 메뉴를 즐길 수 있으며 세부의 대표 일식 맛집 중 하나",
+    "link": "https://blog.naver.com/aalove0902/222976392191",
+    "category": "japanese",
+    "zone": "세부시티",
+    "menuType": "일식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.2,
+    "ratingCount": 427
+  },
+  {
+    "id": "89",
+    "name": "제이코(아얄라몰)",
+    "lat": 10.318331987801557,
+    "lng": 123.90521876688362,
+    "desc": "아얄라몰 내 위치한 필리핀 인기 도넛 전문점. 글레이즈드부터 크림 도넛까지 다양한 종류를 즐길 수 있으며 달콤한 디저트 타임에 들르기 좋은 곳",
+    "link": "https://blog.naver.com/aalove0902/222871298287",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "기타",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.2,
+    "ratingCount": 492
+  },
+  {
+    "id": "90",
+    "name": "브리크(아얄라몰)",
+    "lat": 10.318331987801557,
+    "lng": 123.90521876688362,
+    "desc": "아얄라몰 내 위치한 감성적인 분위기의 양식 레스토랑. 파스타, 스테이크 등 다양한 서양식 메뉴를 모던한 인테리어 속에서 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/222841764646",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "양식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.3,
+    "ratingCount": 437
+  },
+  {
+    "id": "91",
+    "name": "뷔페 101",
+    "lat": 10.327027405323012,
+    "lng": 123.93270943805886,
+    "desc": "세부시티에 위치한 가성비 뷔페 레스토랑. 필리핀 로컬 요리부터 국제 요리까지 다양한 메뉴를 무제한으로 즐길 수 있어 세부 여행자들에게 인기 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/222778497911",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "뷔페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.2,
+    "ratingCount": 2669
+  },
+  {
+    "id": "92",
+    "name": "보태쥬",
+    "lat": 10.312933628062114,
+    "lng": 123.91781661369868,
+    "desc": "SM몰 세부 내 위치한 일식 레스토랑. 신선한 재료로 만든 스시와 사시미가 인기이며 쇼핑 중 간편하게 정통 일식을 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223610030079",
+    "category": "japanese",
+    "zone": "세부시티",
+    "menuType": "일식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.7,
+    "ratingCount": 145
+  },
+  {
+    "id": "93",
+    "name": "빅스스(SM씨사이드)",
+    "lat": 10.282065051129319,
+    "lng": 123.88132701105845,
+    "desc": "SM씨사이드 내 위치한 양식 레스토랑. 스테이크, 파스타, 샌드위치 등 다양한 서양식 메뉴를 합리적인 가격에 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223574463109",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "양식",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.6,
+    "ratingCount": 1750
+  },
+  {
+    "id": "94",
+    "name": "하우스 오브 레촌",
+    "lat": 10.317928585944374,
+    "lng": 123.90173222461839,
+    "desc": "세부 어워드에서 우승한 경력의 레촌 전문점. 겉은 바삭하고 속은 촉촉한 통돼지 구이 레촌이 시그니처이며 마늘 소스와 함께 즐기면 일품인 곳",
+    "link": "https://blog.naver.com/aalove0902/223520364837",
+    "category": "local",
+    "zone": "세부시티",
+    "menuType": "로컬",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 6830
+  },
+  {
+    "id": "95",
+    "name": "마르코폴로 조식 뷔페",
+    "lat": 10.34185654429194,
+    "lng": 123.89743433805906,
+    "desc": "세부시티 마르코폴로 호텔의 조식 뷔페. 필리핀 전통 요리부터 서양식 브런치까지 다양한 메뉴를 고급스러운 호텔 분위기에서 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/222917610318",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "뷔페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.4,
+    "ratingCount": 148
+  },
+  {
+    "id": "96",
+    "name": "세다 센트럴 블록 뷔페",
+    "lat": 10.330576923454975,
+    "lng": 123.90663610921382,
+    "desc": "세부시티 IT파크 세다 호텔 센트럴 블록의 석식 뷔페. 세부 야경을 감상하며 다양한 국제 요리를 즐길 수 있는 세부시티 대표 저녁 뷔페 명소",
+    "link": "https://blog.naver.com/aalove0902/223876075236",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "뷔페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 3.4,
+    "ratingCount": 37
+  },
+  {
+    "id": "97",
+    "name": "래디슨블루 뷔페",
+    "lat": 10.310173609141923,
+    "lng": 123.91944633993971,
+    "desc": "세부시티 래디슨블루 호텔의 석식 뷔페. 고급스러운 호텔 다이닝 분위기에서 필리핀 현지 요리와 인터내셔널 메뉴를 무제한으로 즐길 수 있는 곳",
+    "link": "https://blog.naver.com/aalove0902/223462198269",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "뷔페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.5,
+    "ratingCount": 500
+  },
+  {
+    "id": "98",
+    "name": "바이킹(SM몰)",
+    "lat": 10.312933628062114,
+    "lng": 123.91781661369868,
+    "desc": "SM시티 세부 내 위치한 대형 뷔페 레스토랑. 씨푸드, 육류, 디저트 등 100여 가지 메뉴를 무제한으로 즐길 수 있어 세부 방문 시 한 번쯤 들러볼 만한 곳",
+    "link": "https://blog.naver.com/aalove0902/221330834694",
+    "category": "other",
+    "zone": "세부시티",
+    "menuType": "뷔페",
+    "pickupDrop": false,
+    "resortMeal": [],
+    "companionType": "모두",
+    "rating": 4.8,
+    "ratingCount": 15880
   }
 ]

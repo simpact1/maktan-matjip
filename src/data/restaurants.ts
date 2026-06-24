@@ -33,7 +33,7 @@ export const pickupDropRestaurants = restaurants
 export const resortMealRestaurants = restaurants.filter((r) => r.resortMeal.length > 0);
 
 /**
- * 🌅 뷰/야경맛집 탭 고정 허용 목록 (13곳).
+ * 🌅 뷰/야경맛집 탭 고정 허용 목록 (16곳).
  * 동반자·메뉴 태그와 무관하게 이 ID만 노출한다.
  */
 export const VIEW_SPOT_RESTAURANT_IDS = [
@@ -50,6 +50,9 @@ export const VIEW_SPOT_RESTAURANT_IDS = [
   '68', // 세부시티 라 파리지엔 스카이
   '69', // 세부시티 미스터A
   '70', // 세부시티 Verified 루프탑
+  '77', // 텐 이자카야
+  '80', // 탑오브세부
+  '72', // 셀라돈
 ] as const;
 
 const viewSpotIdOrder = new Map(

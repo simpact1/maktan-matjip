@@ -392,6 +392,28 @@ export function DiningGuideIconCards({
           )}
         </View>
       ) : null}
+
+      <View style={styles.contactRow}>
+        <Text style={styles.contactTitle}>궁금하신 점이 있으신가요?</Text>
+        <View style={styles.contactLinks}>
+          <Pressable
+            onPress={() => onOpenLink('https://m.blog.naver.com/aalove0902', '세부여행정보')}
+            style={({ pressed }) => [styles.contactBtn, styles.contactBtnNaver, pressed && styles.contactBtnPressed]}
+            accessibilityRole="link"
+            accessibilityLabel="블로그 후기 보기"
+          >
+            <Text style={styles.contactBtnNaverText}>블로그 후기 보기</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onOpenLink('https://pf.kakao.com/_xcjmfj/chat', '카톡 문의하기')}
+            style={({ pressed }) => [styles.contactBtn, styles.contactBtnKakao, pressed && styles.contactBtnPressed]}
+            accessibilityRole="link"
+            accessibilityLabel="카톡 문의하기"
+          >
+            <Text style={styles.contactBtnKakaoText}>카톡 문의하기</Text>
+          </Pressable>
+        </View>
+      </View>
     </View>
   );
 }
@@ -679,5 +701,52 @@ const styles = StyleSheet.create({
           overflowWrap: 'break-word',
         } as object)
       : null),
+  },
+  contactRow: {
+    marginTop: 10,
+    paddingTop: 12,
+    paddingBottom: 4,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.08)',
+    alignItems: 'center',
+  },
+  contactTitle: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    marginBottom: 10,
+  },
+  contactLinks: {
+    flexDirection: 'row',
+    gap: 8,
+    width: '100%',
+  },
+  contactBtn: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 9,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+  },
+  contactBtnPressed: {
+    opacity: 0.88,
+  },
+  contactBtnNaver: {
+    backgroundColor: '#03c75a',
+  },
+  contactBtnNaverText: {
+    fontSize: 13,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+  },
+  contactBtnKakao: {
+    backgroundColor: '#fee500',
+  },
+  contactBtnKakaoText: {
+    fontSize: 13,
+    fontFamily: fonts.semiBold,
+    color: '#191919',
   },
 });

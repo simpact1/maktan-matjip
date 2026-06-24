@@ -10,6 +10,40 @@ import { Restaurant } from '../types/restaurant';
 import { MactanResort } from '../types/resort';
 import { ClusterMapProps, collectVisibleMapPoints, MapPoint } from './mapTypes';
 
+if (typeof document !== 'undefined') {
+  const POPUP_STYLE_ID = 'leaflet-popup-dark-style';
+  if (!document.getElementById(POPUP_STYLE_ID)) {
+    const styleEl = document.createElement('style');
+    styleEl.id = POPUP_STYLE_ID;
+    styleEl.textContent = `
+      .leaflet-popup-content-wrapper {
+        background: rgba(4, 47, 46, 0.95) !important;
+        border: 1px solid rgba(153, 246, 228, 0.3) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+        padding: 0 !important;
+        min-width: 0 !important;
+      }
+      .leaflet-popup-content {
+        margin: 8px 10px !important;
+        font-family: "Noto Sans KR", system-ui, sans-serif !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        color: #ecfeff !important;
+        min-width: 0 !important;
+        width: auto !important;
+      }
+      .leaflet-popup-tip {
+        background: rgba(4, 47, 46, 0.95) !important;
+      }
+      .leaflet-popup-close-button {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+}
+
 export const MAP_HEIGHT = 280;
 
 function categoryIcon(color: string) {
@@ -318,14 +352,31 @@ export function ClusterMap({
 const compactPopup: Record<string, CSSProperties> = {
   wrap: {
     margin: 0,
-    fontFamily: 'system-ui, sans-serif',
-    fontSize: 12,
+    padding: '4px 2px',
+    fontFamily: '"Noto Sans KR", "DM Sans", system-ui, sans-serif',
+    fontSize: 11,
     lineHeight: 1.4,
-    color: '#333',
-    padding: '2px 0',
+    color: '#ecfeff',
+    background: 'transparent',
+    minWidth: 80,
+    maxWidth: 140,
   },
-  title: { display: 'block', fontSize: 13, marginBottom: 2 },
-  hint: { display: 'block', fontSize: 11, color: '#5f6368' },
+  title: {
+    display: 'block',
+    fontSize: 12,
+    fontWeight: 700,
+    color: '#ecfeff',
+    marginBottom: 2,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  hint: {
+    display: 'block',
+    fontSize: 10,
+    color: '#99f6e4',
+    whiteSpace: 'nowrap',
+  },
 };
 
 const webMapStyle: CSSProperties = {

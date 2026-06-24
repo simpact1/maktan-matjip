@@ -17,10 +17,11 @@ export type ResortMealFilter = ResortMealType | null;
 export type RestaurantZone =
   | '제이파크/샹스'
   | '샹그릴라'
-  | '막탄뉴타운'
   | '마리바고/블루워터'
   | '공항인근'
-  | '솔레아';
+  | '솔레아'
+  | '막탄뉴타운'
+  | '세부시티';
 
 export type MenuType =
   | '씨푸드'
@@ -31,6 +32,9 @@ export type MenuType =
   | '뷰맛집'
   | '뷔페'
   | '카페'
+  | '양식'
+  | '타이'
+  | '멕시칸'
   | '기타';
 
 /** 동반자에 따른 구분 (맛집당 1개) */
@@ -63,4 +67,6 @@ export interface Restaurant {
   isCrab?: boolean;
   /** 특정 구역(zone) 필터 선택 시 숨김 (전체 리스트엔 노출). 예: 공항근처 카테고리에서 제외 */
   hiddenInZoneFilter?: boolean;
+  rating?: number;
+  ratingCount?: number;
 }

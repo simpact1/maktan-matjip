@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { getZoneLabel } from '../constants/filters';
+import { colors, fonts } from '../constants/theme';
 import { guideStyles } from '../styles/guideStyles';
 import { Restaurant } from '../types/restaurant';
 
@@ -45,6 +46,10 @@ export function PlaceListItem({ restaurant, isSelected, onSelect }: PlaceListIte
     return tags;
   }, [restaurant]);
 
+  const ratingLabel = restaurant.rating
+    ? `⭐ ${restaurant.rating} (${restaurant.ratingCount?.toLocaleString()})`
+    : null;
+
   return (
     <View style={[guideStyles.item, isSelected && guideStyles.itemSelectedRestaurant]}>
       <Pressable
@@ -71,6 +76,16 @@ export function PlaceListItem({ restaurant, isSelected, onSelect }: PlaceListIte
             ))}
           </View>
         </View>
+        {ratingLabel ? (
+          <Text style={{
+            fontSize: 11,
+            color: '#fef9c3',
+            fontFamily: fonts.regular,
+            marginTop: 2,
+          }}>
+            {ratingLabel}
+          </Text>
+        ) : null}
         <Text style={guideStyles.chev}>{isSelected ? '●' : '›'}</Text>
       </Pressable>
     </View>
