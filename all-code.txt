@@ -1,0 +1,4822 @@
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { PARTNER_LINKS } from '../constants/partnerLinks';
+import { colors, fonts } from '../constants/theme';
+
+interface AppHeaderProps {
+  onOpenLink: (url: string, title: string) => void;
+}
+
+export function AppHeader({ onOpenLink }: AppHeaderProps) {
+  return (
+    <View style={styles.hero}>
+      <Text style={styles.eyebrow}>Philippines · Cebu</Text>
+      <Text style={styles.title}>세부 여행 필수 앱! 막탄 맛집·카페 가이드</Text>
+      <Text style={styles.sub}>
+        <Text style={styles.subStrong}>동선 낭비 제로!</Text> 픽업드랍부터 숨은 야경 명소까지
+        지도 한 장으로 끝내세요. 실패 없는 진짜 세부 맛집 후기가 실시간으로 연동됩니다.
+      </Text>
+
+      <View style={styles.partner}>
+        <Text style={styles.partnerTitle}>세부여행플래너</Text>
+        <View style={styles.partnerLinks}>
+          <Pressable
+            onPress={() =>
+              onOpenLink(PARTNER_LINKS.naverBlog, '세부여행정보')
+            }
+            style={({ pressed }) => [
+              styles.plink,
+              styles.plinkNaver,
+              pressed && styles.plinkPressed,
+            ]}
+            accessibilityRole="link"
+            accessibilityLabel="세부여행정보"
+          >
+            <Text style={styles.plinkNaverText}>세부여행정보</Text>
+          </Pressable>
+          <Pressable
+            onPress={() =>
+              onOpenLink(PARTNER_LINKS.kakaoChannel, '카카오톡 채널')
+            }
+            style={({ pressed }) => [
+              styles.plink,
+              styles.plinkKakao,
+              pressed && styles.plinkPressed,
+            ]}
+            accessibilityRole="link"
+            accessibilityLabel="카카오톡 채널"
+          >
+            <Text style={styles.plinkKakaoText}>카카오톡 채널</Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  hero: {
+    alignItems: 'center',
+    marginBottom: 0,
+    paddingHorizontal: 12,
+  },
+  eyebrow: {
+    letterSpacing: 1.8,
+    textTransform: 'uppercase',
+    fontSize: 11,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    marginBottom: 4,
+  },
+  title: {
+    fontSize: 28,
+    fontFamily: fonts.bold,
+    color: colors.text,
+    textAlign: 'center',
+    marginBottom: 8,
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  sub: {
+    fontSize: 14,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 22,
+    maxWidth: 360,
+  },
+  subStrong: {
+    color: colors.accent,
+    fontFamily: fonts.semiBold,
+  },
+  partner: {
+    marginTop: 14,
+    paddingTop: 14,
+    width: '100%',
+    maxWidth: 360,
+    borderTopWidth: 1,
+    borderTopColor: colors.cardBorder,
+    alignItems: 'center',
+  },
+  partnerTitle: {
+    fontSize: 13,
+    fontFamily: fonts.semiBold,
+    color: colors.accent,
+    marginBottom: 10,
+  },
+  partnerLinks: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 8,
+    width: '100%',
+  },
+  plink: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 9,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    minWidth: 130,
+    alignItems: 'center',
+  },
+  plinkPressed: {
+    opacity: 0.88,
+  },
+  plinkNaver: {
+    backgroundColor: '#03c75a',
+  },
+  plinkNaverText: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+  },
+  plinkKakao: {
+    backgroundColor: '#fee500',
+  },
+  plinkKakaoText: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: '#191919',
+  },
+});
+import { useEffect, useMemo, useRef } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import MapView, { Marker, Region } from 'react-native-maps';
+import { colors, fonts, MACTAN_CENTER, menuTypeColors } from '../constants/theme';
+import { NightMarket } from '../types/nightMarket';
+import { ClusterMapProps, collectVisibleMapPoints } from './mapTypes';
+
+export const MAP_HEIGHT = 280;
+
+const RESORT_PIN = '#1a73e8';
+const RESORT_PIN_SELECTED = '#0d47a1';
+const NIGHT_MARKET_PIN = '#7c3aed';
+const NIGHT_MARKET_PIN_SELECTED = '#4c1d95';
+
+export function ClusterMap({
+  restaurants,
+  resorts,
+  nightMarkets,
+  showRestaurants,
+  showResorts,
+  showNightMarkets,
+  selectedRestaurantId,
+  selectedResortId,
+  selectedNightMarketId,
+  onSelectRestaurant,
+  onSelectResort,
+  onSelectNightMarket,
+  onClearMapSelection,
+}: ClusterMapProps) {
+  const mapRef = useRef<MapView>(null);
+
+  const visiblePoints = useMemo(
+    () =>
+      collectVisibleMapPoints(
+        restaurants,
+        resorts,
+        nightMarkets,
+        showRestaurants,
+        showResorts,
+        showNightMarkets
+      ),
+    [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
+  );
+
+  useEffect(() => {
+    if (!mapRef.current || visiblePoints.length === 0) {
+      return;
+    }
+    if (selectedNightMarketId && showNightMarkets) {
+      const target = nightMarkets.find((m) => m.id === selectedNightMarketId);
+      if (target) {
+        const region: Region = {
+          latitude: target.lat,
+          longitude: target.lng,
+          latitudeDelta: target.region === 'cebu-city' ? 0.04 : 0.02,
+          longitudeDelta: target.region === 'cebu-city' ? 0.04 : 0.02,
+        };
+        mapRef.current.animateToRegion(region, 550);
+      }
+      return;
+    }
+    if (visiblePoints.length === 1) {
+      const p = visiblePoints[0]!;
+      mapRef.current.animateToRegion(
+        {
+          latitude: p.lat,
+          longitude: p.lng,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
+        },
+        450
+      );
+    }
+  }, [selectedNightMarketId, showNightMarkets, nightMarkets, visiblePoints]);
+
+  const mapVisible = showRestaurants || showResorts || showNightMarkets;
+
+  if (!mapVisible) {
+    return (
+      <View style={styles.wrap}>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
+      </View>
+    );
+  }
+
+  if (visiblePoints.length === 0) {
+    return (
+      <View style={styles.wrap}>
+        <Text style={styles.caption}>선택한 레이어에 표시할 장소가 없습니다.</Text>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.wrap}>
+      <View style={styles.mapBox}>
+        <MapView
+          ref={mapRef}
+          style={styles.map}
+          initialRegion={MACTAN_CENTER}
+          scrollEnabled={false}
+          zoomTapEnabled={false}
+          showsUserLocation
+          showsMyLocationButton
+          loadingEnabled
+          loadingBackgroundColor="#aad3df"
+          onPress={() => onClearMapSelection?.()}
+        >
+          {showRestaurants &&
+            restaurants.map((restaurant) => (
+              <Marker
+                key={`rest-${restaurant.id}`}
+                coordinate={{
+                  latitude: restaurant.lat,
+                  longitude: restaurant.lng,
+                }}
+                title={restaurant.name}
+                description="지도 아래에서 상세 정보를 확인하세요"
+                pinColor={menuTypeColors[restaurant.menuType] ?? menuTypeColors['기타']}
+                onPress={(event) => {
+                  event.stopPropagation?.();
+                  onSelectRestaurant(restaurant.id);
+                }}
+              />
+            ))}
+          {showResorts &&
+            resorts.map((resort) => (
+              <Marker
+                key={`resort-${resort.id}`}
+                coordinate={{ latitude: resort.lat, longitude: resort.lng }}
+                title={resort.name}
+                description="지도 아래에서 상세 정보를 확인하세요"
+                pinColor={
+                  selectedResortId === resort.id ? RESORT_PIN_SELECTED : RESORT_PIN
+                }
+                onPress={(event) => {
+                  event.stopPropagation?.();
+                  onSelectResort(resort.id);
+                }}
+              />
+            ))}
+          {showNightMarkets &&
+            (nightMarkets ?? []).map((market) => (
+              <Marker
+                key={`night-${market.id}`}
+                coordinate={{ latitude: market.lat, longitude: market.lng }}
+                title={market.name}
+                description={market.locationDesc}
+                pinColor={
+                  selectedNightMarketId === market.id
+                    ? NIGHT_MARKET_PIN_SELECTED
+                    : NIGHT_MARKET_PIN
+                }
+                onPress={(event) => {
+                  event.stopPropagation?.();
+                  onSelectNightMarket(market.id);
+                }}
+              />
+            ))}
+        </MapView>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  wrap: { marginBottom: 0 },
+  caption: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: colors.textMuted,
+    marginBottom: 8,
+  },
+  mapBox: {
+    width: '100%',
+    height: MAP_HEIGHT,
+    borderRadius: 9,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.12)',
+    backgroundColor: '#aad3df',
+  },
+  mapBoxEmpty: {
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  map: {
+    width: '100%',
+    height: MAP_HEIGHT,
+  },
+});
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { useEffect, useMemo, useRef, type CSSProperties } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import type { Marker as LeafletMarker } from 'leaflet';
+import { StyleSheet, Text, View } from 'react-native';
+import { colors, fonts, MACTAN_CENTER, menuTypeColors } from '../constants/theme';
+import { NightMarket } from '../types/nightMarket';
+import { Restaurant } from '../types/restaurant';
+import { MactanResort } from '../types/resort';
+import { ClusterMapProps, collectVisibleMapPoints, MapPoint } from './mapTypes';
+
+export const MAP_HEIGHT = 280;
+
+function categoryIcon(color: string) {
+  return L.divIcon({
+    className: '',
+    html: `<span style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid #fff;display:block;box-shadow:0 1px 4px rgba(0,0,0,0.45)"></span>`,
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+  });
+}
+
+const resortIcon = L.divIcon({
+  className: '',
+  html: `<span style="background:#1a73e8;width:22px;height:22px;border-radius:6px;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,0.35)">🏨</span>`,
+  iconSize: [22, 22],
+  iconAnchor: [11, 11],
+});
+
+const nightMarketIcon = L.divIcon({
+  className: '',
+  html: `<span style="background:linear-gradient(135deg,#4c1d95,#7c3aed);width:26px;height:26px;border-radius:8px;border:2px solid #fde68a;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 8px rgba(76,29,149,0.45)">🎪</span>`,
+  iconSize: [26, 26],
+  iconAnchor: [13, 13],
+});
+
+function MapFitBounds({ points }: { points: MapPoint[] }) {
+  const map = useMap();
+  const boundsKey = useMemo(
+    () => points.map((p) => `${p.id}:${p.lat},${p.lng}`).join('|'),
+    [points]
+  );
+
+  useEffect(() => {
+    if (points.length === 0) {
+      map.setView([MACTAN_CENTER.latitude, MACTAN_CENTER.longitude], 12);
+      return;
+    }
+    const latlngs = points.map((p) => L.latLng(p.lat, p.lng));
+    if (latlngs.length === 1) {
+      map.setView(latlngs[0]!, 14);
+    } else {
+      map.fitBounds(L.latLngBounds(latlngs), { padding: [32, 32], maxZoom: 12 });
+    }
+    const t = window.setTimeout(() => map.invalidateSize(), 200);
+    return () => window.clearTimeout(t);
+  }, [map, boundsKey, points]);
+
+  return null;
+}
+
+function MapFocusNightMarket({
+  nightMarkets,
+  selectedNightMarketId,
+}: {
+  nightMarkets: NightMarket[];
+  selectedNightMarketId: string | null;
+}) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!selectedNightMarketId) {
+      return;
+    }
+    const target = nightMarkets.find((m) => m.id === selectedNightMarketId);
+    if (!target) {
+      return;
+    }
+    const zoom = target.region === 'cebu-city' ? 15 : 14;
+    map.flyTo([target.lat, target.lng], zoom, { duration: 0.55 });
+  }, [map, nightMarkets, selectedNightMarketId]);
+
+  return null;
+}
+
+function MapBackgroundClickHandler({ onBackgroundClick }: { onBackgroundClick: () => void }) {
+  useMapEvents({
+    click: () => onBackgroundClick(),
+  });
+  return null;
+}
+
+function CompactMapMarker({
+  position,
+  icon,
+  isSelected,
+  onSelect,
+  title,
+  hint,
+}: {
+  position: [number, number];
+  icon: L.DivIcon;
+  isSelected: boolean;
+  onSelect: () => void;
+  title: string;
+  hint: string;
+}) {
+  const markerRef = useRef<LeafletMarker>(null);
+
+  useEffect(() => {
+    markerRef.current?.setLatLng(position);
+  }, [position]);
+
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (!marker) {
+      return;
+    }
+    if (isSelected) {
+      marker.openPopup();
+    } else {
+      marker.closePopup();
+    }
+  }, [isSelected]);
+
+  return (
+    <Marker
+      ref={markerRef}
+      position={position}
+      icon={icon}
+      eventHandlers={{
+        click: (event) => {
+          L.DomEvent.stopPropagation(event);
+          onSelect();
+        },
+      }}
+    >
+      <Popup closeButton={false} maxWidth={200} minWidth={120} autoPan={false}>
+        <div style={compactPopup.wrap}>
+          <strong style={compactPopup.title}>{title}</strong>
+          <span style={compactPopup.hint}>{hint}</span>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
+function RestaurantMapMarker({
+  restaurant,
+  isSelected,
+  onSelect,
+}: {
+  restaurant: Restaurant;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <CompactMapMarker
+      position={[restaurant.lat, restaurant.lng]}
+      icon={categoryIcon(menuTypeColors[restaurant.menuType] ?? menuTypeColors['기타'])}
+      isSelected={isSelected}
+      onSelect={onSelect}
+      title={restaurant.name}
+      hint="↓ 아래에서 상세 보기"
+    />
+  );
+}
+
+function ResortMapMarker({
+  resort,
+  isSelected,
+  onSelect,
+}: {
+  resort: MactanResort;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <CompactMapMarker
+      position={[resort.lat, resort.lng]}
+      icon={resortIcon}
+      isSelected={isSelected}
+      onSelect={onSelect}
+      title={`🏨 ${resort.name}`}
+      hint="↓ 아래에서 상세 보기"
+    />
+  );
+}
+
+function NightMarketMapMarker({
+  market,
+  isSelected,
+  onSelect,
+}: {
+  market: NightMarket;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <CompactMapMarker
+      position={[market.lat, market.lng]}
+      icon={nightMarketIcon}
+      isSelected={isSelected}
+      onSelect={onSelect}
+      title={`🎪 ${market.name}`}
+      hint="↓ 아래에서 상세 보기"
+    />
+  );
+}
+
+export function ClusterMap({
+  restaurants,
+  resorts,
+  nightMarkets,
+  showRestaurants,
+  showResorts,
+  showNightMarkets,
+  selectedRestaurantId,
+  selectedResortId,
+  selectedNightMarketId,
+  onSelectRestaurant,
+  onSelectResort,
+  onSelectNightMarket,
+  onClearMapSelection,
+}: ClusterMapProps) {
+  const visiblePoints = useMemo(
+    () =>
+      collectVisibleMapPoints(
+        restaurants,
+        resorts,
+        nightMarkets,
+        showRestaurants,
+        showResorts,
+        showNightMarkets
+      ),
+    [restaurants, resorts, nightMarkets, showRestaurants, showResorts, showNightMarkets]
+  );
+
+  const mapVisible = showRestaurants || showResorts || showNightMarkets;
+
+  if (!mapVisible) {
+    return (
+      <View style={styles.wrap}>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
+      </View>
+    );
+  }
+
+  if (visiblePoints.length === 0) {
+    return (
+      <View style={styles.wrap}>
+        <Text style={styles.caption}>선택한 레이어에 표시할 장소가 없습니다.</Text>
+        <View style={[styles.mapBox, styles.mapBoxEmpty]} />
+      </View>
+    );
+  }
+
+  const center: [number, number] = [visiblePoints[0]!.lat, visiblePoints[0]!.lng];
+
+  return (
+    <View style={styles.wrap}>
+      <View style={styles.mapBox}>
+        <MapContainer
+          key={`map-${showRestaurants ? 'r' : ''}${showResorts ? 's' : ''}${showNightMarkets ? 'n' : ''}`}
+          center={center}
+          zoom={12}
+          style={webMapStyle}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {onClearMapSelection ? (
+            <MapBackgroundClickHandler onBackgroundClick={onClearMapSelection} />
+          ) : null}
+          {showRestaurants &&
+            restaurants.map((r) => (
+              <RestaurantMapMarker
+                key={`rest-${r.id}-${r.lat}-${r.lng}`}
+                restaurant={r}
+                isSelected={selectedRestaurantId === r.id}
+                onSelect={() => onSelectRestaurant(r.id)}
+              />
+            ))}
+          {showResorts &&
+            resorts.map((resort) => (
+              <ResortMapMarker
+                key={`resort-${resort.id}-${resort.lat}-${resort.lng}`}
+                resort={resort}
+                isSelected={selectedResortId === resort.id}
+                onSelect={() => onSelectResort(resort.id)}
+              />
+            ))}
+          {showNightMarkets &&
+            (nightMarkets ?? []).map((market) => (
+              <NightMarketMapMarker
+                key={`night-${market.id}-${market.lat}-${market.lng}`}
+                market={market}
+                isSelected={selectedNightMarketId === market.id}
+                onSelect={() => onSelectNightMarket(market.id)}
+              />
+            ))}
+          <MapFitBounds points={visiblePoints} />
+          {showNightMarkets ? (
+            <MapFocusNightMarket
+              nightMarkets={nightMarkets}
+              selectedNightMarketId={selectedNightMarketId}
+            />
+          ) : null}
+        </MapContainer>
+      </View>
+    </View>
+  );
+}
+
+const compactPopup: Record<string, CSSProperties> = {
+  wrap: {
+    margin: 0,
+    fontFamily: 'system-ui, sans-serif',
+    fontSize: 12,
+    lineHeight: 1.4,
+    color: '#333',
+    padding: '2px 0',
+  },
+  title: { display: 'block', fontSize: 13, marginBottom: 2 },
+  hint: { display: 'block', fontSize: 11, color: '#5f6368' },
+};
+
+const webMapStyle: CSSProperties = {
+  height: MAP_HEIGHT,
+  width: '100%',
+  borderRadius: 9,
+  zIndex: 0,
+};
+
+const styles = StyleSheet.create({
+  wrap: { marginBottom: 0 },
+  caption: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: colors.textMuted,
+    marginBottom: 8,
+  },
+  mapBox: {
+    width: '100%',
+    height: MAP_HEIGHT,
+    borderRadius: 9,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.12)',
+    backgroundColor: '#aad3df',
+  },
+  mapBoxEmpty: {
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+});
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  UIManager,
+  View,
+} from 'react-native';
+import {
+  DINING_GUIDE_TIPS,
+  DiningGuideExpandLink,
+  DiningGuideTip,
+  DiningGuideTipId,
+} from '../constants/diningGuideTips';
+import { NIGHT_MARKET_BLOG_LINKS } from '../constants/nightMarketMapLinks';
+import { colors, diningGuideTipTheme, fonts } from '../constants/theme';
+import { openExternalUrl } from '../utils/openExternalUrl';
+import { PhilippineFoodSection } from './PhilippineFoodSection';
+
+type ExpandLinkLayout = 'default' | 'fruitRow4' | 'grid2x2';
+
+/** 2x3 그리드 — 3열 균등 분할 */
+const GRID_GAP = 7;
+
+/** 과일 상세 4열 버튼만 큼직하게 (메인·안내 문구와 분리) */
+const FRUIT_LINK_SCALE = 1.3;
+const fruitS = (n: number) => Math.round(n * FRUIT_LINK_SCALE);
+
+const MANGOSTEEN_LABEL = '망고스틴 고르는법';
+const FILIPINO_TRAD_FOOD_LABEL = '필리핀 전통먹거리';
+const FILIPINO_RECOMMEND_LABEL = '세부추천음식';
+
+const TIP_BUTTON_HEIGHT = 84;
+const TIP_BUTTON_RADIUS = 10;
+const CARD_ICON_FONT_SIZE = 26;
+const CARD_ICON_LINE_HEIGHT = 30;
+const EXPAND_LINK_DEFAULT_MIN_HEIGHT = 56;
+const EXPAND_LINK_DEFAULT_ICON_SIZE = 16;
+const NIGHT_MARKET_LABEL_FONT_SIZE = 12;
+const NIGHT_MARKET_CELL_MIN_HEIGHT = 78;
+
+if (Platform.OS === 'android') {
+  UIManager.setLayoutAnimationEnabledExperimental?.(true);
+}
+
+// 웹에서 야시장 후기 링크 라벨이 좁은 칸에서 한 글자씩 끊기지 않고
+// 단어(어절) 단위로 줄바꿈되도록 실제 CSS를 주입한다. (RN-web 스타일 누락 방지)
+if (Platform.OS === 'web' && typeof document !== 'undefined') {
+  const NM_LABEL_STYLE_ID = 'nm-blog-label-style';
+  if (!document.getElementById(NM_LABEL_STYLE_ID)) {
+    const styleEl = document.createElement('style');
+    styleEl.id = NM_LABEL_STYLE_ID;
+    styleEl.textContent =
+      '[data-nmlabel="true"]{word-break:keep-all!important;white-space:normal!important;overflow-wrap:break-word!important;text-align:center!important;}';
+    document.head.appendChild(styleEl);
+  }
+}
+
+function NightMarketBlogLinkRow({
+  onOpenLink,
+}: {
+  onOpenLink: (url: string, title: string) => void;
+}) {
+  if (!NIGHT_MARKET_BLOG_LINKS.length) {
+    return (
+      <Text style={styles.nightMarketLinksFallback}>
+        야시장 링크를 불러오지 못했습니다. 앱을 새로고침해 주세요.
+      </Text>
+    );
+  }
+
+  return (
+    <View style={styles.nightMarketMapRow}>
+      {NIGHT_MARKET_BLOG_LINKS.map((link) => (
+        <Pressable
+          key={link.label}
+          style={({ pressed }) => [
+            styles.nightMarketMapCell,
+            pressed && styles.nightMarketMapCellPressed,
+          ]}
+          onPress={() => onOpenLink(link.url, link.blogTitle)}
+          accessibilityRole="link"
+          accessibilityLabel={link.label}
+          accessibilityHint={`${link.blogTitle} 블로그로 이동합니다`}
+        >
+          <Text style={styles.nightMarketMapEmoji} accessibilityElementsHidden>
+            {link.emoji}
+          </Text>
+          <Text
+            style={styles.nightMarketMapLabel}
+            numberOfLines={3}
+            {...(Platform.OS === 'web'
+              ? ({ dataSet: { nmlabel: 'true' } } as object)
+              : null)}
+          >
+            {link.label}
+          </Text>
+        </Pressable>
+      ))}
+    </View>
+  );
+}
+
+interface ExpandLinksProps {
+  links: DiningGuideExpandLink[];
+  onOpenLink: (url: string, title: string) => void;
+  renderLink: (
+    link: DiningGuideExpandLink,
+    layout: ExpandLinkLayout,
+  ) => React.ReactNode;
+}
+
+function ExpandLinksGrid({ links, renderLink }: ExpandLinksProps) {
+  const rows = [links.slice(0, 2), links.slice(2, 4)];
+  return (
+    <View style={styles.expandLinksGrid}>
+      {rows.map((row, rowIndex) => (
+        <View key={rowIndex} style={styles.expandLinksRow}>
+          {row.map((link) => renderLink(link, 'grid2x2'))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function ExpandLinksRow({
+  links,
+  renderLink,
+  isRow4,
+}: ExpandLinksProps & { isRow4: boolean }) {
+  return (
+    <View
+      style={[styles.expandLinksWrap, isRow4 && styles.expandLinksWrapRow4]}
+    >
+      {links.map((link) =>
+        renderLink(link, isRow4 ? 'fruitRow4' : 'default'),
+      )}
+    </View>
+  );
+}
+
+interface TipMenuButtonProps {
+  tip: DiningGuideTip;
+  isActive: boolean;
+  onPress: () => void;
+}
+
+function TipMenuButton({ tip, isActive, onPress }: TipMenuButtonProps) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed, hovered }) => [
+        styles.tipButton,
+        isActive && styles.tipButtonActive,
+        (pressed || hovered) && styles.tipButtonInteractive,
+      ]}
+      accessibilityRole="button"
+      accessibilityLabel={tip.title}
+      accessibilityState={{ expanded: isActive }}
+    >
+      <View style={styles.tipButtonContent} importantForAccessibility="no-hide-descendants">
+        <Text
+          style={styles.tipButtonIcon}
+          accessible={false}
+          importantForAccessibility="no"
+        >
+          {tip.icon}
+        </Text>
+        <Text
+          style={styles.tipButtonLabel}
+          accessible={false}
+          importantForAccessibility="no"
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {tip.compactTitle}
+        </Text>
+      </View>
+    </Pressable>
+  );
+}
+
+interface DiningGuideIconCardsProps {
+  onOpenLink: (url: string, title: string) => void;
+  nightMarketMode?: boolean;
+  onNightMarketModeChange?: (active: boolean) => void;
+  selectedNightMarketId?: string | null;
+  onSelectNightMarket?: (id: string) => void;
+}
+
+export function DiningGuideIconCards({
+  onOpenLink,
+  nightMarketMode = false,
+  onNightMarketModeChange,
+  selectedNightMarketId = null,
+  onSelectNightMarket,
+}: DiningGuideIconCardsProps) {
+  const [expandedId, setExpandedId] = useState<DiningGuideTipId | null>(null);
+
+  const GRID_ROWS = useMemo<DiningGuideTip[][]>(
+    () => [DINING_GUIDE_TIPS.slice(0, 3), DINING_GUIDE_TIPS.slice(3, 6)],
+    [],
+  );
+
+  const handlePress = useCallback(
+    (id: DiningGuideTipId) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setExpandedId((prev) => {
+        const next = prev === id ? null : id;
+        onNightMarketModeChange?.(next === 'night-market');
+        return next;
+      });
+    },
+    [onNightMarketModeChange]
+  );
+
+  const expanded = DINING_GUIDE_TIPS.find((t) => t.id === expandedId);
+
+  const renderExpandLink = useCallback(
+    (link: DiningGuideExpandLink, layout: ExpandLinkLayout) => {
+      const isFruitRow4 = layout === 'fruitRow4';
+      const isMangostein = link.label === MANGOSTEEN_LABEL;
+      const isFilipinoTrad = link.label === FILIPINO_TRAD_FOOD_LABEL;
+      const isFilipinoRecommend = link.label === FILIPINO_RECOMMEND_LABEL;
+      const useTightRow4Text = isMangostein || isFilipinoTrad || isFilipinoRecommend;
+
+      const openLink = () => {
+        if (link.openInNewTab) {
+          openExternalUrl(link.url);
+          return;
+        }
+        onOpenLink(link.url, link.blogTitle);
+      };
+
+      return (
+        <Pressable
+          key={link.url}
+          onPress={openLink}
+          style={({ pressed }) => [
+            styles.expandLinkBtnCell,
+            styles.expandLinkBtn,
+            layout === 'grid2x2' && styles.expandLinkBtnCompact,
+            isFruitRow4 && styles.expandLinkBtnFruitCompact,
+            pressed && styles.expandLinkBtnPressed,
+          ]}
+          accessibilityRole="link"
+          accessibilityLabel={link.label}
+          accessibilityHint={`${link.blogTitle} 블로그로 이동합니다`}
+        >
+          {link.icon ? (
+            <Text
+              style={
+                isFruitRow4 ? styles.expandLinkIconFruit : styles.expandLinkIcon
+              }
+              accessibilityElementsHidden
+            >
+              {link.icon}
+            </Text>
+          ) : null}
+          <Text
+            style={[
+              styles.expandLinkBtnText,
+              layout === 'grid2x2' && styles.expandLinkBtnTextCompact,
+              isFruitRow4 && styles.expandLinkBtnTextFruit,
+              isFruitRow4 && useTightRow4Text && styles.expandLinkBtnTextFruitTight,
+            ]}
+            numberOfLines={1}
+            adjustsFontSizeToFit={isFruitRow4 && !useTightRow4Text}
+            minimumFontScale={0.72}
+            ellipsizeMode="clip"
+          >
+            {link.label}
+          </Text>
+        </Pressable>
+      );
+    },
+    [onOpenLink],
+  );
+
+  const renderExpandLinks = useCallback(
+    (tip: DiningGuideTip) => {
+      const links = tip.expandLinks ?? [];
+      const compactRow4 =
+        tip.expandLinksLayout === 'row' && links.length >= 4;
+
+      if (tip.expandLinksLayout === 'grid2x2' && links.length >= 4) {
+        return (
+          <ExpandLinksGrid
+            links={links}
+            onOpenLink={onOpenLink}
+            renderLink={renderExpandLink}
+          />
+        );
+      }
+
+      return (
+        <ExpandLinksRow
+          links={links}
+          onOpenLink={onOpenLink}
+          renderLink={renderExpandLink}
+          isRow4={compactRow4}
+        />
+      );
+    },
+    [onOpenLink, renderExpandLink],
+  );
+
+  const renderCard = useCallback(
+    (tip: DiningGuideTip) => (
+      <TipMenuButton
+        key={tip.id}
+        tip={tip}
+        isActive={expandedId === tip.id || (tip.id === 'night-market' && nightMarketMode)}
+        onPress={() => handlePress(tip.id)}
+      />
+    ),
+    [expandedId, handlePress, nightMarketMode],
+  );
+
+  return (
+    <View style={styles.wrap}>
+      <View style={styles.grid}>
+        {GRID_ROWS.map((row, rowIndex) => (
+          <View key={rowIndex} style={styles.row}>
+            {row.map(renderCard)}
+          </View>
+        ))}
+      </View>
+
+      {expanded?.id === 'filipino-food' ? (
+        <View
+          style={styles.filipinoFoodPanelWrap}
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={`${expanded.title} 상세 정보`}
+        >
+          <PhilippineFoodSection onOpenLink={onOpenLink} />
+        </View>
+      ) : expanded ? (
+        <View
+          style={styles.expandPanel}
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={`${expanded.title} 상세 정보`}
+        >
+          {expanded.expandSimple ? (
+            <>
+              {expanded.expandTitle ? (
+                <Text style={styles.expandLead}>{expanded.expandTitle}</Text>
+              ) : null}
+              {expanded.expandBody ? (
+                <Text style={styles.expandBody}>{expanded.expandBody}</Text>
+              ) : !expanded.expandTitle ? (
+                <Text style={styles.expandBody}>💡 {expanded.summary}</Text>
+              ) : null}
+            </>
+          ) : (
+            <>
+              <Text style={styles.expandHeading}>{expanded.title}</Text>
+              <Text style={styles.expandBullet}>• {expanded.summary}</Text>
+            </>
+          )}
+          {expanded.expandLinks?.length ? (
+            renderExpandLinks(expanded)
+          ) : expanded.id === 'night-market' ? (
+            <NightMarketBlogLinkRow onOpenLink={onOpenLink} />
+          ) : (
+            <Pressable
+              onPress={() => onOpenLink(expanded.url, expanded.blogTitle)}
+              style={({ pressed }) => [
+                expanded.expandSimple
+                  ? [styles.expandLinkBtn, styles.expandLinkBtnSingle]
+                  : styles.detailLink,
+                pressed &&
+                  (expanded.expandSimple
+                    ? styles.expandLinkBtnPressed
+                    : styles.detailLinkPressed),
+              ]}
+              accessibilityRole="link"
+              accessibilityHint={`${expanded.blogTitle} 블로그로 이동합니다`}
+            >
+              <Text
+                style={
+                  expanded.expandSimple
+                    ? styles.expandLinkBtnText
+                    : styles.detailLinkText
+                }
+              >
+                {expanded.linkLabel ?? '자세히 보기 🔗'}
+              </Text>
+            </Pressable>
+          )}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  wrap: {
+    marginHorizontal: 8,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  /** 2행 3열 — 각 셀 약 33% (gap 제외 균등 분할) */
+  grid: {
+    gap: GRID_GAP,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: GRID_GAP,
+    width: '100%',
+  },
+  tipButton: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+    height: TIP_BUTTON_HEIGHT,
+    borderRadius: TIP_BUTTON_RADIUS,
+    borderWidth: 1,
+    borderColor: diningGuideTipTheme.border,
+    backgroundColor: diningGuideTipTheme.bg,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
+    ...(Platform.OS === 'web'
+      ? ({ cursor: 'pointer', transition: 'transform 0.15s ease, opacity 0.15s ease' } as object)
+      : null),
+  },
+  tipButtonContent: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+  },
+  tipButtonActive: {
+    borderColor: diningGuideTipTheme.borderActive,
+    backgroundColor: 'rgba(11, 37, 46, 0.78)',
+    shadowOpacity: 0.28,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  tipButtonInteractive: {
+    opacity: 0.88,
+    transform: [{ scale: 0.96 }],
+  },
+  tipButtonIcon: {
+    fontSize: CARD_ICON_FONT_SIZE,
+    lineHeight: CARD_ICON_LINE_HEIGHT,
+    marginBottom: 0,
+    ...(Platform.OS === 'web'
+      ? ({ userSelect: 'none', pointerEvents: 'none' } as object)
+      : null),
+  },
+  tipButtonLabel: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: fonts.semiBold,
+    color: diningGuideTipTheme.text,
+    textAlign: 'center',
+    width: '100%',
+    paddingHorizontal: 2,
+    marginTop: 0,
+    ...(Platform.OS === 'android' ? { includeFontPadding: false } : null),
+    ...(Platform.OS === 'web'
+      ? ({
+          userSelect: 'none',
+          pointerEvents: 'none',
+          color: diningGuideTipTheme.text,
+        } as object)
+      : null),
+  },
+  filipinoFoodPanelWrap: {
+    marginTop: GRID_GAP,
+    width: '100%',
+  },
+  expandPanel: {
+    marginTop: GRID_GAP,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderRadius: TIP_BUTTON_RADIUS,
+    backgroundColor: diningGuideTipTheme.panelBg,
+    borderWidth: 1,
+    borderColor: diningGuideTipTheme.panelBorder,
+  },
+  expandLead: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    lineHeight: 21,
+    color: diningGuideTipTheme.text,
+    marginBottom: 10,
+  },
+  expandBody: {
+    fontSize: 13,
+    fontFamily: fonts.regular,
+    lineHeight: 21,
+    color: colors.textDesc,
+    marginBottom: 12,
+  },
+  expandLinksGrid: {
+    gap: 8,
+    width: '100%',
+  },
+  expandLinksRow: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 8,
+  },
+  expandLinksWrap: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 8,
+    width: '100%',
+  },
+  /** 과일 4열 — 글자 겹침 방지용 간격 */
+  expandLinksWrapRow4: {
+    gap: fruitS(5),
+  },
+  expandLinkBtnCompact: {
+    paddingVertical: 8,
+    paddingHorizontal: 2,
+    gap: 2,
+    minHeight: EXPAND_LINK_DEFAULT_MIN_HEIGHT,
+  },
+  expandLinkBtnFruitCompact: {
+    paddingVertical: fruitS(8),
+    paddingHorizontal: fruitS(2),
+    gap: fruitS(2),
+    minHeight: fruitS(EXPAND_LINK_DEFAULT_MIN_HEIGHT),
+  },
+  expandLinkIcon: {
+    fontSize: EXPAND_LINK_DEFAULT_ICON_SIZE,
+    lineHeight: 18,
+  },
+  expandLinkIconFruit: {
+    fontSize: fruitS(EXPAND_LINK_DEFAULT_ICON_SIZE),
+    lineHeight: fruitS(18),
+  },
+  expandLinkBtnCell: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+  },
+  expandLinkBtn: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    borderRadius: 8,
+    backgroundColor: 'rgba(3, 105, 161, 0.5)',
+    borderWidth: 1,
+    borderColor: 'rgba(125, 211, 252, 0.45)',
+    gap: 4,
+  },
+  expandLinkBtnSingle: {
+    alignSelf: 'stretch',
+    width: '100%',
+    minHeight: 44,
+  },
+  expandLinkBtnPressed: {
+    opacity: 0.88,
+    backgroundColor: 'rgba(2, 132, 199, 0.55)',
+  },
+  expandLinkBtnText: {
+    fontSize: 11,
+    fontFamily: fonts.semiBold,
+    color: colors.link,
+    textAlign: 'center',
+    lineHeight: 14,
+    width: '100%',
+    paddingHorizontal: 1,
+  },
+  expandLinkBtnTextCompact: {
+    fontSize: 9,
+    lineHeight: 12,
+  },
+  expandLinkBtnTextFruit: {
+    fontSize: fruitS(9),
+    lineHeight: fruitS(12),
+    paddingHorizontal: 0,
+    ...(Platform.OS === 'web'
+      ? ({ whiteSpace: 'nowrap' } as object)
+      : null),
+  },
+  /** 망고스틴 — 가장 긴 라벨, 한 줄에 맞춤 */
+  expandLinkBtnTextFruitTight: {
+    fontSize: 10,
+    lineHeight: 13,
+    letterSpacing: -0.35,
+  },
+  expandHeading: {
+    fontSize: 13,
+    fontFamily: fonts.semiBold,
+    color: '#e2e8f0',
+    marginBottom: 6,
+  },
+  expandBullet: {
+    fontSize: 13,
+    fontFamily: fonts.regular,
+    lineHeight: 20,
+    color: colors.textDesc,
+    marginBottom: 10,
+  },
+  detailLink: {
+    alignSelf: 'flex-start',
+  },
+  detailLinkPressed: {
+    opacity: 0.8,
+  },
+  detailLinkText: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: colors.link,
+    textDecorationLine: 'underline',
+  },
+  nightMarketMapRow: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    flexWrap: 'nowrap',
+    gap: 6,
+    width: '100%',
+    marginTop: 10,
+    ...(Platform.OS === 'web'
+      ? ({ display: 'flex' } as object)
+      : null),
+  },
+  nightMarketMapCell: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+    minHeight: NIGHT_MARKET_CELL_MIN_HEIGHT,
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    borderRadius: 8,
+    backgroundColor: diningGuideTipTheme.bg,
+    borderWidth: 1,
+    borderColor: diningGuideTipTheme.panelBorder,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+  },
+  nightMarketMapCellPressed: {
+    opacity: 0.88,
+    backgroundColor: 'rgba(11, 37, 46, 0.78)',
+    borderColor: diningGuideTipTheme.borderActive,
+  },
+  nightMarketMapEmoji: {
+    fontSize: 20,
+    lineHeight: 24,
+    marginBottom: 2,
+  },
+  nightMarketLinksFallback: {
+    marginTop: 10,
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: colors.textDesc,
+    textAlign: 'center',
+  },
+  nightMarketMapLabel: {
+    fontSize: NIGHT_MARKET_LABEL_FONT_SIZE,
+    fontFamily: fonts.bold,
+    lineHeight: 16,
+    color: colors.text,
+    textAlign: 'center',
+    width: '100%',
+    paddingHorizontal: 1,
+    ...(Platform.OS === 'web'
+      ? ({
+          whiteSpace: 'normal',
+          wordBreak: 'keep-all',
+          overflowWrap: 'break-word',
+        } as object)
+      : null),
+  },
+});
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { FILTER_OPTIONS } from '../constants/categories';
+import { colors, fonts } from '../constants/theme';
+import { FilterCategory } from '../types/restaurant';
+
+interface FilterBarProps {
+  selected: FilterCategory;
+  onSelect: (category: FilterCategory) => void;
+}
+
+/** 세부가볼만한곳 pg-group-row--mactan · pg-tab-sub 스타일 */
+export function FilterBar({ selected, onSelect }: FilterBarProps) {
+  return (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
+      style={styles.container}
+    >
+      {FILTER_OPTIONS.map((option) => {
+        const isActive = selected === option.key;
+        return (
+          <Pressable
+            key={option.key}
+            onPress={() => onSelect(option.key)}
+            style={[styles.chip, isActive ? styles.chipActive : styles.chipIdle]}
+          >
+            <Text style={[styles.chipText, isActive && styles.chipTextActive]}>
+              {option.label}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 0,
+  },
+  scrollContent: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  chip: {
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 8,
+    borderWidth: 2,
+  },
+  chipIdle: {
+    opacity: 0.55,
+    backgroundColor: 'rgba(0, 0, 0, 0.38)',
+    borderColor: colors.tabIdleBorder,
+  },
+  chipActive: {
+    opacity: 1,
+    backgroundColor: colors.mactanActiveBg,
+    borderColor: colors.mactanActiveBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  chipText: {
+    fontSize: 12,
+    fontFamily: fonts.semiBold,
+    color: colors.tabIdleText,
+  },
+  chipTextActive: {
+    fontFamily: fonts.bold,
+    color: colors.mactanActiveText,
+  },
+});
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { colors, fonts } from '../constants/theme';
+import { GuideListMode } from '../types/restaurant';
+
+interface GuideModeSwitchProps {
+  mode: GuideListMode;
+  mapActive: boolean;
+  pickupCount: number;
+  viewSpotCount: number;
+  resortDiningCount: number;
+  totalCount: number;
+  onChange: (mode: GuideListMode) => void;
+}
+
+const TABS: {
+  key: GuideListMode;
+  label: string;
+  countKey: 'total' | 'pickup' | 'view' | 'dining';
+  activeStyle: 'tabActive' | 'tabActivePickup' | 'tabActiveMeal' | 'tabActiveResort';
+}[] = [
+  { key: 'all', label: '전체 맛집', countKey: 'total', activeStyle: 'tabActive' },
+  { key: 'pickupDrop', label: '🚐 픽업·드랍', countKey: 'pickup', activeStyle: 'tabActivePickup' },
+  {
+    key: 'viewSpots',
+    label: '🌅 뷰/야경맛집',
+    countKey: 'view',
+    activeStyle: 'tabActiveMeal',
+  },
+  {
+    key: 'resortDining',
+    label: '🏨 리조트 다이닝',
+    countKey: 'dining',
+    activeStyle: 'tabActiveResort',
+  },
+];
+
+export function GuideModeSwitch({
+  mode,
+  mapActive,
+  pickupCount,
+  viewSpotCount,
+  resortDiningCount,
+  totalCount,
+  onChange,
+}: GuideModeSwitchProps) {
+  const counts = {
+    total: totalCount,
+    pickup: pickupCount,
+    view: viewSpotCount,
+    dining: resortDiningCount,
+  };
+
+  const renderTab = (tab: (typeof TABS)[number]) => {
+    const isSelected = mode === tab.key;
+    const isMapOn = isSelected && mapActive;
+    return (
+      <Pressable
+        key={tab.key}
+        onPress={() => onChange(tab.key)}
+        style={[
+          styles.tab,
+          isSelected && styles[tab.activeStyle],
+          isSelected && !isMapOn && styles.tabMapOff,
+        ]}
+        accessibilityRole="button"
+        accessibilityState={{ selected: isSelected, expanded: isMapOn }}
+        accessibilityLabel={`${tab.label} ${counts[tab.countKey]}곳`}
+      >
+        <Text
+          style={[
+            styles.tabText,
+            isSelected && styles.tabTextActive,
+            isSelected && !isMapOn && styles.tabTextMapOff,
+          ]}
+        >
+          {tab.label}
+        </Text>
+        <Text
+          style={[
+            styles.tabSub,
+            isSelected && styles.tabSubActive,
+            isSelected && !isMapOn && styles.tabSubMapOff,
+          ]}
+        >
+          {isMapOn ? `${counts[tab.countKey]}곳` : '지도 숨김'}
+        </Text>
+      </Pressable>
+    );
+  };
+
+  return (
+    <View style={styles.wrap}>
+      <Text style={styles.hint}>
+        탭을 눌러 목록·지도를 전환하세요. 같은 탭을 다시 누르면 지도 마커를
+        숨기거나 다시 표시합니다.
+      </Text>
+      <View style={styles.row}>
+        {renderTab(TABS[0]!)}
+        {renderTab(TABS[1]!)}
+      </View>
+      <View style={styles.row}>
+        {renderTab(TABS[2]!)}
+        {renderTab(TABS[3]!)}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  wrap: {
+    marginHorizontal: 12,
+    marginBottom: 8,
+  },
+  hint: {
+    fontSize: 11,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 8,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 6,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: colors.tabIdleBorder,
+    backgroundColor: colors.tabSubIdleBg,
+    alignItems: 'center',
+    opacity: 0.7,
+  },
+  tabActive: {
+    opacity: 1,
+    backgroundColor: colors.mactanActiveBg,
+    borderColor: colors.mactanActiveBorder,
+  },
+  tabActivePickup: {
+    opacity: 1,
+    backgroundColor: 'rgba(180, 83, 9, 0.55)',
+    borderColor: 'rgba(251, 191, 36, 0.75)',
+  },
+  tabActiveMeal: {
+    opacity: 1,
+    backgroundColor: 'rgba(5, 150, 105, 0.55)',
+    borderColor: 'rgba(110, 231, 183, 0.75)',
+  },
+  tabActiveResort: {
+    opacity: 1,
+    backgroundColor: 'rgba(26, 115, 232, 0.55)',
+    borderColor: 'rgba(147, 197, 253, 0.75)',
+  },
+  /** 선택된 탭이지만 지도 마커 숨김 */
+  tabMapOff: {
+    opacity: 0.55,
+    borderStyle: 'dashed',
+  },
+  tabText: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: colors.tabIdleText,
+    textAlign: 'center',
+  },
+  tabTextActive: {
+    color: colors.mactanActiveText,
+  },
+  tabTextMapOff: {
+    color: colors.tabIdleText,
+  },
+  tabSub: {
+    marginTop: 3,
+    fontSize: 11,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+  },
+  tabSubActive: {
+    color: '#f0f9ff',
+  },
+  tabSubMapOff: {
+    color: colors.textMuted,
+  },
+});
+import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Animated,
+  FlatList,
+  LayoutAnimation,
+  ListRenderItem,
+  Platform,
+  Text,
+  UIManager,
+  View,
+} from 'react-native';
+import {
+  CompanionFilterTag,
+  GuideListMode,
+  MenuType,
+  Restaurant,
+  RestaurantZone,
+} from '../types/restaurant';
+import { NightMarket } from '../types/nightMarket';
+import { MactanResort } from '../types/resort';
+import {
+  pickupDropRestaurants,
+  viewSpotRestaurants,
+  restaurants as allRestaurants,
+} from '../data/restaurants';
+import { nightMarkets } from '../data/nightMarkets';
+import { mactanResorts } from '../data/resorts';
+import {
+  COMPANION_FILTER_OPTIONS,
+  MENU_TYPE_OPTIONS,
+  ZONE_FILTER_OPTIONS,
+} from '../constants/filters';
+import { filterRestaurants } from '../utils/filterRestaurants';
+import { filterResorts } from '../utils/filterResorts';
+import { guideStyles } from '../styles/guideStyles';
+import { ClusterMap } from './ClusterMap';
+import { MapErrorBoundary } from './MapErrorBoundary';
+import { GuideModeSwitch } from './GuideModeSwitch';
+import { NightMarketDetailSection } from './NightMarketDetailSection';
+import { NightMarketListItem } from './NightMarketListItem';
+import { PlaceListItem } from './PlaceListItem';
+import { ResortDetailSection } from './ResortDetailSection';
+import { ResortListItem } from './ResortListItem';
+import { RestaurantDetailSection } from './RestaurantDetailSection';
+import { TagFilterBar } from './TagFilterBar';
+
+interface MactanPlacesGuideProps {
+  restaurants?: Restaurant[];
+  onOpenLink: (url: string, title: string) => void;
+  listHeaderTop?: ReactNode;
+  nightMarketMode?: boolean;
+  selectedNightMarketId?: string | null;
+  onSelectNightMarket?: (id: string) => void;
+  onClearNightMarketSelection?: () => void;
+}
+
+type ListRow =
+  | { kind: 'restaurant'; item: Restaurant }
+  | { kind: 'resort'; item: MactanResort }
+  | { kind: 'nightMarket'; item: NightMarket };
+
+const LIST_FADE_MS = 220;
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+export function MactanPlacesGuide({
+  restaurants = allRestaurants,
+  onOpenLink,
+  listHeaderTop,
+  nightMarketMode = false,
+  selectedNightMarketId = null,
+  onSelectNightMarket,
+  onClearNightMarketSelection,
+}: MactanPlacesGuideProps) {
+  const listRef = useRef<FlatList<ListRow>>(null);
+  const mapDetailRef = useRef<View>(null);
+  const listFade = useRef(new Animated.Value(1)).current;
+  const [listMode, setListMode] = useState<GuideListMode>('all');
+  const [zone, setZone] = useState<RestaurantZone | null>(null);
+  const [menuType, setMenuType] = useState<MenuType | null>(null);
+  const [companion, setCompanion] = useState<CompanionFilterTag | null>(null);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | null>(null);
+  const [selectedResortId, setSelectedResortId] = useState<string | null>(null);
+  const [tabMapActive, setTabMapActive] = useState(true);
+
+  const handleGuideModeChange = useCallback((next: GuideListMode) => {
+    if (next === listMode) {
+      setTabMapActive((prev) => !prev);
+      return;
+    }
+    setListMode(next);
+    setTabMapActive(true);
+  }, [listMode]);
+
+  const mapRestaurantSource = useMemo(() => {
+    if (listMode === 'pickupDrop') return pickupDropRestaurants;
+    if (listMode === 'viewSpots') return viewSpotRestaurants;
+    if (listMode === 'resortDining') return [];
+    return restaurants;
+  }, [listMode, restaurants]);
+
+  const resortZoneFilter = listMode === 'resortDining' ? null : zone;
+
+  const visibleResorts = useMemo(
+    () => filterResorts(mactanResorts, { query: '', zone: resortZoneFilter }),
+    [resortZoneFilter]
+  );
+
+  const mapRestaurants = useMemo(() => {
+    if (!tabMapActive || listMode === 'resortDining' || nightMarketMode) return [];
+    return filterRestaurants(mapRestaurantSource, {
+      zone,
+      menuType,
+      companion,
+      resortMeal: null,
+      pickupDropOnly: false,
+      query: '',
+    });
+  }, [tabMapActive, listMode, mapRestaurantSource, zone, menuType, companion, nightMarketMode]);
+
+  const mapResorts = useMemo(() => {
+    if (!tabMapActive || nightMarketMode) return [];
+    if (listMode === 'pickupDrop' || listMode === 'viewSpots') return [];
+    return visibleResorts;
+  }, [tabMapActive, listMode, visibleResorts, nightMarketMode]);
+
+  const showNightMarketsOnMap = nightMarketMode && tabMapActive;
+
+  const showRestaurantsOnMap =
+    !nightMarketMode &&
+    tabMapActive &&
+    listMode !== 'resortDining' &&
+    mapRestaurants.length > 0;
+
+  const showResortMarkersOnMap =
+    !nightMarketMode &&
+    tabMapActive &&
+    mapResorts.length > 0 &&
+    listMode !== 'pickupDrop' &&
+    listMode !== 'viewSpots';
+
+  const showResortsInList =
+    showResortMarkersOnMap &&
+    (listMode === 'resortDining' || (listMode === 'all' && zone !== null));
+
+  const visibleListRows = useMemo((): ListRow[] => {
+    if (nightMarketMode) {
+      return (nightMarkets ?? []).map((item) => ({
+        kind: 'nightMarket' as const,
+        item,
+      }));
+    }
+    const rows: ListRow[] = [];
+    if (showRestaurantsOnMap) {
+      for (const item of mapRestaurants) {
+        rows.push({ kind: 'restaurant', item });
+      }
+    }
+    if (showResortsInList) {
+      for (const item of mapResorts) {
+        rows.push({ kind: 'resort', item });
+      }
+    }
+    return rows;
+  }, [nightMarketMode, showRestaurantsOnMap, showResortsInList, mapRestaurants, mapResorts]);
+
+  const listVisible = visibleListRows.length > 0;
+
+  const flatListData = useMemo(
+    () => (listVisible ? visibleListRows : []),
+    [listVisible, visibleListRows]
+  );
+
+  const prevListVisible = useRef(listVisible);
+
+  useEffect(() => {
+    if (prevListVisible.current === listVisible) {
+      return;
+    }
+    prevListVisible.current = listVisible;
+
+    LayoutAnimation.configureNext(
+      LayoutAnimation.create(LIST_FADE_MS, 'easeInEaseOut', 'opacity')
+    );
+
+    Animated.timing(listFade, {
+      toValue: listVisible ? 1 : 0,
+      duration: LIST_FADE_MS,
+      useNativeDriver: Platform.OS !== 'web',
+    }).start();
+  }, [listVisible, listFade]);
+
+  useEffect(() => {
+    setSelectedRestaurantId(null);
+    setSelectedResortId(null);
+  }, [listMode, zone, menuType, companion, tabMapActive]);
+
+  useEffect(() => {
+    if (!nightMarketMode) {
+      onClearNightMarketSelection?.();
+      return;
+    }
+    setTabMapActive(true);
+    setListMode('all');
+    setSelectedRestaurantId(null);
+    setSelectedResortId(null);
+  }, [nightMarketMode, onClearNightMarketSelection]);
+
+  const selectedRestaurant = useMemo(
+    () => mapRestaurants.find((r) => r.id === selectedRestaurantId) ?? null,
+    [mapRestaurants, selectedRestaurantId]
+  );
+
+  const selectedResort = useMemo(
+    () => mactanResorts.find((r) => r.id === selectedResortId) ?? null,
+    [selectedResortId]
+  );
+
+  const selectedNightMarket = useMemo(
+    () => nightMarkets.find((m) => m.id === selectedNightMarketId) ?? null,
+    [selectedNightMarketId]
+  );
+
+  const scrollToMapDetail = useCallback(() => {
+    if (Platform.OS === 'web') {
+      const node =
+        document.getElementById('map-detail-section') ??
+        (mapDetailRef.current as unknown as HTMLElement | null);
+      node?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!selectedRestaurantId && !selectedResortId && !selectedNightMarketId) {
+      return;
+    }
+    const timer = setTimeout(scrollToMapDetail, 80);
+    return () => clearTimeout(timer);
+  }, [selectedRestaurantId, selectedResortId, selectedNightMarketId, scrollToMapDetail]);
+
+  const handleSelectRestaurant = useCallback(
+    (id: string) => {
+      onClearNightMarketSelection?.();
+      setSelectedResortId(null);
+      setSelectedRestaurantId(id);
+    },
+    [onClearNightMarketSelection]
+  );
+
+  const handleSelectResort = useCallback(
+    (id: string) => {
+      onClearNightMarketSelection?.();
+      setSelectedRestaurantId(null);
+      setSelectedResortId(id);
+    },
+    [onClearNightMarketSelection]
+  );
+
+  const handleSelectNightMarket = useCallback(
+    (id: string) => {
+      setSelectedRestaurantId(null);
+      setSelectedResortId(null);
+      onSelectNightMarket?.(id);
+    },
+    [onSelectNightMarket]
+  );
+
+  const handleClearMapSelection = useCallback(() => {
+    setSelectedRestaurantId(null);
+    setSelectedResortId(null);
+    onClearNightMarketSelection?.();
+  }, [onClearNightMarketSelection]);
+
+  const renderItem: ListRenderItem<ListRow> = useCallback(
+    ({ item: row }) => {
+      let card: ReactNode;
+      if (row.kind === 'nightMarket') {
+        card = (
+          <NightMarketListItem
+            market={row.item}
+            isSelected={selectedNightMarketId === row.item.id}
+            onSelect={() => handleSelectNightMarket(row.item.id)}
+          />
+        );
+      } else if (row.kind === 'resort') {
+        card = (
+          <ResortListItem
+            resort={row.item}
+            isSelected={selectedResortId === row.item.id}
+            onSelect={() => handleSelectResort(row.item.id)}
+          />
+        );
+      } else {
+        card = (
+          <PlaceListItem
+            restaurant={row.item}
+            isSelected={selectedRestaurantId === row.item.id}
+            onSelect={() => handleSelectRestaurant(row.item.id)}
+          />
+        );
+      }
+
+      return <Animated.View style={{ opacity: listFade }}>{card}</Animated.View>;
+    },
+    [
+      handleSelectNightMarket,
+      handleSelectResort,
+      handleSelectRestaurant,
+      listFade,
+      selectedNightMarketId,
+      selectedResortId,
+      selectedRestaurantId,
+    ]
+  );
+
+  const cardTitle = nightMarketMode
+    ? '막탄·세부시티 야시장'
+    : listMode === 'pickupDrop'
+      ? '픽업·드랍 가능 맛집'
+      : listMode === 'viewSpots'
+        ? '뷰/야경맛집'
+        : listMode === 'resortDining'
+          ? `막탄 ${mactanResorts.length}대 리조트 다이닝`
+          : '막탄 맛집 & 카페';
+
+  const listHeader = (
+    <View>
+      {listHeaderTop}
+
+      <GuideModeSwitch
+        mode={listMode}
+        mapActive={tabMapActive}
+        pickupCount={pickupDropRestaurants.length}
+        viewSpotCount={viewSpotRestaurants.length}
+        resortDiningCount={mactanResorts.length}
+        totalCount={restaurants.length}
+        onChange={handleGuideModeChange}
+      />
+
+      {nightMarketMode ? null : (
+      <View style={guideStyles.infoCard}>
+        <Text style={guideStyles.cardTitle}>{cardTitle}</Text>
+
+        {listMode === 'pickupDrop' ? (
+          <View style={guideStyles.pickupBanner}>
+            <Text style={guideStyles.pickupBannerTitle}>
+              리조트·호텔 ↔ 식당 무료 송영
+            </Text>
+            <Text style={guideStyles.pickupBannerText}>
+              막탄 숙소에서 왕복 픽업·드랍이 가능한 곳만 모았습니다.
+            </Text>
+          </View>
+        ) : listMode === 'viewSpots' ? (
+          <View style={guideStyles.mealBanner}>
+            <Text style={guideStyles.mealBannerTitle}>파노라마 오션뷰와 환상적인 시티 야경 맛집</Text>
+            <Text style={guideStyles.mealBannerText}>
+              낮에는 푸른 바다와 선셋을, 밤에는 반짝이는 루프탑과 로맨틱한 야경을 즐길 수 있는 명소만 모았습니다.
+            </Text>
+          </View>
+        ) : listMode === 'resortDining' ? (
+          <View style={guideStyles.resortBanner}>
+            <Text style={guideStyles.resortBannerTitle}>
+              {mactanResorts.length}개 주요 리조트 식사 실전 가이드
+            </Text>
+            <Text style={guideStyles.resortBannerText}>
+              각 리조트 내 뷔페·레스토랑 팁을 정리했습니다. 지도의{' '}
+              <Text style={guideStyles.leadStrong}>🏨 파란 마커</Text>를 탭하면 지도 아래에 상세
+              정보가 표시됩니다.
+            </Text>
+          </View>
+        ) : (
+          <Text style={guideStyles.lead}>
+            <Text style={guideStyles.leadStrong}>맛집 54곳</Text>과{' '}
+            <Text style={guideStyles.leadStrong}>리조트 {mactanResorts.length}곳</Text> 식사 정보를
+            지도에서 함께 볼 수 있습니다. 마커를 탭하면 지도 아래에 상세 정보가 표시됩니다.
+          </Text>
+        )}
+      </View>
+      )}
+
+      <View style={guideStyles.mapSection}>
+        <MapErrorBoundary
+          resetKey={`${nightMarketMode ? 'night' : listMode}-${zone ?? 'all'}`}
+        >
+          <ClusterMap
+            restaurants={mapRestaurants}
+            resorts={mapResorts}
+            nightMarkets={nightMarkets}
+            showRestaurants={showRestaurantsOnMap}
+            showResorts={showResortMarkersOnMap}
+            showNightMarkets={showNightMarketsOnMap}
+            selectedRestaurantId={selectedRestaurantId}
+            selectedResortId={selectedResortId}
+            selectedNightMarketId={selectedNightMarketId}
+            onSelectRestaurant={handleSelectRestaurant}
+            onSelectResort={handleSelectResort}
+            onSelectNightMarket={handleSelectNightMarket}
+            onClearMapSelection={handleClearMapSelection}
+          />
+        </MapErrorBoundary>
+        {selectedRestaurant || selectedResort || selectedNightMarket ? (
+          <View ref={mapDetailRef} nativeID="map-detail-section">
+            {selectedRestaurant ? (
+              <RestaurantDetailSection restaurant={selectedRestaurant} onOpenLink={onOpenLink} />
+            ) : null}
+            {selectedResort ? (
+              <ResortDetailSection resort={selectedResort} onOpenLink={onOpenLink} />
+            ) : null}
+            {selectedNightMarket ? (
+              <NightMarketDetailSection market={selectedNightMarket} onOpenLink={onOpenLink} />
+            ) : null}
+          </View>
+        ) : null}
+      </View>
+
+      {!nightMarketMode && listMode !== 'resortDining' ? (
+        <View style={guideStyles.filterCard}>
+          <TagFilterBar
+            label="📍 위치에 따른 구분"
+            options={ZONE_FILTER_OPTIONS}
+            selected={zone}
+            onSelect={setZone}
+            showAllOption={false}
+          />
+          <TagFilterBar
+            label="🍽 음식에 따른 구분"
+            options={MENU_TYPE_OPTIONS}
+            selected={menuType}
+            onSelect={setMenuType}
+            showAllOption={false}
+          />
+          <TagFilterBar
+            label="👥 동반자에 따른 구분"
+            options={COMPANION_FILTER_OPTIONS}
+            selected={companion}
+            onSelect={setCompanion}
+            showAllOption={false}
+          />
+        </View>
+      ) : null}
+    </View>
+  );
+
+  return (
+    <FlatList
+      ref={listRef}
+      data={flatListData}
+      extraData={{
+        listVisible,
+        selectedRestaurantId,
+        selectedResortId,
+        selectedNightMarketId,
+        nightMarketMode,
+      }}
+      keyExtractor={(row) => `${row.kind}-${row.item.id}`}
+      renderItem={renderItem}
+      ListHeaderComponent={listHeader}
+      contentContainerStyle={guideStyles.listContent}
+      style={guideStyles.root}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator
+      initialNumToRender={14}
+      onScrollToIndexFailed={(info) => {
+        listRef.current?.scrollToOffset({
+          offset: info.averageItemLength * info.index,
+          animated: true,
+        });
+      }}
+    />
+  );
+}
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { colors, fonts } from '../constants/theme';
+
+interface Props {
+  children: React.ReactNode;
+  /** 자식 구성이 바뀌면(예: 야시장↔맛집 전환) 에러 상태를 초기화하기 위한 키 */
+  resetKey?: string | number;
+}
+
+interface State {
+  hasError: boolean;
+}
+
+/**
+ * 지도(react-leaflet 등) 렌더 중 예외가 발생해도 앱 전체가 하얀 화면으로
+ * 죽지 않도록 막는 에러 경계. 에러 시 안내와 '다시 시도' 버튼만 보여주고,
+ * 리스트·후기 링크 등 나머지 UI는 정상 동작한다.
+ */
+export class MapErrorBoundary extends React.Component<Props, State> {
+  state: State = { hasError: false };
+
+  static getDerivedStateFromError(): State {
+    return { hasError: true };
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+      this.setState({ hasError: false });
+    }
+  }
+
+  handleRetry = () => {
+    this.setState({ hasError: false });
+  };
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <View style={styles.wrap}>
+          <Text style={styles.text}>
+            지도를 표시하는 중 문제가 발생했어요. 목록과 후기 보기는 그대로 이용할 수 있습니다.
+          </Text>
+          <Pressable
+            onPress={this.handleRetry}
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+            accessibilityRole="button"
+            accessibilityLabel="지도 다시 시도"
+          >
+            <Text style={styles.buttonText}>지도 다시 시도</Text>
+          </Pressable>
+        </View>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+const styles = StyleSheet.create({
+  wrap: {
+    width: '100%',
+    minHeight: 120,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 24,
+    borderRadius: 9,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    gap: 12,
+  },
+  text: {
+    fontSize: 13,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 8,
+    backgroundColor: '#0c4a60',
+    borderWidth: 1,
+    borderColor: '#176a84',
+  },
+  buttonPressed: {
+    opacity: 0.85,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+  },
+});
+import { Pressable, Text, View } from 'react-native';
+import { guideStyles } from '../styles/guideStyles';
+import { NightMarket } from '../types/nightMarket';
+
+interface NightMarketDetailSectionProps {
+  market: NightMarket;
+  onOpenLink?: (url: string, title: string) => void;
+}
+
+const REGION_LABEL = {
+  mactan: '📍 막탄',
+  'cebu-city': '📍 세부시티',
+} as const;
+
+export function NightMarketDetailSection({
+  market,
+  onOpenLink,
+}: NightMarketDetailSectionProps) {
+  return (
+    <View style={guideStyles.nightMarketDetailSection}>
+      <View style={guideStyles.nightMarketDetailHeader}>
+        <Text style={guideStyles.nightMarketDetailTitle}>🎪 {market.name}</Text>
+        <Text style={guideStyles.nightMarketDetailSubtitle}>{market.nameEn}</Text>
+        <Text style={guideStyles.nightMarketDetailZone}>
+          {REGION_LABEL[market.region]} · {market.locationDesc}
+        </Text>
+      </View>
+      <View style={guideStyles.nightMarketDetailBody}>
+        {onOpenLink ? (
+          <View style={guideStyles.resortBlogLinkWrap}>
+            <Pressable
+              style={({ pressed }) => [
+                guideStyles.resortBlogLinkBtn,
+                pressed && guideStyles.resortBlogLinkBtnPressed,
+              ]}
+              onPress={() => onOpenLink(market.blogUrl, market.blogTitle)}
+              accessibilityRole="link"
+              accessibilityLabel="야시장 생생 후기 보기"
+            >
+              <Text style={guideStyles.resortBlogLinkText}>야시장 생생 후기 보기</Text>
+            </Pressable>
+          </View>
+        ) : null}
+      </View>
+    </View>
+  );
+}
+import { Pressable, Text, View } from 'react-native';
+import { guideStyles } from '../styles/guideStyles';
+import { NightMarket } from '../types/nightMarket';
+
+interface NightMarketListItemProps {
+  market: NightMarket;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+const REGION_LABEL = {
+  mactan: '막탄',
+  'cebu-city': '세부시티',
+} as const;
+
+export function NightMarketListItem({ market, isSelected, onSelect }: NightMarketListItemProps) {
+  return (
+    <View style={[guideStyles.item, isSelected && guideStyles.itemSelectedNightMarket]}>
+      <Pressable
+        style={guideStyles.itemBtn}
+        onPress={onSelect}
+        accessibilityRole="button"
+        accessibilityLabel={market.name}
+        accessibilityState={{ selected: isSelected }}
+      >
+        <View style={guideStyles.itemTitleRow}>
+          <Text style={guideStyles.itemTitle}>🎪 {market.name}</Text>
+          <View style={guideStyles.itemTags}>
+            <Text style={[guideStyles.itemTag, guideStyles.nightMarketTag]}>
+              🌙 {REGION_LABEL[market.region]}
+            </Text>
+          </View>
+        </View>
+        <Text style={guideStyles.chev}>{isSelected ? '●' : '›'}</Text>
+      </Pressable>
+    </View>
+  );
+}
+import React from 'react';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  PHILIPPINE_FOOD_ITEMS,
+  PHILIPPINE_FOOD_SUBTITLE,
+} from '../constants/philippineFoodItems';
+import { fonts } from '../constants/theme';
+
+type Props = {
+  onOpenLink: (url: string, title: string) => void;
+};
+
+export function PhilippineFoodSection({ onOpenLink }: Props) {
+  return (
+    <View style={styles.wrap}>
+      <View style={styles.header}>
+        <Text style={styles.title}>
+          <Text accessibilityElementsHidden>🍖 </Text>
+          필리핀 음식
+        </Text>
+        <Text style={styles.subtitle}>{PHILIPPINE_FOOD_SUBTITLE}</Text>
+      </View>
+
+      <View style={styles.grid}>
+        {PHILIPPINE_FOOD_ITEMS.map((item) => (
+          <Pressable
+            key={item.id}
+            onPress={() => onOpenLink(item.link, item.blogTitle)}
+            style={({ pressed }) => [
+              styles.card,
+              pressed && styles.cardPressed,
+            ]}
+            accessibilityRole="link"
+            accessibilityLabel={item.title}
+            accessibilityHint={`${item.blogTitle} 블로그로 이동합니다`}
+          >
+            <Text style={styles.emoji} accessibilityElementsHidden>
+              {item.emoji}
+            </Text>
+            <Text style={styles.cardLabel}>{item.title}</Text>
+          </Pressable>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  wrap: {
+    width: '100%',
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: '#062d3d',
+    ...(Platform.OS === 'web'
+      ? ({ boxShadow: '0 4px 6px rgba(0,0,0,0.25)' } as object)
+      : null),
+  },
+  header: {
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: fonts.bold,
+    color: '#ffffff',
+    lineHeight: 24,
+  },
+  subtitle: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: '#d1d5db',
+    marginTop: 4,
+    lineHeight: 18,
+  },
+  grid: {
+    flexDirection: 'row',
+    gap: 8,
+    width: '100%',
+  },
+  card: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+    minHeight: 90,
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+    borderRadius: 12,
+    backgroundColor: '#0c4a60',
+    borderWidth: 1,
+    borderColor: '#176a84',
+  },
+  cardPressed: {
+    backgroundColor: '#115b75',
+    opacity: 0.95,
+  },
+  emoji: {
+    fontSize: 24,
+    lineHeight: 28,
+    marginBottom: 4,
+  },
+  cardLabel: {
+    width: '100%',
+    fontSize: 9,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+    textAlign: 'center',
+    paddingHorizontal: 1,
+    ...(Platform.OS === 'web'
+      ? ({
+          minWidth: 0,
+          whiteSpace: 'normal',
+          wordBreak: 'keep-all',
+          overflowWrap: 'break-word',
+          fontSize: '10px',
+        } as object)
+      : null),
+  },
+});
+import React, { type CSSProperties } from 'react';
+import { PHILIPPINE_FOOD_ITEMS } from '../constants/philippineFoodItems';
+
+type Props = {
+  onOpenLink: (url: string, title: string) => void;
+};
+
+const wrap: CSSProperties = {
+  width: '100%',
+  maxWidth: '56rem',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingTop: 8,
+  paddingBottom: 8,
+  backgroundColor: '#062d3d',
+  color: '#ffffff',
+  borderRadius: 8,
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.25)',
+  boxSizing: 'border-box',
+  fontFamily:
+    'system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
+};
+
+const grid: CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+  gap: 8,
+  width: '100%',
+  boxSizing: 'border-box',
+};
+
+const card: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+  minWidth: 0,
+  minHeight: 85,
+  padding: 8,
+  backgroundColor: '#0c4a60',
+  border: '1px solid #176a84',
+  borderRadius: 12,
+  boxSizing: 'border-box',
+  textDecoration: 'none',
+  color: '#ffffff',
+  transition: 'background-color 0.15s ease',
+};
+
+const iconWrap: CSSProperties = {
+  width: 32,
+  height: 32,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 4,
+};
+
+/**
+ * 모바일 기본 10px → sm(640px) 12px → md(768px) 14px.
+ * word-break:keep-all + white-space:normal 로 '필리핀 전통먹거리'처럼 긴 라벨이
+ * 박스 밖으로 삐져나오지 않고 단어(어절) 단위로 자연스럽게 줄바꿈되어 칸 안에 정렬된다.
+ */
+const LABEL_CSS = `
+.ph-food-label{
+  display:block;
+  width:100%;
+  min-width:0;
+  text-align:center;
+  font-weight:600;
+  line-height:1.2;
+  white-space:normal;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  font-size:10px;
+}
+@media (min-width:640px){.ph-food-label{font-size:12px;}}
+@media (min-width:768px){.ph-food-label{font-size:14px;}}
+`;
+
+export function PhilippineFoodSection({ onOpenLink }: Props) {
+  return (
+    <div style={wrap}>
+      <style>{LABEL_CSS}</style>
+      <div style={{ marginBottom: 12 }}>
+        <h2
+          style={{
+            fontSize: 16,
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            margin: 0,
+          }}
+        >
+          <span aria-hidden>🍖</span> 필리핀 음식
+        </h2>
+      </div>
+
+      <div style={grid}>
+        {PHILIPPINE_FOOD_ITEMS.map((item) => (
+          <a
+            key={item.id}
+            href={item.link}
+            style={card}
+            onClick={(e) => {
+              e.preventDefault();
+              onOpenLink(item.link, item.blogTitle);
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#115b75';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#0c4a60';
+            }}
+          >
+            <span style={{ ...iconWrap, fontSize: 22 }} aria-hidden>
+              {item.emoji}
+            </span>
+            <span className="ph-food-label">{item.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default PhilippineFoodSection;
+import { useMemo } from 'react';
+import { Pressable, Text, View } from 'react-native';
+import { getZoneLabel } from '../constants/filters';
+import { guideStyles } from '../styles/guideStyles';
+import { Restaurant } from '../types/restaurant';
+
+interface PlaceListItemProps {
+  restaurant: Restaurant;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+export function PlaceListItem({ restaurant, isSelected, onSelect }: PlaceListItemProps) {
+  const itemTags = useMemo(() => {
+    const tags: {
+      key: string;
+      label: string;
+      style: object;
+      last?: boolean;
+    }[] = [
+      {
+        key: 'zone',
+        label: `📍 ${getZoneLabel(restaurant.zone)}`,
+        style: guideStyles.itemTagZone,
+      },
+      {
+        key: 'menu',
+        label: `🍽 ${restaurant.menuType}`,
+        style: guideStyles.itemTagMenu,
+      },
+      {
+        key: 'companion',
+        label: `👥 ${restaurant.companionType}`,
+        style: guideStyles.itemTagCompanion,
+      },
+    ];
+    if (restaurant.pickupDrop) {
+      tags.push({
+        key: 'pickup',
+        label: '🚌 픽업·드랍',
+        style: guideStyles.itemTagPickup,
+        last: true,
+      });
+    }
+    return tags;
+  }, [restaurant]);
+
+  return (
+    <View style={[guideStyles.item, isSelected && guideStyles.itemSelectedRestaurant]}>
+      <Pressable
+        style={guideStyles.itemBtn}
+        onPress={onSelect}
+        accessibilityRole="button"
+        accessibilityLabel={restaurant.name}
+        accessibilityState={{ selected: isSelected }}
+      >
+        <View style={guideStyles.itemTitleRow}>
+          <Text style={guideStyles.itemTitle}>{restaurant.name}</Text>
+          <View style={guideStyles.itemTags}>
+            {itemTags.map((tag) => (
+              <Text
+                key={tag.key}
+                style={[
+                  guideStyles.itemTag,
+                  tag.style,
+                  tag.last ? guideStyles.itemTagPickupLast : null,
+                ]}
+              >
+                {tag.label}
+              </Text>
+            ))}
+          </View>
+        </View>
+        <Text style={guideStyles.chev}>{isSelected ? '●' : '›'}</Text>
+      </Pressable>
+    </View>
+  );
+}
+import { Pressable, Text, View } from 'react-native';
+import { guideStyles } from '../styles/guideStyles';
+import { MactanResort } from '../types/resort';
+
+interface ResortDetailBodyProps {
+  resort: MactanResort;
+  onOpenLink?: (url: string, title: string) => void;
+}
+
+function getValidReviewLinks(resort: MactanResort) {
+  return (resort.reviewLinks ?? []).filter(
+    (link) => link.label.trim().length > 0 && link.url.trim().length > 0,
+  );
+}
+
+export function ResortDetailBody({ resort, onOpenLink }: ResortDetailBodyProps) {
+  const reviewLinks = getValidReviewLinks(resort);
+
+  return (
+    <>
+      <Text style={guideStyles.resortMealBlock}>
+        <Text style={guideStyles.resortMealLabel}>🍳 아침 식사 가이드{'\n'}</Text>
+        {resort.breakfast}
+      </Text>
+      <Text style={guideStyles.resortMealBlock}>
+        <Text style={guideStyles.resortMealLabel}>🍽️ 저녁 식사 가이드{'\n'}</Text>
+        {resort.dinner}
+      </Text>
+      {reviewLinks.length > 0 && onOpenLink ? (
+        <View style={guideStyles.resortReviewLinkWrap}>
+          {reviewLinks.map((link) => (
+            <Pressable
+              key={link.url}
+              style={({ pressed }) => [
+                guideStyles.resortBlogLinkBtn,
+                guideStyles.resortReviewLinkBtn,
+                pressed && guideStyles.resortBlogLinkBtnPressed,
+              ]}
+              onPress={() => onOpenLink(link.url, link.label)}
+              accessibilityRole="link"
+              accessibilityLabel={link.label}
+            >
+              <Text style={guideStyles.resortBlogLinkText}>{link.label}</Text>
+            </Pressable>
+          ))}
+        </View>
+      ) : null}
+      {resort.blogLink && onOpenLink ? (
+        <View style={guideStyles.resortBlogLinkWrap}>
+          <Pressable
+            style={({ pressed }) => [
+              guideStyles.resortBlogLinkBtn,
+              pressed && guideStyles.resortBlogLinkBtnPressed,
+            ]}
+            onPress={() => onOpenLink(resort.blogLink!.url, resort.blogLink!.label)}
+            accessibilityRole="link"
+            accessibilityLabel={resort.blogLink.label}
+          >
+            <Text style={guideStyles.resortBlogLinkText}>{resort.blogLink.label}</Text>
+          </Pressable>
+        </View>
+      ) : null}
+      {resort.otherVenues.length > 0 ? (
+        <View style={guideStyles.resortOtherBlock}>
+          <Text style={guideStyles.resortOtherTitle}>🍴 리조트 내 레스토랑</Text>
+          {resort.otherVenues.map((venue) => (
+            <Text key={venue.name} style={guideStyles.resortOtherItem}>
+              <Text style={guideStyles.resortOtherName}>· {venue.name}</Text>
+              {' — '}
+              {venue.summary}
+            </Text>
+          ))}
+        </View>
+      ) : null}
+    </>
+  );
+}
+import { Text, View } from 'react-native';
+import { getZoneLabel } from '../constants/filters';
+import { guideStyles } from '../styles/guideStyles';
+import { MactanResort } from '../types/resort';
+import { ResortDetailBody } from './ResortDetailBody';
+
+interface ResortDetailSectionProps {
+  resort: MactanResort;
+  onOpenLink?: (url: string, title: string) => void;
+}
+
+export function ResortDetailSection({ resort, onOpenLink }: ResortDetailSectionProps) {
+  return (
+    <View style={guideStyles.resortDetailSection}>
+      <View style={guideStyles.resortDetailHeader}>
+        <Text style={guideStyles.resortDetailTitle}>🏨 {resort.name}</Text>
+        <Text style={guideStyles.resortDetailZone}>📍 {getZoneLabel(resort.zone)}</Text>
+      </View>
+      <View style={guideStyles.resortDetailBody}>
+        <ResortDetailBody resort={resort} onOpenLink={onOpenLink} />
+      </View>
+    </View>
+  );
+}
+import { Pressable, Text, View } from 'react-native';
+import { getZoneLabel } from '../constants/filters';
+import { guideStyles } from '../styles/guideStyles';
+import { MactanResort } from '../types/resort';
+
+interface ResortListItemProps {
+  resort: MactanResort;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+export function ResortListItem({ resort, isSelected, onSelect }: ResortListItemProps) {
+  return (
+    <View style={[guideStyles.item, isSelected && guideStyles.itemSelected]}>
+      <Pressable
+        style={guideStyles.itemBtn}
+        onPress={onSelect}
+        accessibilityRole="button"
+        accessibilityLabel={resort.name}
+        accessibilityState={{ selected: isSelected }}
+      >
+        <View style={guideStyles.itemTitleRow}>
+          <Text style={guideStyles.itemTitle}>🏨 {resort.name}</Text>
+          <View style={guideStyles.itemTags}>
+            <Text style={[guideStyles.itemTag, guideStyles.resortTag]}>리조트</Text>
+            <Text style={[guideStyles.itemTag, guideStyles.itemTagZone]}>
+              📍 {getZoneLabel(resort.zone)}
+            </Text>
+          </View>
+        </View>
+        <Text style={guideStyles.chev}>{isSelected ? '●' : '›'}</Text>
+      </Pressable>
+    </View>
+  );
+}
+import { Pressable, Text, View } from 'react-native';
+import { guideStyles } from '../styles/guideStyles';
+import { Restaurant } from '../types/restaurant';
+import { getRestaurantLinks } from '../utils/restaurantLinks';
+
+interface RestaurantDetailBodyProps {
+  restaurant: Restaurant;
+  onOpenLink?: (url: string, title: string) => void;
+}
+
+export function RestaurantDetailBody({ restaurant, onOpenLink }: RestaurantDetailBodyProps) {
+  const links = getRestaurantLinks(restaurant);
+  const showReserve = restaurant.isCrab && restaurant.reservationLink;
+  const showActionRow = onOpenLink && (links.length > 0 || showReserve);
+
+  return (
+    <>
+      <Text style={guideStyles.itemDesc}>{restaurant.desc}</Text>
+      {showActionRow ? (
+        <View style={guideStyles.restaurantDetailLinks}>
+          {links.map((link) => (
+            <Pressable
+              key={link.url}
+              style={({ pressed }) => [
+                guideStyles.resortBlogLinkBtn,
+                pressed && guideStyles.resortBlogLinkBtnPressed,
+              ]}
+              onPress={() => onOpenLink(link.url, link.text)}
+              accessibilityRole="link"
+              accessibilityLabel={link.text}
+            >
+              <Text style={guideStyles.resortBlogLinkText}>{link.text}</Text>
+            </Pressable>
+          ))}
+          {showReserve ? (
+            <Pressable
+              style={({ pressed }) => [
+                guideStyles.restaurantReserveBtn,
+                pressed && guideStyles.restaurantReserveBtnPressed,
+              ]}
+              onPress={() => onOpenLink(restaurant.reservationLink!, '카카오톡 예약')}
+              accessibilityRole="link"
+              accessibilityLabel="예약하기"
+              accessibilityHint={`${restaurant.name} 카카오톡 예약 상담`}
+            >
+              <Text style={guideStyles.restaurantReserveBtnText}>예약하기</Text>
+            </Pressable>
+          ) : null}
+        </View>
+      ) : null}
+      {restaurant.pickupDrop && restaurant.pickupDropNote ? (
+        <Text style={guideStyles.pickupNote}>🚌 {restaurant.pickupDropNote}</Text>
+      ) : null}
+    </>
+  );
+}
+import { useMemo } from 'react';
+import { Text, View } from 'react-native';
+import { getZoneLabel } from '../constants/filters';
+import { guideStyles } from '../styles/guideStyles';
+import { Restaurant } from '../types/restaurant';
+import { RestaurantDetailBody } from './RestaurantDetailBody';
+
+interface RestaurantDetailSectionProps {
+  restaurant: Restaurant;
+  onOpenLink?: (url: string, title: string) => void;
+}
+
+export function RestaurantDetailSection({
+  restaurant,
+  onOpenLink,
+}: RestaurantDetailSectionProps) {
+  const itemTags = useMemo(() => {
+    const tags: { key: string; label: string; style: object }[] = [
+      {
+        key: 'zone',
+        label: `📍 ${getZoneLabel(restaurant.zone)}`,
+        style: guideStyles.itemTagZone,
+      },
+      {
+        key: 'menu',
+        label: `🍽 ${restaurant.menuType}`,
+        style: guideStyles.itemTagMenu,
+      },
+      {
+        key: 'companion',
+        label: `👥 ${restaurant.companionType}`,
+        style: guideStyles.itemTagCompanion,
+      },
+    ];
+    if (restaurant.pickupDrop) {
+      tags.push({
+        key: 'pickup',
+        label: '🚌 픽업·드랍',
+        style: guideStyles.itemTagPickup,
+      });
+    }
+    return tags;
+  }, [restaurant]);
+
+  return (
+    <View style={guideStyles.restaurantDetailSection}>
+      <View style={guideStyles.restaurantDetailHeader}>
+        <Text style={guideStyles.restaurantDetailTitle}>{restaurant.name}</Text>
+        <View style={guideStyles.restaurantDetailTags}>
+          {itemTags.map((tag) => (
+            <Text key={tag.key} style={[guideStyles.itemTag, tag.style]}>
+              {tag.label}
+            </Text>
+          ))}
+        </View>
+      </View>
+      <View style={guideStyles.restaurantDetailBody}>
+        <RestaurantDetailBody restaurant={restaurant} onOpenLink={onOpenLink} />
+      </View>
+    </View>
+  );
+}
+import { LinearGradient } from 'expo-linear-gradient';
+import { ReactNode } from 'react';
+import { StyleSheet, ViewStyle } from 'react-native';
+import { gradient } from '../constants/theme';
+
+interface ScreenBackgroundProps {
+  children: ReactNode;
+  style?: ViewStyle;
+}
+
+export function ScreenBackground({ children, style }: ScreenBackgroundProps) {
+  return (
+    <LinearGradient
+      colors={[...gradient.colors]}
+      start={gradient.start}
+      end={gradient.end}
+      style={[styles.fill, style]}
+    >
+      {children}
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  fill: {
+    flex: 1,
+  },
+});
+import { StyleSheet, TextInput, View } from 'react-native';
+import { colors, fonts } from '../constants/theme';
+
+interface SearchBarProps {
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder?: string;
+}
+
+export function SearchBar({
+  value,
+  onChangeText,
+  placeholder = '식당명 또는 키워드 검색',
+}: SearchBarProps) {
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        placeholderTextColor={colors.textMuted}
+        clearButtonMode="while-editing"
+        returnKeyType="search"
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: colors.inputBg,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
+    fontSize: 14,
+    fontFamily: fonts.regular,
+    color: colors.text,
+  },
+});
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { FilterOption } from '../constants/filters';
+import { colors, fonts } from '../constants/theme';
+
+interface TagFilterBarProps<T extends string> {
+  label: string;
+  options: readonly FilterOption<T>[] | readonly T[];
+  selected: T | null;
+  onSelect: (value: T | null) => void;
+  showAllOption?: boolean;
+  /** showAllOption 칩 문구 (기본: 전체) */
+  allOptionLabel?: string;
+  /** 제목과 칩을 한 줄에 배치 */
+  layout?: 'stacked' | 'inline';
+}
+
+function normalizeOptions<T extends string>(
+  options: readonly FilterOption<T>[] | readonly T[]
+): FilterOption<T>[] {
+  if (options.length === 0) {
+    return [];
+  }
+  const first = options[0];
+  if (typeof first === 'string') {
+    return (options as readonly T[]).map((value) => ({ value, label: value }));
+  }
+  return options as readonly FilterOption<T>[];
+}
+
+export function TagFilterBar<T extends string>({
+  label,
+  options,
+  selected,
+  onSelect,
+  showAllOption = true,
+  allOptionLabel = '전체',
+  layout = 'stacked',
+}: TagFilterBarProps<T>) {
+  const items = normalizeOptions(options);
+  const inline = layout === 'inline';
+
+  const allChip = showAllOption ? (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={allOptionLabel}
+      onPress={() => onSelect(null)}
+      style={[styles.chip, selected === null ? styles.chipActive : styles.chipIdle]}
+    >
+      <Text style={[styles.chipText, selected === null && styles.chipTextActive]}>
+        {allOptionLabel}
+      </Text>
+    </Pressable>
+  ) : null;
+
+  const optionChips = items.map((option) => {
+    const isActive = selected === option.value;
+    return (
+      <Pressable
+        key={option.value}
+        accessibilityRole="button"
+        accessibilityLabel={option.label}
+        onPress={() => onSelect(isActive ? null : option.value)}
+        style={[styles.chip, isActive ? styles.chipActive : styles.chipIdle]}
+      >
+        <Text style={[styles.chipText, isActive && styles.chipTextActive]}>
+          {option.label}
+        </Text>
+      </Pressable>
+    );
+  });
+
+  if (inline) {
+    return (
+      <View style={styles.wrap}>
+        <View style={styles.inlineRow}>
+          <Text style={styles.labelInline}>{label}</Text>
+          {allChip}
+          {optionChips}
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.wrap}>
+      <Text style={styles.label}>{label}</Text>
+      <View style={styles.chipsWrap}>
+        {allChip}
+        {optionChips}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  wrap: {
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 11,
+    fontFamily: fonts.semiBold,
+    color: colors.textMuted,
+    marginBottom: 6,
+    letterSpacing: 0.3,
+  },
+  chipsWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  inlineRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 6,
+  },
+  labelInline: {
+    fontSize: 11,
+    fontFamily: fonts.semiBold,
+    color: colors.textMuted,
+    letterSpacing: 0.3,
+    marginRight: 2,
+  },
+  chip: {
+    paddingHorizontal: 11,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 2,
+  },
+  chipIdle: {
+    opacity: 0.55,
+    backgroundColor: colors.tabSubIdleBg,
+    borderColor: colors.tabIdleBorder,
+  },
+  chipActive: {
+    opacity: 1,
+    backgroundColor: colors.mactanActiveBg,
+    borderColor: colors.mactanActiveBorder,
+  },
+  chipText: {
+    fontSize: 11,
+    fontFamily: fonts.semiBold,
+    color: colors.tabIdleText,
+  },
+  chipTextActive: {
+    fontFamily: fonts.bold,
+    color: colors.mactanActiveText,
+  },
+});
+import { Restaurant } from '../types/restaurant';
+import { NightMarket } from '../types/nightMarket';
+import { MactanResort } from '../types/resort';
+
+export interface ClusterMapProps {
+  restaurants: Restaurant[];
+  resorts: MactanResort[];
+  nightMarkets: NightMarket[];
+  showRestaurants: boolean;
+  showResorts: boolean;
+  showNightMarkets: boolean;
+  selectedRestaurantId: string | null;
+  selectedResortId: string | null;
+  selectedNightMarketId: string | null;
+  onSelectRestaurant: (id: string) => void;
+  onSelectResort: (id: string) => void;
+  onSelectNightMarket: (id: string) => void;
+  onClearMapSelection?: () => void;
+}
+
+export type MapPoint = {
+  id: string;
+  lat: number;
+  lng: number;
+  kind: 'restaurant' | 'resort' | 'nightMarket';
+};
+
+export function collectVisibleMapPoints(
+  restaurants: Restaurant[],
+  resorts: MactanResort[],
+  nightMarkets: NightMarket[],
+  showRestaurants: boolean,
+  showResorts: boolean,
+  showNightMarkets: boolean
+): MapPoint[] {
+  const points: MapPoint[] = [];
+  if (showRestaurants) {
+    for (const r of restaurants) {
+      points.push({ id: r.id, lat: r.lat, lng: r.lng, kind: 'restaurant' });
+    }
+  }
+  if (showResorts) {
+    for (const r of resorts) {
+      points.push({ id: r.id, lat: r.lat, lng: r.lng, kind: 'resort' });
+    }
+  }
+  if (showNightMarkets && Array.isArray(nightMarkets)) {
+    for (const m of nightMarkets) {
+      if (m?.id == null || m.lat == null || m.lng == null) {
+        continue;
+      }
+      points.push({ id: m.id, lat: m.lat, lng: m.lng, kind: 'nightMarket' });
+    }
+  }
+  return points;
+}
+import { FilterCategory } from '../types/restaurant';
+
+export const FILTER_OPTIONS: { key: FilterCategory; label: string }[] = [
+  { key: 'all', label: '전체' },
+  { key: 'korean', label: '한식' },
+  { key: 'seafood', label: '씨푸드' },
+  { key: 'japanese', label: '일식' },
+  { key: 'cafe', label: '카페&디저트' },
+  { key: 'local', label: '로컬음식' },
+  { key: 'other', label: '기타' },
+];
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  korean: '한식',
+  seafood: '씨푸드',
+  japanese: '일식',
+  cafe: '카페&디저트',
+  local: '로컬음식',
+  other: '기타',
+};
+import { NIGHT_MARKET_GUIDE_PASSAGE } from './nightMarketGuideText';
+import {
+  PHILIPPINE_FOOD_ITEMS,
+  PHILIPPINE_FOOD_SUBTITLE,
+} from './philippineFoodItems';
+
+export type DiningGuideTipId =
+  | 'meal-tips'
+  | 'filipino-food'
+  | 'beer-drinks'
+  | 'delivery-apps'
+  | 'night-market'
+  | 'fruits';
+
+export interface DiningGuideExpandLink {
+  label: string;
+  url: string;
+  blogTitle: string;
+  icon?: string;
+  /** 웹에서 탭/클릭 시 새 창(_blank)으로 열기 */
+  openInNewTab?: boolean;
+}
+
+export interface DiningGuideTip {
+  id: DiningGuideTipId;
+  icon: string;
+  /** 접근성·펼침 영역용 전체 제목 */
+  title: string;
+  /** 2x3 그리드 버튼에 표시할 한 줄 라벨 */
+  compactTitle: string;
+  summary: string;
+  url: string;
+  blogTitle: string;
+  /** true면 커스텀 펼침 레이아웃(단일/복수 링크) */
+  expandSimple?: boolean;
+  /** 펼침 영역 제목(이모지 포함 가능) */
+  expandTitle?: string;
+  /** expandSimple일 때 본문(줄바꿈 가능) */
+  expandBody?: string;
+  /** 펼침 영역 단일 링크 버튼 라벨 */
+  linkLabel?: string;
+  /** 펼침 영역 복수 링크 */
+  expandLinks?: DiningGuideExpandLink[];
+  /** 복수 링크 배치: row(가로) | grid2x2(2x2) */
+  expandLinksLayout?: 'row' | 'grid2x2';
+}
+
+export const DINING_GUIDE_TIPS: DiningGuideTip[] = [
+  {
+    id: 'meal-tips',
+    icon: '💡',
+    title: '식사관련팁',
+    compactTitle: '식사관련팁',
+    summary: '세부 현지 식당 이용 시 알아두면 좋은 꿀팁들',
+    expandTitle: '💡 세부 현지 식당 이용 시 알아두면 좋은 꿀팁들',
+    expandBody:
+      '• 세부 현지 식당에서는 번호표를 받는 방식, 빌지(Bill)를 받아 테이블에서 정산하는 결제 방식, 서비스 차지(봉사료) 포함 여부, 브레이크 타임 등 한국과는 다른 문화가 많아 모르면 당황스러운 일이 생길 수 있습니다.',
+    url: 'https://m.blog.naver.com/aalove0902/222336919760',
+    blogTitle: '세부 현지 식당 이용 꿀팁',
+    linkLabel: '세부 현지 식당 이용 시 알아두면 좋은 꿀팁들 🔗',
+    expandSimple: true,
+  },
+  {
+    id: 'filipino-food',
+    icon: '🍖',
+    title: '필리핀 음식',
+    compactTitle: '필리핀음식',
+    summary: PHILIPPINE_FOOD_SUBTITLE,
+    url: PHILIPPINE_FOOD_ITEMS[0].link,
+    blogTitle: '필리핀 음식',
+    expandSimple: true,
+  },
+  {
+    id: 'beer-drinks',
+    icon: '🍺',
+    title: '대표맥주/추천음료',
+    compactTitle: '맥주음료',
+    summary:
+      '필리핀에서는 한국과 달리 식사를 할 때 물 이외에 음료를 같이 마십니다.',
+    url: 'https://m.blog.naver.com/aalove0902/220446356816',
+    blogTitle: '세부 맥주·추천음료',
+    expandSimple: true,
+    expandTitle: '🍺 대표맥주/추천음료',
+    expandBody:
+      '필리핀에서는 한국과 달리 식사를 할 때 물 이외에 음료를 같이 마십니다. 식사할 때 어떤 음료들을 마시는지 그리고 필리핀에서 가장 유명한 맥주인 산미구엘 맥주에 대해서 알려드립니다.',
+    expandLinks: [
+      {
+        label: '추천음료 · 자세히 보기 🔗',
+        url: 'https://m.blog.naver.com/aalove0902/220446356816',
+        blogTitle: '세부 추천음료',
+      },
+      {
+        label: '산미구엘 맥주 · 자세히 보기 🔗',
+        url: 'https://m.blog.naver.com/aalove0902/80180717985',
+        blogTitle: '산미구엘 맥주 정보',
+      },
+    ],
+  },
+  {
+    id: 'delivery-apps',
+    icon: '🛵',
+    title: '배달앱',
+    compactTitle: '배달앱',
+    summary:
+      '숙소 밖으로 나가기 귀찮을 때는 배달을 시켜 드실 수 있습니다.',
+    url: 'https://m.blog.naver.com/aalove0902/223884886949',
+    blogTitle: '세부 배달앱',
+    expandSimple: true,
+    expandTitle: '🛵 배달앱',
+    expandBody:
+      '숙소 밖으로 나가기 귀찮을때는 배달을 시켜 드실수 있습니다. 세부에서는 푸드판다와 그랩이 양대산맥 배달앱입니다. 그리고 한국분들이 운영하는 레스토랑은 카톡으로 직접 예약을 받아 배달을 해주는 경우도 있습니다.\n\n일부 리조트의 경우에는 외부음식 반입이 안되는 경우가 있으니 주문하기전 미리 확인 하는 것이 좋습니다.',
+    expandLinks: [
+      {
+        label: '그랩 · 자세히 보기 🔗',
+        url: 'https://m.blog.naver.com/aalove0902/223884886949',
+        blogTitle: '세부 배달앱 그랩',
+      },
+      {
+        label: '푸드판다 · 자세히 보기 🔗',
+        url: 'https://m.blog.naver.com/aalove0902/222021019775',
+        blogTitle: '필리핀 배달앱 푸드판다',
+      },
+    ],
+  },
+  {
+    id: 'night-market',
+    icon: '🌙',
+    title: '야시장',
+    compactTitle: '야시장',
+    summary:
+      '막탄·세부시티 대표 야시장 4곳! 지도에서 위치를 확인하고 생생 후기를 볼 수 있어요.',
+    url: 'https://m.blog.naver.com/aalove0902/223451364466',
+    blogTitle: '세부 야시장',
+    expandSimple: true,
+    expandTitle: '🌙 야시장',
+    expandBody: NIGHT_MARKET_GUIDE_PASSAGE,
+  },
+  {
+    id: 'fruits',
+    icon: '🥭',
+    title: '과일',
+    compactTitle: '과일',
+    summary:
+      '세부여행의 꽃 열대과일 — 종류와 고르는 법을 알려드려요.',
+    expandTitle: '🥭 세부열대과일',
+    expandBody:
+      '세부여행의 꽃 열대과일 어떤 과일들이 있는지 어떻게 골라야 하는지 알려드려요',
+    url: 'https://m.blog.naver.com/aalove0902/80205604757',
+    blogTitle: '세부 열대과일',
+    expandSimple: true,
+    expandLinksLayout: 'row',
+    expandLinks: [
+      {
+        icon: '🏝️',
+        label: '열대과일 종류',
+        url: 'https://m.blog.naver.com/aalove0902/80205604757',
+        blogTitle: '세부 열대과일 종류',
+      },
+      {
+        icon: '🥭',
+        label: '망고 고르는법',
+        url: 'https://m.blog.naver.com/aalove0902/80187677430',
+        blogTitle: '망고 고르는 법',
+      },
+      {
+        icon: '🍇',
+        label: '망고스틴 고르는법',
+        url: 'https://m.blog.naver.com/aalove0902/80188133264',
+        blogTitle: '망고스틴 고르는 법',
+      },
+      {
+        icon: '🥥',
+        label: '코코넛 즐기기',
+        url: 'https://m.blog.naver.com/aalove0902/80188212044',
+        blogTitle: '코코넛 즐기기',
+      },
+    ],
+  },
+];
+import {
+  CompanionFilterTag,
+  MenuType,
+  ResortMealType,
+  RestaurantZone,
+} from '../types/restaurant';
+
+export type FilterOption<T extends string> = {
+  value: T;
+  label: string;
+};
+
+export const RESORT_MEAL_OPTIONS: ResortMealType[] = ['조식', '석식'];
+
+export const ZONE_FILTER_OPTIONS: FilterOption<RestaurantZone>[] = [
+  { value: '제이파크/샹스', label: '제이파크근처' },
+  { value: '샹그릴라', label: '샹그릴리 근처' },
+  { value: '막탄뉴타운', label: '막탄뉴타운 근처' },
+  { value: '마리바고/블루워터', label: '마리바고 블루워터 근처' },
+  { value: '공항인근', label: '공항주변' },
+  { value: '솔레아', label: '솔레아 근처' },
+];
+
+export const MENU_TYPE_OPTIONS: FilterOption<MenuType>[] = [
+  { value: '씨푸드', label: '씨푸드' },
+  { value: '한식', label: '한식' },
+  { value: '로컬', label: '로컬' },
+  { value: '일식', label: '일식' },
+  { value: '중식', label: '중식' },
+  { value: '뷔페', label: '뷔페' },
+  { value: '카페', label: '카페' },
+  { value: '기타', label: '기타' },
+];
+
+export function getZoneLabel(zone: RestaurantZone): string {
+  return ZONE_FILTER_OPTIONS.find((z) => z.value === zone)?.label ?? zone;
+}
+
+export const COMPANION_FILTER_OPTIONS: FilterOption<CompanionFilterTag>[] = [
+  { value: '모두', label: '모두' },
+  { value: '아이동반', label: '아이동반' },
+  { value: '부모님동반', label: '부모님동반' },
+  { value: '커플', label: '커플' },
+];
+/** 세부 야시장 필수 안내 원문 — 임의 수정 금지 */
+export const NIGHT_MARKET_GUIDE_PASSAGE =
+  '한국인들이 흔히 떠올리는 대만이나 태국의 야시장(기념품·잡화 쇼핑 중심)과 달리, 세부 야시장은 주로 \'현지식 먹거리 위주의 푸드코트 형태\'라는 점이 가장 큰 차이점입니다.\n\n' +
+  '또한 막탄 지역은 야시장 규모가 작고 활성화가 덜 되어 있어, 제대로 된 야시장 투어와 다채로운 미식을 즐기려면 대다수의 여행객이 세부 시티(IT파크 등)에 있는 대형 야시장으로 이동하는 편입니다.';
+import { nightMarkets } from '../data/nightMarkets';
+
+export interface NightMarketBlogLink {
+  label: string;
+  url: string;
+  blogTitle: string;
+  emoji: string;
+}
+
+const BLOG_LINK_SPECS: { marketId: string; label: string; emoji: string }[] = [
+  { marketId: 'nm3', label: '세부 수그보 야시장', emoji: '🍴' },
+  { marketId: 'nm4', label: '세부 푸소 빌리지', emoji: '🏙️' },
+  { marketId: 'nm1', label: '막탄 메르카토', emoji: '⛺' },
+  { marketId: 'nm2', label: '막탄 푸드파크', emoji: '🍔' },
+];
+
+function buildNightMarketBlogLinks(): NightMarketBlogLink[] {
+  return BLOG_LINK_SPECS.flatMap(({ marketId, label, emoji }) => {
+    const market = nightMarkets.find((m) => m.id === marketId);
+    if (!market?.blogUrl) {
+      return [];
+    }
+    return [
+      {
+        label,
+        url: market.blogUrl,
+        blogTitle: market.blogTitle ?? label,
+        emoji,
+      },
+    ];
+  });
+}
+
+/** 야시장 생생 후기 블로그 바로가기 (가로 4열) */
+export const NIGHT_MARKET_BLOG_LINKS: NightMarketBlogLink[] = buildNightMarketBlogLinks();
+
+/** @deprecated NIGHT_MARKET_BLOG_LINKS 사용 */
+export const NIGHT_MARKET_MAP_LINKS = NIGHT_MARKET_BLOG_LINKS;
+
+export const NIGHT_MARKET_LINK_ICON_COLOR = '#99f6e4';
+export const NIGHT_MARKET_LINK_ICON_SIZE = 18;
+/** 세부여행플래너 연락·콘텐츠 (날씨어플과 동일) */
+export const PARTNER_LINKS = {
+  naverBlog: 'https://m.blog.naver.com/aalove0902',
+  kakaoChannel: 'https://pf.kakao.com/_xcjmfj/chat',
+} as const;
+export interface PhilippineFoodItem {
+  id: number;
+  emoji: string;
+  /** 고화질 이미지 아이콘 URL (이모지 대체) */
+  imgUrl: string;
+  title: string;
+  link: string;
+  blogTitle: string;
+}
+
+export const PHILIPPINE_FOOD_SUBTITLE =
+  '세부 여행에서 놓칠 수 없는 대표 먹거리 정보입니다.';
+
+export const PHILIPPINE_FOOD_ITEMS: PhilippineFoodItem[] = [
+  {
+    id: 1,
+    emoji: '🍛',
+    imgUrl: 'https://cdn-icons-png.flaticon.com/512/3449/3449377.png',
+    title: '세부추천음식',
+    link: 'https://m.blog.naver.com/aalove0902/80187457383',
+    blogTitle: '세부 추천 음식',
+  },
+  {
+    id: 2,
+    emoji: '🍧',
+    imgUrl: 'https://cdn-icons-png.flaticon.com/512/7506/7506647.png',
+    title: '할로할로',
+    link: 'https://m.blog.naver.com/aalove0902/220948168390',
+    blogTitle: '할로할로',
+  },
+  {
+    id: 3,
+    emoji: '🐝',
+    imgUrl: 'https://global.jollibee.com.ph/assets/images/jollibee-logo.png',
+    title: '졸리비',
+    link: 'https://m.blog.naver.com/aalove0902/221948684648',
+    blogTitle: '졸리비',
+  },
+  {
+    id: 4,
+    emoji: '🌴',
+    imgUrl: 'https://cdn-icons-png.flaticon.com/512/2921/2921822.png',
+    title: '필리핀 전통먹거리',
+    link: 'https://m.blog.naver.com/aalove0902/220477437043',
+    blogTitle: '필리핀 전통먹거리',
+  },
+];
+export const fonts = {
+  regular: 'NotoSansKR_400Regular',
+  semiBold: 'NotoSansKR_600SemiBold',
+  bold: 'NotoSansKR_700Bold',
+};
+
+/** 세부 가볼만한곳(index.css)과 동일 팔레트 */
+export const colors = {
+  bgDeep: '#042f2e',
+  bgMid: '#0e7490',
+  bgLight: '#155e75',
+  bgCard: 'rgba(15, 118, 110, 0.35)',
+  bgCardSolid: '#0f766e',
+  text: '#ecfeff',
+  textMuted: '#99f6e4',
+  textDesc: 'rgba(165, 243, 252, 0.95)',
+  accent: '#fef9c3',
+  accentGold: '#fbbf24',
+  link: '#a5f3fc',
+  cardBorder: 'rgba(236, 254, 255, 0.12)',
+  cardHeading: '#ccfbf1',
+  tabIdleBg: 'rgba(0, 0, 0, 0.45)',
+  tabIdleBorder: 'rgba(255, 255, 255, 0.12)',
+  tabIdleText: 'rgba(236, 254, 255, 0.72)',
+  tabSubIdleBg: 'rgba(0, 0, 0, 0.38)',
+  mactanActiveBg: 'rgba(3, 105, 161, 0.65)',
+  mactanActiveBorder: 'rgba(125, 211, 252, 0.75)',
+  mactanActiveText: '#f0f9ff',
+  itemBg: 'rgba(0, 0, 0, 0.18)',
+  itemBorder: 'rgba(255, 255, 255, 0.08)',
+  sheetBg: 'rgba(4, 47, 46, 0.97)',
+  inputBg: 'rgba(0, 0, 0, 0.35)',
+  radius: 16,
+  radiusSm: 8,
+};
+
+/** 정보성 팁 2×3 그리드 — 다크 민트 톤 (앱 배경과 블렌딩) */
+export const diningGuideTipTheme = {
+  bg: 'rgba(11, 37, 46, 0.6)',
+  border: 'rgba(255, 255, 255, 0.05)',
+  borderActive: 'rgba(31, 78, 91, 0.85)',
+  text: '#F8F9FA',
+  panelBg: 'rgba(4, 47, 46, 0.88)',
+  panelBorder: 'rgba(255, 255, 255, 0.08)',
+} as const;
+
+export const categoryColors: Record<string, string> = {
+  korean: '#34d399',
+  seafood: '#38bdf8',
+  japanese: '#a78bfa',
+  cafe: '#fbbf24',
+  local: '#2dd4bf',
+  other: '#94a3b8',
+};
+
+export const menuTypeColors: Record<string, string> = {
+  씨푸드: '#38bdf8',
+  한식: '#34d399',
+  로컬: '#2dd4bf',
+  일식: '#a78bfa',
+  중식: '#f87171',
+  뷰맛집: '#f472b6',
+  뷔페: '#fb923c',
+  카페: '#fbbf24',
+  기타: '#94a3b8',
+};
+
+export const MACTAN_CENTER = {
+  latitude: 10.295,
+  longitude: 124.0,
+  latitudeDelta: 0.12,
+  longitudeDelta: 0.12,
+};
+
+export const gradient = {
+  colors: [colors.bgDeep, colors.bgMid, colors.bgLight] as const,
+  start: { x: 0.2, y: 0 },
+  end: { x: 0.8, y: 1 },
+};
+import { NightMarket } from '../types/nightMarket';
+import rawNightMarkets from './nightMarkets.json';
+
+export const nightMarkets: NightMarket[] = rawNightMarkets as NightMarket[];
+
+export const MACTAN_NIGHT_MARKETS = nightMarkets.filter((m) => m.region === 'mactan');
+export const CEBU_CITY_NIGHT_MARKETS = nightMarkets.filter((m) => m.region === 'cebu-city');
+import { MactanResort } from '../types/resort';
+import rawResorts from './mactanResorts.json';
+
+/**
+ * 지도 마커 좌표 강제 고정 (OpenStreetMap 육지 검증값).
+ * JSON 캐시·번들 지연과 무관하게 런타임에 적용한다.
+ */
+const RESORT_COORDINATE_OVERRIDES: Record<
+  string,
+  { lat: number; lng: number }
+> = {
+  /** Crimson Resort and Spa Mactan — Seascapes Resort Town 메인 로비 */
+  r6: { lat: 10.2971, lng: 124.014 },
+  /** The Reef Island Resort Mactan — 모벤픽 인접 해안선 */
+  r7: { lat: 10.30995, lng: 124.02385 },
+  /** Plantation Bay Resort — Marigondon 메인 로비 (육지 검증) */
+  r10: { lat: 10.2625, lng: 123.9802 },
+};
+
+export const mactanResorts: MactanResort[] = (
+  rawResorts as MactanResort[]
+).map((resort) => {
+  const override = RESORT_COORDINATE_OVERRIDES[resort.id];
+  return override ? { ...resort, lat: override.lat, lng: override.lng } : resort;
+});
+import { Restaurant } from '../types/restaurant';
+import rawData from './restaurants.json';
+
+export const restaurants: Restaurant[] = rawData as Restaurant[];
+
+/**
+ * 픽업·드랍 탭 고정 허용 목록 (10곳).
+ * 기존 pickupDrop 태그와 무관하게 이 ID만 노출한다.
+ */
+export const PICKUP_DROP_RESTAURANT_IDS = [
+  '4', // 에이스크랩
+  '21', // 씨푸드 부코 씨사이드
+  '25', // 씨푸드 점보7
+  '29', // 모닝글로리
+  '36', // 마리바고 그릴
+  '37', // 마리바고크랩
+  '38', // 레드크랩
+  '49', // 7107 레스토랑
+  '51', // 막탄크랩
+] as const;
+
+const pickupDropIdOrder = new Map(
+  PICKUP_DROP_RESTAURANT_IDS.map((id, index) => [id, index])
+);
+
+export const pickupDropRestaurants = restaurants
+  .filter((r) => pickupDropIdOrder.has(r.id))
+  .sort(
+    (a, b) =>
+      (pickupDropIdOrder.get(a.id) ?? 0) - (pickupDropIdOrder.get(b.id) ?? 0)
+  );
+
+export const resortMealRestaurants = restaurants.filter((r) => r.resortMeal.length > 0);
+
+/**
+ * 🌅 뷰/야경맛집 탭 고정 허용 목록 (13곳).
+ * 동반자·메뉴 태그와 무관하게 이 ID만 노출한다.
+ */
+export const VIEW_SPOT_RESTAURANT_IDS = [
+  '12', // 란타우 코르도바
+  '21', // 씨푸드 부코 씨사이드
+  '22', // 파롤라 (Parola Seaview)
+  '26', // 카바나 (Cabana)
+  '48', // 마리나 씨뷰
+  '54', // 만송이 장미 카페
+  '64', // 세부시티 안자니
+  '65', // 세부시티 탑스힐
+  '66', // 막탄그랜드골든호텔 루프탑
+  '67', // 막탄 스케이프 스카이덱
+  '68', // 세부시티 라 파리지엔 스카이
+  '69', // 세부시티 미스터A
+  '70', // 세부시티 Verified 루프탑
+] as const;
+
+const viewSpotIdOrder = new Map(
+  VIEW_SPOT_RESTAURANT_IDS.map((id, index) => [id, index])
+);
+
+export const viewSpotRestaurants = restaurants
+  .filter((r) => viewSpotIdOrder.has(r.id))
+  .sort(
+    (a, b) =>
+      (viewSpotIdOrder.get(a.id) ?? 0) - (viewSpotIdOrder.get(b.id) ?? 0)
+  );
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { LinearGradient } from 'expo-linear-gradient';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { WebView } from 'react-native-webview';
+import { colors, fonts, gradient } from '../constants/theme';
+import { RootStackParamList } from '../navigation/types';
+import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'BlogWebView'>;
+
+export function BlogWebViewScreen({ navigation, route }: Props) {
+  const { url, title } = route.params;
+  const mobileUrl = toMobileNaverBlogUrl(url);
+
+  return (
+    <LinearGradient
+      colors={[...gradient.colors]}
+      start={gradient.start}
+      end={gradient.end}
+      style={styles.fill}
+    >
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+        <View style={styles.header}>
+          <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Text style={styles.backText}>← 닫기</Text>
+          </Pressable>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
+        </View>
+        <View style={styles.webWrap}>
+          <WebView
+            source={{ uri: mobileUrl }}
+            style={styles.web}
+            startInLoadingState
+            renderLoading={() => (
+              <View style={styles.loading}>
+                <ActivityIndicator size="large" color={colors.link} />
+              </View>
+            )}
+          />
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  fill: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.cardBorder,
+    gap: 8,
+  },
+  backButton: {
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+  },
+  backText: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: colors.link,
+  },
+  title: {
+    flex: 1,
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: colors.text,
+  },
+  webWrap: {
+    flex: 1,
+    margin: 10,
+    borderRadius: 9,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+  },
+  web: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  loading: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.bgCard,
+  },
+});
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { CSSProperties } from 'react';
+import { useEffect } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors, fonts, gradient } from '../constants/theme';
+import { RootStackParamList } from '../navigation/types';
+import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
+import { openUrlInSameWindow } from '../utils/openExternalUrl';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'BlogWebView'>;
+
+// 네이버 카페 등 iframe 임베드를 차단하는 도메인은 인앱 WebView에서 하얀 화면이 뜬다.
+function isEmbedBlockedUrl(url: string): boolean {
+  return /cafe\.naver\.com/i.test(url);
+}
+
+export function BlogWebViewScreen({ navigation, route }: Props) {
+  const { url, title } = route.params;
+  const embedBlocked = isEmbedBlockedUrl(url);
+  const mobileUrl = embedBlocked ? url : toMobileNaverBlogUrl(url);
+
+  useEffect(() => {
+    if (embedBlocked) {
+      openUrlInSameWindow(url);
+    }
+  }, [embedBlocked, url]);
+
+  return (
+    <LinearGradient
+      colors={[...gradient.colors]}
+      start={gradient.start}
+      end={gradient.end}
+      style={styles.fill}
+    >
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+        <View style={styles.header}>
+          <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Text style={styles.backText}>← 닫기</Text>
+          </Pressable>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
+        </View>
+        {embedBlocked ? (
+          <View style={styles.fallbackWrap}>
+            <Text style={styles.fallbackTitle}>네이버 카페 후기</Text>
+            <Text style={styles.fallbackText}>
+              네이버 카페 후기로 이동합니다. 이동되지 않으면 아래 버튼을 눌러주세요.
+              브라우저 뒤로가기로 앱으로 돌아올 수 있습니다.
+            </Text>
+            <Pressable
+              onPress={() => openUrlInSameWindow(url)}
+              style={({ pressed }) => [
+                styles.fallbackButton,
+                pressed && styles.fallbackButtonPressed,
+              ]}
+              accessibilityRole="link"
+              accessibilityLabel="카페 후기 보기"
+            >
+              <Text style={styles.fallbackButtonText}>카페 후기 보기</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <View style={styles.webWrap}>
+            <iframe
+              title={title}
+              src={mobileUrl}
+              style={iframeStyle}
+              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+            />
+          </View>
+        )}
+      </SafeAreaView>
+    </LinearGradient>
+  );
+}
+
+const iframeStyle: CSSProperties = {
+  width: '100%',
+  height: '100%',
+  border: 'none',
+  backgroundColor: '#fff',
+};
+
+const styles = StyleSheet.create({
+  fill: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.cardBorder,
+    gap: 8,
+  },
+  backButton: {
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+  },
+  backText: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: colors.link,
+  },
+  title: {
+    flex: 1,
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: colors.text,
+  },
+  webWrap: {
+    flex: 1,
+    margin: 10,
+    borderRadius: 9,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+  },
+  fallbackWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 28,
+    gap: 14,
+  },
+  fallbackTitle: {
+    fontSize: 18,
+    fontFamily: fonts.bold,
+    color: colors.text,
+    textAlign: 'center',
+  },
+  fallbackText: {
+    fontSize: 14,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 22,
+    maxWidth: 360,
+  },
+  fallbackButton: {
+    marginTop: 6,
+    paddingVertical: 12,
+    paddingHorizontal: 22,
+    borderRadius: 9,
+    backgroundColor: '#03c75a',
+  },
+  fallbackButtonPressed: {
+    opacity: 0.88,
+  },
+  fallbackButtonText: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+  },
+});
+import { useCallback, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { AppHeader } from '../components/AppHeader';
+import { DiningGuideIconCards } from '../components/DiningGuideIconCards';
+import { MactanPlacesGuide } from '../components/MactanPlacesGuide';
+import { ScreenBackground } from '../components/ScreenBackground';
+import { restaurants } from '../data/restaurants';
+import { RootStackScreenProps } from '../navigation/types';
+import { toMobileNaverBlogUrl } from '../utils/naverBlogUrl';
+import {
+  isExternalMapOrWebUrl,
+  openExternalUrl,
+  openUrlInSameWindow,
+} from '../utils/openExternalUrl';
+
+type Props = RootStackScreenProps<'Home'>;
+
+export function HomeScreen({ navigation }: Props) {
+  const [nightMarketMode, setNightMarketMode] = useState(false);
+  const [selectedNightMarketId, setSelectedNightMarketId] = useState<string | null>(null);
+
+  const handleOpenLink = useCallback(
+    (url: string, title: string) => {
+      if (/pf\.kakao\.com/i.test(url)) {
+        navigation.navigate('BlogWebView', { url, title });
+        return;
+      }
+      // 네이버 카페는 iframe/인앱 WebView 임베드를 차단(하얀 화면)하므로
+      // m.blog 변환을 건너뛰고, 새 탭이 아닌 현재 창에서 그대로 이동한다.
+      // (모바일 주소 m.cafe.naver.com 체계는 그대로 유지)
+      if (/cafe\.naver\.com/i.test(url)) {
+        openUrlInSameWindow(url);
+        return;
+      }
+      if (isExternalMapOrWebUrl(url)) {
+        openExternalUrl(url);
+        return;
+      }
+      navigation.navigate('BlogWebView', { url: toMobileNaverBlogUrl(url), title });
+    },
+    [navigation]
+  );
+
+  const handleNightMarketModeChange = useCallback((active: boolean) => {
+    setNightMarketMode(active);
+    if (!active) {
+      setSelectedNightMarketId(null);
+    }
+  }, []);
+
+  const handleSelectNightMarket = useCallback((id: string) => {
+    setSelectedNightMarketId(id);
+  }, []);
+
+  const handleClearNightMarketSelection = useCallback(() => {
+    setSelectedNightMarketId(null);
+  }, []);
+
+  return (
+    <ScreenBackground>
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <View style={styles.app}>
+          <MactanPlacesGuide
+            restaurants={restaurants}
+            onOpenLink={handleOpenLink}
+            nightMarketMode={nightMarketMode}
+            selectedNightMarketId={selectedNightMarketId}
+            onSelectNightMarket={handleSelectNightMarket}
+            onClearNightMarketSelection={handleClearNightMarketSelection}
+            listHeaderTop={
+              <View style={styles.heroWrap}>
+                <AppHeader onOpenLink={handleOpenLink} />
+                <DiningGuideIconCards
+                  onOpenLink={handleOpenLink}
+                  nightMarketMode={nightMarketMode}
+                  onNightMarketModeChange={handleNightMarketModeChange}
+                  selectedNightMarketId={selectedNightMarketId}
+                  onSelectNightMarket={handleSelectNightMarket}
+                />
+              </View>
+            }
+          />
+        </View>
+      </SafeAreaView>
+    </ScreenBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  safe: {
+    flex: 1,
+  },
+  app: {
+    flex: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
+  },
+  heroWrap: {
+    paddingTop: 8,
+    paddingHorizontal: 4,
+  },
+});
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { BlogWebViewScreen } from '../screens/BlogWebViewScreen';
+import { HomeScreen } from '../screens/HomeScreen';
+import { RootStackParamList } from './types';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export function AppNavigator() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="BlogWebView"
+          component={BlogWebViewScreen}
+          options={{ presentation: 'modal' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+export type NightMarketRegion = 'mactan' | 'cebu-city';
+
+export interface NightMarket {
+  id: string;
+  name: string;
+  nameEn: string;
+  lat: number;
+  lng: number;
+  locationDesc: string;
+  region: NightMarketRegion;
+  blogUrl: string;
+  blogTitle: string;
+}
+import { RestaurantZone } from './restaurant';
+
+export interface ResortOtherVenue {
+  name: string;
+  summary: string;
+}
+
+export interface ResortBlogLink {
+  label: string;
+  url: string;
+}
+
+export interface MactanResort {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  zone: RestaurantZone;
+  breakfast: string;
+  dinner: string;
+  /** 조·석식 메인 가이드 외 리조트 내 레스토랑·바·카페 */
+  otherVenues: ResortOtherVenue[];
+  /** 네이버 블로그 등 상세 후기 바로가기 (선택) */
+  blogLink?: ResortBlogLink;
+  /** 레스토랑별 후기 바로가기 (선택, 저녁 가이드 하단) */
+  reviewLinks?: ResortBlogLink[];
+  /** 특정 구역(zone) 필터 선택 시 숨김 (전체 지도에는 노출). 예: 공항근처 카테고리에서 제외) */
+  hiddenInZoneFilter?: boolean;
+}
+export type RestaurantCategory =
+  | 'korean'
+  | 'seafood'
+  | 'japanese'
+  | 'cafe'
+  | 'local'
+  | 'other';
+
+export type FilterCategory = 'all' | RestaurantCategory;
+
+export type GuideListMode = 'all' | 'pickupDrop' | 'viewSpots' | 'resortDining';
+
+export type ResortMealType = '조식' | '석식';
+
+export type ResortMealFilter = ResortMealType | null;
+
+export type RestaurantZone =
+  | '제이파크/샹스'
+  | '샹그릴라'
+  | '막탄뉴타운'
+  | '마리바고/블루워터'
+  | '공항인근'
+  | '솔레아';
+
+export type MenuType =
+  | '씨푸드'
+  | '한식'
+  | '로컬'
+  | '일식'
+  | '중식'
+  | '뷰맛집'
+  | '뷔페'
+  | '카페'
+  | '기타';
+
+/** 동반자에 따른 구분 (맛집당 1개) */
+export type CompanionFilterTag = '모두' | '아이동반' | '부모님동반' | '커플';
+
+export interface BlogLink {
+  text: string;
+  url: string;
+}
+
+export interface Restaurant {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  desc: string;
+  category: RestaurantCategory;
+  zone: RestaurantZone;
+  menuType: MenuType;
+  companionType: CompanionFilterTag;
+  pickupDrop: boolean;
+  pickupDropNote?: string;
+  resortMeal: ResortMealType[];
+  resortMealNote?: string;
+  link?: string;
+  links?: BlogLink[];
+  /** 카카오톡 채널 예약(막탄 크랩 맛집 등) */
+  reservationLink?: string;
+  /** 막탄 대표 크랩 맛집 5곳 (예약 버튼·UI 판별) */
+  isCrab?: boolean;
+  /** 특정 구역(zone) 필터 선택 시 숨김 (전체 리스트엔 노출). 예: 공항근처 카테고리에서 제외 */
+  hiddenInZoneFilter?: boolean;
+}
+import { RestaurantZone } from '../types/restaurant';
+import { MactanResort } from '../types/resort';
+
+export interface ResortFilters {
+  query: string;
+  zone: RestaurantZone | null;
+}
+
+export function filterResorts(
+  resorts: MactanResort[],
+  filters: ResortFilters
+): MactanResort[] {
+  let result = resorts;
+
+  if (filters.zone) {
+    result = result.filter(
+      (r) => r.zone === filters.zone && !r.hiddenInZoneFilter
+    );
+  }
+
+  const normalizedQuery = filters.query.trim().toLowerCase();
+  if (!normalizedQuery) {
+    return result;
+  }
+
+  return result.filter((r) => {
+    const haystack = [
+      r.name,
+      r.breakfast,
+      r.dinner,
+      ...r.otherVenues.flatMap((v) => [v.name, v.summary]),
+    ]
+      .join(' ')
+      .toLowerCase();
+    return haystack.includes(normalizedQuery);
+  });
+}
+import {
+  CompanionFilterTag,
+  MenuType,
+  ResortMealFilter,
+  Restaurant,
+  RestaurantZone,
+} from '../types/restaurant';
+import { getZoneLabel } from '../constants/filters';
+
+export interface RestaurantFilters {
+  zone: RestaurantZone | null;
+  menuType: MenuType | null;
+  companion: CompanionFilterTag | null;
+  resortMeal: ResortMealFilter;
+  pickupDropOnly: boolean;
+  query: string;
+}
+
+export function filterRestaurants(
+  items: Restaurant[],
+  filters: RestaurantFilters
+): Restaurant[] {
+  const normalizedQuery = filters.query.trim().toLowerCase();
+
+  return items.filter((item) => {
+    if (filters.zone && (item.zone !== filters.zone || item.hiddenInZoneFilter)) {
+      return false;
+    }
+    if (filters.menuType && item.menuType !== filters.menuType) {
+      return false;
+    }
+    if (filters.companion && item.companionType !== filters.companion) {
+      return false;
+    }
+    if (filters.pickupDropOnly && !item.pickupDrop) {
+      return false;
+    }
+    if (filters.resortMeal && !item.resortMeal.includes(filters.resortMeal)) {
+      return false;
+    }
+
+    if (!normalizedQuery) {
+      return true;
+    }
+
+    const haystack = [
+      item.name,
+      item.desc,
+      item.zone,
+      getZoneLabel(item.zone),
+      item.menuType,
+      item.companionType,
+      ...item.resortMeal,
+      item.pickupDrop ? '픽업 드랍 송영' : '',
+      item.pickupDropNote ?? '',
+      item.resortMealNote ?? '',
+    ]
+      .join(' ')
+      .toLowerCase();
+    return haystack.includes(normalizedQuery);
+  });
+}
+/**
+ * PC 네이버 블로그 URL을 모바일 웹(m.blog.naver.com) 주소로 변환한다.
+ * 이미 m.blog 도메인이면 그대로 반환한다.
+ */
+export function toMobileNaverBlogUrl(url: string): string {
+  if (!url.includes('//blog.naver.com')) {
+    return url;
+  }
+  return url.replace(/\/\/blog\.naver\.com/g, '//m.blog.naver.com');
+}
+import { Linking, Platform } from 'react-native';
+
+export function isExternalMapOrWebUrl(url: string): boolean {
+  if (!/^https?:\/\//i.test(url)) return false;
+  if (/naver\.com/i.test(url)) return false;
+  return true;
+}
+
+export function openExternalUrl(url: string): void {
+  if (Platform.OS === 'web') {
+    if (typeof document !== 'undefined') {
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      return;
+    }
+    window.open(url, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
+  Linking.openURL(url).catch(() => {
+    // ignore — OS may reject unknown schemes
+  });
+}
+
+/**
+ * 새 탭을 열지 않고 현재 브라우저 창에서 그대로 이동한다.
+ * (네이버 카페처럼 iframe 임베드는 막히지만 새 창 없이 현재 창 전환이 필요한 경우)
+ * 사용자는 브라우저 뒤로가기로 앱으로 복귀할 수 있다.
+ */
+export function openUrlInSameWindow(url: string): void {
+  if (Platform.OS === 'web') {
+    if (typeof window !== 'undefined') {
+      window.location.href = url;
+      return;
+    }
+  }
+
+  Linking.openURL(url).catch(() => {
+    // ignore — OS may reject unknown schemes
+  });
+}
+import { BlogLink, Restaurant } from '../types/restaurant';
+import { toMobileNaverBlogUrl } from './naverBlogUrl';
+
+function normalizeLink(link: BlogLink): BlogLink {
+  return { ...link, url: toMobileNaverBlogUrl(link.url) };
+}
+
+export function getRestaurantLinks(restaurant: Restaurant): BlogLink[] {
+  if (restaurant.links?.length) {
+    return restaurant.links.map(normalizeLink);
+  }
+
+  if (restaurant.link) {
+    return [{ text: '블로그 후기 보기', url: toMobileNaverBlogUrl(restaurant.link) }];
+  }
+
+  return [];
+}
+import { StyleSheet } from 'react-native';
+import { colors, fonts } from '../constants/theme';
+
+export const guideStyles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  infoCard: {
+    marginHorizontal: 12,
+    marginBottom: 8,
+    backgroundColor: colors.bgCard,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    borderRadius: colors.radius,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+  },
+  filterCard: {
+    marginHorizontal: 12,
+    marginBottom: 12,
+    backgroundColor: colors.bgCard,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    borderRadius: colors.radius,
+    paddingHorizontal: 18,
+    paddingTop: 12,
+    paddingBottom: 16,
+  },
+  mapSection: {
+    marginHorizontal: 12,
+    marginBottom: 10,
+  },
+  resortDetailSection: {
+    marginTop: 10,
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: 'rgba(26, 115, 232, 0.45)',
+    overflow: 'hidden',
+  },
+  resortDetailHeader: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(26, 115, 232, 0.22)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(147, 197, 253, 0.25)',
+  },
+  resortDetailTitle: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: '#dbeafe',
+    marginBottom: 4,
+  },
+  resortDetailZone: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: 'rgba(219, 234, 254, 0.85)',
+  },
+  resortDetailBody: {
+    paddingTop: 8,
+  },
+  restaurantDetailSection: {
+    marginTop: 10,
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: 'rgba(45, 212, 191, 0.4)',
+    overflow: 'hidden',
+  },
+  restaurantDetailHeader: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(15, 118, 110, 0.35)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(153, 246, 228, 0.2)',
+  },
+  restaurantDetailTitle: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: colors.cardHeading,
+    marginBottom: 8,
+  },
+  restaurantDetailTags: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  restaurantDetailBody: {
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  restaurantDetailLinks: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+  },
+  restaurantReserveBtn: {
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: '#f97316',
+    borderWidth: 1,
+    borderColor: '#ea580c',
+  },
+  restaurantReserveBtnPressed: {
+    backgroundColor: '#ea580c',
+    borderColor: '#c2410c',
+  },
+  restaurantReserveBtnText: {
+    fontSize: 12,
+    fontFamily: fonts.semiBold,
+    color: '#ffffff',
+    letterSpacing: -0.2,
+  },
+  resortBlogLinkWrap: {
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+  },
+  resortReviewLinkWrap: {
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+    gap: 8,
+  },
+  resortReviewLinkBtn: {
+    alignSelf: 'stretch',
+    width: '100%',
+  },
+  resortBlogLinkBtn: {
+    alignSelf: 'flex-start',
+    paddingVertical: 9,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(165, 243, 252, 0.32)',
+    backgroundColor: 'rgba(11, 37, 46, 0.42)',
+  },
+  resortBlogLinkBtnPressed: {
+    backgroundColor: 'rgba(165, 243, 252, 0.1)',
+    borderColor: 'rgba(165, 243, 252, 0.48)',
+  },
+  resortBlogLinkText: {
+    fontSize: 12,
+    fontFamily: fonts.semiBold,
+    color: 'rgba(165, 243, 252, 0.9)',
+    letterSpacing: -0.2,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontFamily: fonts.semiBold,
+    color: colors.cardHeading,
+    marginBottom: 8,
+  },
+  lead: {
+    fontSize: 13,
+    fontFamily: fonts.regular,
+    lineHeight: 19,
+    color: colors.textMuted,
+    marginTop: -2,
+    marginBottom: 0,
+  },
+  leadStrong: {
+    color: colors.accent,
+    fontFamily: fonts.semiBold,
+  },
+  groupRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginTop: -2,
+    marginBottom: 12,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  list: {
+    flex: 1,
+  },
+  listContent: {
+    paddingBottom: 32,
+  },
+  item: {
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: colors.itemBorder,
+    overflow: 'hidden',
+    marginHorizontal: 12,
+    marginBottom: 6,
+  },
+  itemSelected: {
+    borderColor: 'rgba(26, 115, 232, 0.65)',
+    backgroundColor: 'rgba(26, 115, 232, 0.12)',
+  },
+  itemSelectedRestaurant: {
+    borderColor: 'rgba(45, 212, 191, 0.55)',
+    backgroundColor: 'rgba(15, 118, 110, 0.18)',
+  },
+  itemSelectedNightMarket: {
+    borderColor: 'rgba(167, 139, 250, 0.55)',
+    backgroundColor: 'rgba(76, 29, 149, 0.22)',
+  },
+  nightMarketTag: {
+    color: '#e9d5ff',
+    borderColor: 'rgba(196, 181, 253, 0.45)',
+    backgroundColor: 'rgba(76, 29, 149, 0.35)',
+  },
+  nightMarketDetailSection: {
+    marginTop: 10,
+    borderRadius: 9,
+    backgroundColor: colors.itemBg,
+    borderWidth: 1,
+    borderColor: 'rgba(167, 139, 250, 0.45)',
+    overflow: 'hidden',
+  },
+  nightMarketDetailHeader: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(76, 29, 149, 0.28)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(196, 181, 253, 0.25)',
+  },
+  nightMarketDetailTitle: {
+    fontSize: 15,
+    fontFamily: fonts.semiBold,
+    color: '#ede9fe',
+    marginBottom: 4,
+  },
+  nightMarketDetailSubtitle: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: 'rgba(221, 214, 254, 0.9)',
+    marginBottom: 4,
+  },
+  nightMarketDetailZone: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: 'rgba(233, 213, 255, 0.88)',
+  },
+  nightMarketDetailBody: {
+    paddingTop: 4,
+  },
+  nightMarketBanner: {
+    marginBottom: 0,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(76, 29, 149, 0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(196, 181, 253, 0.35)',
+  },
+  nightMarketBannerTitle: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: '#e9d5ff',
+    marginBottom: 4,
+  },
+  nightMarketBannerText: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: 'rgba(233, 213, 255, 0.92)',
+  },
+  nightMarketBannerHint: {
+    marginTop: 8,
+    color: 'rgba(233, 213, 255, 0.75)',
+  },
+  itemBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 11,
+  },
+  itemTitleRow: {
+    flex: 1,
+    gap: 6,
+  },
+  itemTitle: {
+    fontSize: 14,
+    fontFamily: fonts.semiBold,
+    color: colors.text,
+  },
+  itemTags: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+  itemTag: {
+    fontSize: 10,
+    fontFamily: fonts.semiBold,
+    color: colors.link,
+    backgroundColor: 'rgba(0, 0, 0, 0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(165, 243, 252, 0.25)',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  itemTagZone: {
+    color: colors.accent,
+    borderColor: 'rgba(251, 191, 36, 0.35)',
+  },
+  itemTagMenu: {
+    color: '#bbf7d0',
+    borderColor: 'rgba(134, 239, 172, 0.4)',
+    backgroundColor: 'rgba(21, 128, 61, 0.3)',
+  },
+  itemTagCompanion: {
+    color: '#fbcfe8',
+    borderColor: 'rgba(244, 114, 182, 0.4)',
+    backgroundColor: 'rgba(157, 23, 77, 0.28)',
+  },
+  itemTagPickup: {
+    color: '#fef3c7',
+    borderColor: 'rgba(251, 191, 36, 0.5)',
+    backgroundColor: 'rgba(180, 83, 9, 0.35)',
+  },
+  itemTagPickupLast: {
+    marginLeft: 'auto',
+  },
+  pickupBanner: {
+    marginBottom: 0,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(180, 83, 9, 0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(251, 191, 36, 0.35)',
+  },
+  pickupBannerTitle: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: '#fef3c7',
+    marginBottom: 4,
+  },
+  pickupBannerText: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: 'rgba(254, 243, 199, 0.92)',
+  },
+  pickupNote: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 18,
+    color: '#fde68a',
+    paddingHorizontal: 11,
+    paddingTop: 4,
+    paddingBottom: 10,
+  },
+  itemTagMealBreakfast: {
+    color: '#d1fae5',
+    borderColor: 'rgba(110, 231, 183, 0.45)',
+    backgroundColor: 'rgba(5, 150, 105, 0.35)',
+  },
+  itemTagMealDinner: {
+    color: '#e0e7ff',
+    borderColor: 'rgba(165, 180, 252, 0.45)',
+    backgroundColor: 'rgba(67, 56, 202, 0.35)',
+  },
+  mealBanner: {
+    marginBottom: 0,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(5, 150, 105, 0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(110, 231, 183, 0.35)',
+  },
+  mealBannerTitle: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: '#d1fae5',
+    marginBottom: 4,
+  },
+  mealBannerText: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: 'rgba(209, 250, 229, 0.92)',
+  },
+  mealNote: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 18,
+    color: '#a7f3d0',
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+  },
+  resortTag: {
+    color: '#bfdbfe',
+    borderColor: 'rgba(147, 197, 253, 0.5)',
+    backgroundColor: 'rgba(26, 115, 232, 0.35)',
+  },
+  resortMealBlock: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 19,
+    color: colors.textDesc,
+    paddingHorizontal: 11,
+    paddingBottom: 10,
+  },
+  resortMealLabel: {
+    fontFamily: fonts.bold,
+    color: colors.cardHeading,
+  },
+  resortOtherBlock: {
+    paddingHorizontal: 11,
+    paddingBottom: 12,
+    paddingTop: 4,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  resortOtherTitle: {
+    fontSize: 12,
+    fontFamily: fonts.bold,
+    color: '#bfdbfe',
+    marginBottom: 8,
+  },
+  resortOtherItem: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 18,
+    color: colors.textDesc,
+    marginBottom: 6,
+  },
+  resortOtherName: {
+    fontFamily: fonts.semiBold,
+    color: '#a5f3fc',
+  },
+  resortBanner: {
+    marginBottom: 0,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(26, 115, 232, 0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(147, 197, 253, 0.35)',
+  },
+  resortBannerTitle: {
+    fontSize: 13,
+    fontFamily: fonts.bold,
+    color: '#bfdbfe',
+    marginBottom: 4,
+  },
+  resortBannerText: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    lineHeight: 17,
+    color: 'rgba(219, 234, 254, 0.92)',
+  },
+  resultCount: {
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    marginBottom: 8,
+  },
+  chev: {
+    fontSize: 10,
+    color: colors.link,
+  },
+  itemDetail: {
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.06)',
+    paddingTop: 8,
+  },
+  itemDesc: {
+    fontSize: 13,
+    fontFamily: fonts.regular,
+    lineHeight: 20,
+    color: colors.textDesc,
+    paddingHorizontal: 11,
+    paddingBottom: 8,
+  },
+  itemActions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingBottom: 11,
+  },
+  itemLink: {
+    fontSize: 13,
+    fontFamily: fonts.semiBold,
+    color: colors.link,
+    textDecorationLine: 'underline',
+  },
+});

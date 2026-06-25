@@ -1,0 +1,604 @@
+[
+  {
+    "id": "1",
+    "name": "할로망고 (샹스점)",
+    "rating": 4.6,
+    "ratingCount": 65,
+    "placeId": "ChIJUcWVDACRqTMRnJ85yaKEu4g"
+  },
+  {
+    "id": "2",
+    "name": "고래식당",
+    "rating": 4.6,
+    "ratingCount": 64,
+    "placeId": "ChIJkXX9q_iRqTMRsoCCaoc76hU"
+  },
+  {
+    "id": "3",
+    "name": "청담 제면소",
+    "rating": 4.5,
+    "ratingCount": 227,
+    "placeId": "ChIJI0PTzHSRqTMR9-MB9PvoVug"
+  },
+  {
+    "id": "4",
+    "name": "에이스크랩",
+    "rating": 4.4,
+    "ratingCount": 1487,
+    "placeId": "ChIJn7nq8LSQqTMRe_5QiKLaJ-A"
+  },
+  {
+    "id": "5",
+    "name": "논끼 (제이파크점)",
+    "rating": 4.1,
+    "ratingCount": 214,
+    "placeId": "ChIJT4T4ULSQqTMRQQ6-BFPqk2M"
+  },
+  {
+    "id": "6",
+    "name": "쿠모 (Kumo)",
+    "rating": 4.8,
+    "ratingCount": 1519,
+    "placeId": "ChIJ8_OTOeOZqTMRpGAq1qG203g"
+  },
+  {
+    "id": "7",
+    "name": "더 그랜드 테이블",
+    "rating": 4.3,
+    "ratingCount": 33,
+    "placeId": "ChIJ-_XzHQCXqTMRQneTYcOsGiY"
+  },
+  {
+    "id": "8",
+    "name": "엔젤스 피자 (LG가든워크점)",
+    "rating": 4.1,
+    "ratingCount": 336,
+    "placeId": "ChIJ9-MZr3GXqTMRxxKpb1RKkTE"
+  },
+  {
+    "id": "10",
+    "name": "AA바베큐(쏘옹점)",
+    "rating": 4,
+    "ratingCount": 803,
+    "placeId": "ChIJow-tmDmXqTMRSNp7uoF9fWY"
+  },
+  {
+    "id": "11",
+    "name": "라 파리지엔느",
+    "rating": 4,
+    "ratingCount": 131,
+    "placeId": "ChIJ22EQHsyXqTMRULWu73h2vjk"
+  },
+  {
+    "id": "12",
+    "name": "란타우 코르도바",
+    "rating": 4.3,
+    "ratingCount": 3333,
+    "placeId": "ChIJ-RpVc1WaqTMRahsEx9XxEE4"
+  },
+  {
+    "id": "13",
+    "name": "산미구엘 플라자",
+    "rating": 4.5,
+    "ratingCount": 483,
+    "placeId": "ChIJTZ2lHrWQqTMR7Ft7C4V8_9Q"
+  },
+  {
+    "id": "14",
+    "name": "보스커피 (아울렛점)",
+    "rating": 4.1,
+    "ratingCount": 218,
+    "placeId": "ChIJxZVwDe-ZqTMROe5uoNq1A6g"
+  },
+  {
+    "id": "15",
+    "name": "Rib Shack (아울렛점)",
+    "rating": 3,
+    "ratingCount": 63,
+    "placeId": "ChIJObd2CteZqTMRG857EFGK-Ro"
+  },
+  {
+    "id": "16",
+    "name": "엔젤스 피자 (바삭점)",
+    "rating": 3.5,
+    "ratingCount": 158,
+    "placeId": "ChIJiwlZkFKZqTMRawK6mBIVgY4"
+  },
+  {
+    "id": "17",
+    "name": "차오킹 (그랜드몰점)",
+    "rating": 3.3,
+    "ratingCount": 112,
+    "placeId": "ChIJZXdxfQGaqTMRiuVP6hSWdEw"
+  },
+  {
+    "id": "18",
+    "name": "막탄 뉴타운 제이코 (J.CO)",
+    "rating": 4,
+    "ratingCount": 120,
+    "placeId": "ChIJLXnV8fyZqTMR48Z7mfY8_Kw"
+  },
+  {
+    "id": "19",
+    "name": "뉴타운 스타벅스",
+    "rating": 4.4,
+    "ratingCount": 690,
+    "placeId": "ChIJT9DHu2eXqTMRJmt7pm_bfaI"
+  },
+  {
+    "id": "20",
+    "name": "막탄 뉴타운 시벳커피",
+    "rating": 4.1,
+    "ratingCount": 330,
+    "placeId": "ChIJLatr2BuXqTMR8tQZAqH6ZSk"
+  },
+  {
+    "id": "21",
+    "name": "씨푸드 부코 씨사이드",
+    "rating": 4.8,
+    "ratingCount": 2676,
+    "placeId": "ChIJJynwsRyRqTMRlJVO34PfZo4"
+  },
+  {
+    "id": "22",
+    "name": "파롤라 (Parola Seaview)",
+    "rating": 4.5,
+    "ratingCount": 961,
+    "placeId": "ChIJqe7Hm7abqTMRybfSecB87Og"
+  },
+  {
+    "id": "23",
+    "name": "성카 (Sungka)",
+    "rating": 3.7,
+    "ratingCount": 338,
+    "placeId": "ChIJDXv3WEGbqTMRJ1rdJZNL3Lc"
+  },
+  {
+    "id": "24",
+    "name": "바베큐 딥질로그 (Dipzilog)",
+    "rating": 4.5,
+    "ratingCount": 168,
+    "placeId": "ChIJhZz8oPuXqTMRsDKrCRiXzlI"
+  },
+  {
+    "id": "25",
+    "name": "씨푸드 점보7",
+    "rating": 3.9,
+    "ratingCount": 583,
+    "placeId": "ChIJOb1wJTiXqTMRXQi6YNKYNnk"
+  },
+  {
+    "id": "26",
+    "name": "카바나 (Cabana)",
+    "rating": 4.8,
+    "ratingCount": 5710,
+    "placeId": "ChIJAxPWL7eXqTMRnAmytLofdiU"
+  },
+  {
+    "id": "27",
+    "name": "장수촌",
+    "rating": 4.2,
+    "ratingCount": 345,
+    "placeId": "ChIJic28YR2XqTMRhFOvx3y54lQ"
+  },
+  {
+    "id": "28",
+    "name": "막탄 Soom (숨카페)",
+    "rating": 4.6,
+    "ratingCount": 366,
+    "placeId": "ChIJF3ACXT2XqTMR3JW7Cvc-Jd0"
+  },
+  {
+    "id": "29",
+    "name": "모닝글로리",
+    "rating": 4.8,
+    "ratingCount": 4738,
+    "placeId": "ChIJD-DnAzaXqTMRzs3G_E9lKh0"
+  },
+  {
+    "id": "31",
+    "name": "막탄 레드하우스",
+    "rating": 4.2,
+    "ratingCount": 160,
+    "placeId": "ChIJx6IKHrWQqTMRXjKzrR6WuZI"
+  },
+  {
+    "id": "32",
+    "name": "제이파크 카페 스노우",
+    "rating": 4.2,
+    "ratingCount": 68,
+    "placeId": "ChIJC4QVp8WRqTMRsMdFu13w94U"
+  },
+  {
+    "id": "33",
+    "name": "황소막창",
+    "rating": 4.2,
+    "ratingCount": 463,
+    "placeId": "ChIJayMT5xeXqTMRpPNgZ_vn1r4"
+  },
+  {
+    "id": "34",
+    "name": "멍석갈비",
+    "rating": 4.6,
+    "ratingCount": 113,
+    "placeId": "ChIJT_yxYouXqTMRN8FC-Un2lN4"
+  },
+  {
+    "id": "35",
+    "name": "막탄타임스퀘어 탐앤탐스",
+    "rating": 4.4,
+    "ratingCount": 223,
+    "placeId": "ChIJ7w_ZgIiZqTMRTt04_QlJfGc"
+  },
+  {
+    "id": "36",
+    "name": "마리바고 그릴",
+    "rating": 4.5,
+    "ratingCount": 430,
+    "placeId": "ChIJiZSyrl6XqTMRZfSk3VtCBcQ"
+  },
+  {
+    "id": "37",
+    "name": "마리바고크랩",
+    "rating": 4.6,
+    "ratingCount": 448,
+    "placeId": "ChIJ4-qAOy2XqTMRpkurP37AfBI"
+  },
+  {
+    "id": "38",
+    "name": "레드크랩",
+    "rating": 4.5,
+    "ratingCount": 3258,
+    "placeId": "ChIJL25WpeOXqTMROJwLXTIeB9o"
+  },
+  {
+    "id": "40",
+    "name": "추비추비 (뉴타운점)",
+    "rating": 3.6,
+    "ratingCount": 532,
+    "placeId": "ChIJYXrczRuXqTMRkFiUCLoMCOU"
+  },
+  {
+    "id": "41",
+    "name": "팝시스 (Papsy's)",
+    "rating": 4.4,
+    "ratingCount": 301,
+    "placeId": "ChIJ9UtyKMWZqTMR6vi1g1Qn9Jo"
+  },
+  {
+    "id": "43",
+    "name": "망이나살 (아울렛점)",
+    "rating": 3.7,
+    "ratingCount": 248,
+    "placeId": "ChIJS-fVvO-ZqTMRebF9fUFes9w"
+  },
+  {
+    "id": "44",
+    "name": "가야 (Kaya)",
+    "rating": 4.7,
+    "ratingCount": 323,
+    "placeId": "ChIJ4-C6hg2ZqTMR1QY5nfCTM4s"
+  },
+  {
+    "id": "45",
+    "name": "할리스",
+    "rating": 4.7,
+    "ratingCount": 208,
+    "placeId": "ChIJOUHXX_KXqTMR3rq5NuT30wk"
+  },
+  {
+    "id": "46",
+    "name": "딤섬브레이크(그랜드몰점)",
+    "rating": 2.4,
+    "ratingCount": 19,
+    "placeId": "ChIJ5yttbFWbqTMRaLehFhX0xoU"
+  },
+  {
+    "id": "47",
+    "name": "예가",
+    "rating": 4.6,
+    "ratingCount": 379,
+    "placeId": "ChIJq_o8T8yXqTMRBHHRJLyvKcc"
+  },
+  {
+    "id": "48",
+    "name": "마리나 씨뷰",
+    "rating": 4.4,
+    "ratingCount": 748,
+    "placeId": "ChIJ4QOqjn-XqTMR3oSXZHE-Yok"
+  },
+  {
+    "id": "49",
+    "name": "7107 레스토랑",
+    "rating": 4.9,
+    "ratingCount": 5776,
+    "placeId": "ChIJ3ReENQ-XqTMRCEempBFTK1g"
+  },
+  {
+    "id": "50",
+    "name": "쿠메도레 (Kumedore)",
+    "rating": 4.6,
+    "ratingCount": 122,
+    "placeId": "ChIJuXx8A8aZqTMRdImOO6Hd0Js"
+  },
+  {
+    "id": "51",
+    "name": "막탄크랩",
+    "rating": 4.8,
+    "ratingCount": 641,
+    "placeId": "ChIJVa5z4FCXqTMRdK7gqglzfQ0"
+  },
+  {
+    "id": "52",
+    "name": "라온 스퀘어 카페",
+    "rating": 4.4,
+    "ratingCount": 297,
+    "placeId": "ChIJC031TMmXqTMRNcWcZnS26nE"
+  },
+  {
+    "id": "53",
+    "name": "명동 24",
+    "rating": 3.8,
+    "ratingCount": 14,
+    "placeId": "ChIJF2oiVQCXqTMRDt-yjT9SH3M"
+  },
+  {
+    "id": "54",
+    "name": "만송이 장미 카페",
+    "rating": 4.1,
+    "ratingCount": 5639,
+    "placeId": "ChIJJWa9pFWaqTMR82amTKMxo7Q"
+  },
+  {
+    "id": "55",
+    "name": "김떡순",
+    "rating": 4.2,
+    "ratingCount": 263,
+    "placeId": "ChIJyZiBG7WQqTMRJuOLfBEbRYs"
+  },
+  {
+    "id": "56",
+    "name": "맥도날드 마리바고",
+    "rating": 3.7,
+    "ratingCount": 462,
+    "placeId": "ChIJX8OMB0SXqTMRSE4Y968FZTE"
+  },
+  {
+    "id": "57",
+    "name": "니모카페",
+    "rating": 4.7,
+    "ratingCount": 465,
+    "placeId": "ChIJxXHs-yWXqTMRLhov9qbbNis"
+  },
+  {
+    "id": "58",
+    "name": "뉴타운 졸리비",
+    "rating": 4,
+    "ratingCount": 1396,
+    "placeId": "ChIJp_LySxqXqTMRWG1CQRiWp8E"
+  },
+  {
+    "id": "59",
+    "name": "뉴타운 맥도날드",
+    "rating": 3,
+    "ratingCount": 470,
+    "placeId": "ChIJNyvD1RuXqTMRNYRiMPcXd-o"
+  },
+  {
+    "id": "60",
+    "name": "막탄 알프레스코",
+    "rating": 4.2,
+    "ratingCount": 619,
+    "placeId": "ChIJ4flM1huXqTMR4J7WOy7f3ok"
+  },
+  {
+    "id": "61",
+    "name": "아일랜드 센트럴 졸리비",
+    "rating": 4,
+    "ratingCount": 580,
+    "placeId": "ChIJ6fys83-XqTMRmmiC2rfzREg"
+  },
+  {
+    "id": "62",
+    "name": "공항근처 논끼",
+    "rating": 4.2,
+    "ratingCount": 413,
+    "placeId": "ChIJMTJqqX-XqTMR8gredEyGPgc"
+  },
+  {
+    "id": "64",
+    "name": "세부시티 안자니",
+    "rating": 4.5,
+    "ratingCount": 772,
+    "placeId": "ChIJndRuByiZqTMRWrKfZq3FAOk"
+  },
+  {
+    "id": "65",
+    "name": "세부시티 탑스힐",
+    "rating": 4.5,
+    "ratingCount": 5529,
+    "placeId": "ChIJAeJQylufqTMRoYHzWBE4lzM"
+  },
+  {
+    "id": "67",
+    "name": "막탄 스케이프 스카이덱",
+    "rating": 4.4,
+    "ratingCount": 1179,
+    "placeId": "ChIJXXz2tNWZqTMRkn3UcDBKe7A"
+  },
+  {
+    "id": "68",
+    "name": "세부시티 라 파리지엔 스카이",
+    "rating": 4.3,
+    "ratingCount": 1963,
+    "placeId": "ChIJ4bm_IdifqTMRuRWlFayTlak"
+  },
+  {
+    "id": "69",
+    "name": "세부시티 미스터A",
+    "rating": 4.3,
+    "ratingCount": 1404,
+    "placeId": "ChIJYYmijsuYqTMR8IMYwEVTpKI"
+  },
+  {
+    "id": "70",
+    "name": "세부시티 Verified 루프탑",
+    "rating": 4.5,
+    "ratingCount": 764,
+    "placeId": "ChIJK7Jd7xWZqTMRv1lhz-p5i2g"
+  },
+  {
+    "id": "71",
+    "name": "엔젤스피자 막탄타운센터",
+    "rating": 3.5,
+    "ratingCount": 158,
+    "placeId": "ChIJiwlZkFKZqTMRawK6mBIVgY4"
+  },
+  {
+    "id": "73",
+    "name": "칠리스(SM몰)",
+    "rating": 3.8,
+    "ratingCount": 73,
+    "placeId": "ChIJhQAYVQCZqTMRLvhxJ-nWTC4"
+  },
+  {
+    "id": "74",
+    "name": "메사(SM씨사이드)",
+    "rating": 3.1,
+    "ratingCount": 59,
+    "placeId": "ChIJfSjXggycqTMRoOeQTyRXFJc"
+  },
+  {
+    "id": "75",
+    "name": "쿠야제이(아얄라)",
+    "rating": 3.6,
+    "ratingCount": 402,
+    "placeId": "ChIJOY_cTz6ZqTMRTZmC_OuAO5I"
+  },
+  {
+    "id": "78",
+    "name": "서울 블랙(SM씨사이드)",
+    "rating": 4.7,
+    "ratingCount": 254,
+    "placeId": "ChIJE5JsreidqTMR-ZADlfPWx-A"
+  },
+  {
+    "id": "79",
+    "name": "더 버즈카페(SM씨사이드)",
+    "rating": 4.4,
+    "ratingCount": 432,
+    "placeId": "ChIJpaOkcPOdqTMR1QE9nIpOOus"
+  },
+  {
+    "id": "80",
+    "name": "탑오브세부",
+    "rating": 4.4,
+    "ratingCount": 2496,
+    "placeId": "ChIJ05K0ulufqTMRD6TIgEY1-U8"
+  },
+  {
+    "id": "81",
+    "name": "카사베르데(아얄라몰)",
+    "rating": 3.9,
+    "ratingCount": 856,
+    "placeId": "ChIJSX4M-z6ZqTMRaQFrI1ei8QI"
+  },
+  {
+    "id": "84",
+    "name": "쉐프 마퀸 버거",
+    "rating": 3.6,
+    "ratingCount": 139,
+    "placeId": "ChIJ7XQhQbiZqTMRSMi0-ogHA6k"
+  },
+  {
+    "id": "85",
+    "name": "오이스터 베이",
+    "rating": 4.1,
+    "ratingCount": 720,
+    "placeId": "ChIJddM9nUmYqTMRL7vXF1wsAes"
+  },
+  {
+    "id": "87",
+    "name": "레오나(아얄라몰)",
+    "rating": 4.3,
+    "ratingCount": 46,
+    "placeId": "ChIJ70ZOuLmZqTMRXJH9s-B7x_o"
+  },
+  {
+    "id": "88",
+    "name": "논끼(SM몰)",
+    "rating": 4.2,
+    "ratingCount": 427,
+    "placeId": "ChIJ6Vwye22ZqTMRTnkSGK3yX4I"
+  },
+  {
+    "id": "89",
+    "name": "제이코(아얄라몰)",
+    "rating": 4.2,
+    "ratingCount": 492,
+    "placeId": "ChIJ5VM7Xz6ZqTMRamCF1xvVNPw"
+  },
+  {
+    "id": "90",
+    "name": "브리크(아얄라몰)",
+    "rating": 4.3,
+    "ratingCount": 437,
+    "placeId": "ChIJQf4D_z6ZqTMR-_JxYF5bn-s"
+  },
+  {
+    "id": "91",
+    "name": "뷔페 101",
+    "rating": 4.2,
+    "ratingCount": 2669,
+    "placeId": "ChIJ9YbDKaqZqTMRdt49oPZl4ZM"
+  },
+  {
+    "id": "92",
+    "name": "보태쥬",
+    "rating": 4.7,
+    "ratingCount": 145,
+    "placeId": "ChIJxwIqEQCZqTMRCXwdHdCX7mk"
+  },
+  {
+    "id": "93",
+    "name": "빅스스(SM씨사이드)",
+    "rating": 4.6,
+    "ratingCount": 1750,
+    "placeId": "ChIJwcJUmwycqTMR0LXWsSdulTc"
+  },
+  {
+    "id": "94",
+    "name": "하우스 오브 레촌",
+    "rating": 4.4,
+    "ratingCount": 6830,
+    "placeId": "ChIJN_ykxTiZqTMRZ59ExS6Cur4"
+  },
+  {
+    "id": "95",
+    "name": "마르코폴로 조식 뷔페",
+    "rating": 4.4,
+    "ratingCount": 148,
+    "placeId": "ChIJrcQZC9qYqTMR6h0t0wCozjk"
+  },
+  {
+    "id": "96",
+    "name": "세다 센트럴 블록 뷔페",
+    "rating": 3.4,
+    "ratingCount": 37,
+    "placeId": "ChIJoQhbqMiZqTMRFGs-h0w4lFw"
+  },
+  {
+    "id": "97",
+    "name": "래디슨블루 뷔페",
+    "rating": 4.5,
+    "ratingCount": 500,
+    "placeId": "ChIJJxjQCHKZqTMRWWK5J_hGJAw"
+  },
+  {
+    "id": "98",
+    "name": "바이킹(SM몰)",
+    "rating": 4.8,
+    "ratingCount": 15880,
+    "placeId": "ChIJxznNgG2ZqTMRzB2YrCFXkSc"
+  }
+]

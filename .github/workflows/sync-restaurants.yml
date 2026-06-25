@@ -1,0 +1,32 @@
+﻿name: Sync restaurants to AI일정
+
+on:
+  push:
+    paths:
+      - 'src/data/restaurants.json'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 막탄맛집
+        uses: actions/checkout@v3
+
+      - name: Checkout AI여행일정
+        uses: actions/checkout@v3
+        with:
+          repository: simpact1/AI-
+          token: ${{ secrets.PAT_TOKEN }}
+          path: ai-schedule
+
+      - name: Copy restaurants.json
+        run: cp src/data/restaurants.json ai-schedule/src/data/restaurants.json
+
+      - name: Commit and push
+        run: |
+          cd ai-schedule
+          git config user.email "aalove0902@naver.com"
+          git config user.name "simpact1"
+          git add src/data/restaurants.json
+          git diff --staged --quiet || git commit -m "sync: 막탄맛집 restaurants.json 자동 업데이트"
+          git push
