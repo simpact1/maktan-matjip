@@ -18,6 +18,7 @@ jobs:
           repository: simpact1/AI-
           token: ${{ secrets.PAT_TOKEN }}
           path: ai-schedule
+          persist-credentials: false
 
       - name: Copy restaurants.json
         run: cp src/data/restaurants.json ai-schedule/src/data/restaurants.json
