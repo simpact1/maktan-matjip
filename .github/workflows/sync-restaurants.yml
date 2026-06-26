@@ -23,11 +23,13 @@ jobs:
         run: cp src/data/restaurants.json ai-schedule/src/data/restaurants.json
 
       - name: Commit and push
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           cd ai-schedule
           git config user.email "aalove0902@naver.com"
           git config user.name "simpact1"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/simpact1/AI-.git
+          git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/simpact1/AI-.git
           git add src/data/restaurants.json
           git diff --staged --quiet || git commit -m "sync: 막탄맛집 restaurants.json 자동 업데이트"
           git push
