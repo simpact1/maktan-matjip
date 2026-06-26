@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 막탄맛집
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout AI여행일정
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: simpact1/AI-
           token: ${{ secrets.PAT_TOKEN }}
