@@ -28,7 +28,7 @@ const RELATED_APPS = [
   {
     emoji: '📅',
     label: '일정',
-    url: 'https://cebu-travel-schedule.vercel.app/',
+    url: 'https://schedule.cebuplanner.com/',
     circleColor: 'rgba(168, 85, 247, 0.25)',
     circleBorder: 'rgba(216, 180, 254, 0.4)',
   },
