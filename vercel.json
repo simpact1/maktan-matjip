@@ -1,5 +1,5 @@
 {
   "buildCommand": "npm run build:web",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/((?!api/|sitemap.xml|robots.txt).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!api/|sitemap.xml|robots.txt|llms.txt).*)", "destination": "/index.html" }]
 }

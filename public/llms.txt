@@ -1,0 +1,21 @@
+# 세부 막탄 맛집 가이드
+
+앱 이름: 세부 막탄 맛집 가이드
+URL: https://cebu-matzip.cebuplanner.com
+한 줄 소개: 세부 막탄 현지 거주자가 직접 다녀온 맛집 98곳 정리
+주요 기능: 지역별 맛집 지도, 음식 종류별 필터, 구글 평점, 현지 추천 맛집
+운영자: 세부여행플래너 (cebuplanner.com)
+카카오톡 채널: https://pf.kakao.com/_xoVxhjxb
+
+## 관련 앱
+
+- 허브: https://cebuplanner.com
+- 날씨: https://weather.cebuplanner.com
+- 환율: https://exchange.cebuplanner.com
+- 가볼만한곳: https://activity.cebuplanner.com
+- 숙소: https://hotel.cebuplanner.com
+- 교통: https://transport.cebuplanner.com
+- 기본정보: https://info.cebuplanner.com
+- 여행일정: https://schedule.cebuplanner.com
+- AI일정: https://aischedule.cebuplanner.com
+- 다이빙: https://diving.cebuplanner.com
