@@ -24,7 +24,9 @@ const customHeadContent = customHeadMatch[1]
   .replace(/<meta name="viewport"[\s\S]*?\/>/g, '')
   .trim();
 
-const injected = distHtml.replace('</head>', `\n  ${customHeadContent}\n  </head>`);
+const injected = distHtml
+  .replace('</head>', `\n  ${customHeadContent}\n  </head>`)
+  .replace('<html lang="en">', '<html lang="ko">');
 
 fs.writeFileSync(distHtmlPath, injected);
 console.log('✅ dist/index.html에 메타태그/JSON-LD 삽입 완료');
@@ -45,4 +47,52 @@ const sitemapDest = path.join(__dirname, '../dist/sitemap.xml');
 if (fs.existsSync(sitemapSrc)) {
   fs.copyFileSync(sitemapSrc, sitemapDest);
   console.log('✅ sitemap.xml dist 폴더로 복사 완료');
+}
+
+// robots.txt 파일을 dist 폴더로 복사
+const robotsSrc = path.join(__dirname, '../public/robots.txt');
+const robotsDest = path.join(__dirname, '../dist/robots.txt');
+if (fs.existsSync(robotsSrc)) {
+  fs.copyFileSync(robotsSrc, robotsDest);
+  console.log('✅ robots.txt dist 폴더로 복사 완료');
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const restaurantsPath = path.join(__dirname, '../src/data/restaurants.json');
+const restaurants = JSON.parse(fs.readFileSync(restaurantsPath, 'utf-8'));
+
+const articleBlocks = restaurants
+  .map(
+    ({ name, zone, menuType, desc }) => `    <article>
+      <h3>${escapeHtml(name)}</h3>
+      <p>지역: ${escapeHtml(zone)} · 메뉴: ${escapeHtml(menuType)}</p>
+      <p>${escapeHtml(desc)}</p>
+    </article>`
+  )
+  .join('\n');
+
+const seoSection = `<section id="matzip-seo-list" aria-label="세부 막탄 맛집 목록">
+  <h2>세부 막탄 맛집 가이드</h2>
+${articleBlocks}
+</section>`;
+
+let distHtmlWithSeo = fs.readFileSync(distHtmlPath, 'utf-8');
+const rootRegex = /(<div\s+id="root"[^>]*>)([\s\S]*?)(<\/div>)/i;
+const rootMatch = distHtmlWithSeo.match(rootRegex);
+
+if (rootMatch && rootMatch[2].trim() === '') {
+  distHtmlWithSeo = distHtmlWithSeo.replace(
+    rootRegex,
+    `$1\n${seoSection}\n  $3`
+  );
+  fs.writeFileSync(distHtmlPath, distHtmlWithSeo);
+  console.log(`✅ ${restaurants.length}개 맛집 목록을 #root에 삽입 완료`);
 }
