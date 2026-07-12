@@ -57,6 +57,14 @@ if (fs.existsSync(robotsSrc)) {
   console.log('✅ robots.txt dist 폴더로 복사 완료');
 }
 
+// llms.txt 파일을 dist 폴더로 복사
+const llmsSrc = path.join(__dirname, '../public/llms.txt');
+const llmsDest = path.join(__dirname, '../dist/llms.txt');
+if (fs.existsSync(llmsSrc)) {
+  fs.copyFileSync(llmsSrc, llmsDest);
+  console.log('✅ llms.txt dist 폴더로 복사 완료');
+}
+
 function escapeHtml(text) {
   return String(text)
     .replace(/&/g, '&amp;')
