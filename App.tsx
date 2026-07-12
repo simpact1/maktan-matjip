@@ -5,7 +5,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/noto-sans-kr';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -13,13 +13,13 @@ import { AppNavigator } from './src/navigation/AppNavigator';
 import { colors, fonts, gradient } from './src/constants/theme';
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     NotoSansKR_400Regular,
     NotoSansKR_600SemiBold,
     NotoSansKR_700Bold,
   });
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded && !fontError) {
     return (
       <LinearGradient
         colors={[...gradient.colors]}
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     color: colors.textMuted,
-    fontFamily: fonts.regular,
+    fontFamily: Platform.OS === 'web' ? 'system-ui, sans-serif' : fonts.regular,
   },
 });

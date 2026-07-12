@@ -20,7 +20,7 @@ const wrap: CSSProperties = {
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.25)',
   boxSizing: 'border-box',
   fontFamily:
-    'system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
+    'system-ui, -apple-system, "Segoe UI", Roboto, NotoSansKR_400Regular, sans-serif',
 };
 
 const grid: CSSProperties = {

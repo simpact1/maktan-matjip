@@ -26,7 +26,7 @@ if (typeof document !== 'undefined') {
       }
       .leaflet-popup-content {
         margin: 8px 10px !important;
-        font-family: "Noto Sans KR", system-ui, sans-serif !important;
+        font-family: NotoSansKR_400Regular, system-ui, sans-serif !important;
         font-size: 12px !important;
         line-height: 1.4 !important;
         color: #ecfeff !important;
@@ -353,7 +353,7 @@ const compactPopup: Record<string, CSSProperties> = {
   wrap: {
     margin: 0,
     padding: '4px 2px',
-    fontFamily: '"Noto Sans KR", "DM Sans", system-ui, sans-serif',
+    fontFamily: 'NotoSansKR_400Regular, "DM Sans", system-ui, sans-serif',
     fontSize: 11,
     lineHeight: 1.4,
     color: '#ecfeff',
