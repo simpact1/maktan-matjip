@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://cebu-matzip.cebuplanner.com/sitemap.xml
+#DaumWebMasterTool:3e3bae20ae63870513dad3bbd896b06c4f90600676f25e95c709e09f3586437b:/Dn1va1+69DmjyIIIsTgww==
